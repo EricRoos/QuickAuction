@@ -11,6 +11,6 @@ class AuctionOffer < ApplicationRecord
   def submitter_is_not_owner
     return unless user == auction_item.user
 
-    errors.add(:user)
+    errors.add(:user, :submitter_is_owner, message: 'You cannot submit to your own auction item')
   end
 end
