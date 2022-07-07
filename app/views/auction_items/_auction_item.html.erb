@@ -1,12 +1,17 @@
 <div id="<%= dom_id auction_item %>">
-  <p>
-    <strong>Title:</strong>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
     <%= auction_item.title %>
   </p>
 
-  <p>
-    <strong>Description:</strong>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
     <%= auction_item.description %>
   </p>
 
+  <% if action_name != "show" %>
+    <%= link_to "Show this auction item", auction_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this auction item', edit_auction_item_path(auction_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
 </div>

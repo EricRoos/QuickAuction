@@ -1,14 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Auction items</h1>
-
-<div id="auction_items">
-  <% @auction_items.each do |auction_item| %>
-    <%= render auction_item %>
-    <p>
-      <%= link_to "Show this auction item", auction_item %>
-    </p>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-</div>
 
-<%= link_to "New auction item", new_auction_item_path %>
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Auction items</h1>
+    <%= link_to 'New auction item', new_auction_item_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="auction_items" class="min-w-full">
+    <%= render @auction_items %>
+  </div>
+</div>
