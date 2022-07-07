@@ -1,0 +1,11 @@
+AllCops:
+        NewCops: enable
+        SuggestExtensions: false
+        Exclude:
+                - './bin/**/*'
+                - './config/**/*'
+                - './db/**/*'
+                - './app/admin/**/*'
+                - 'Guardfile'
+Style/Documentation:
+        Enabled: false

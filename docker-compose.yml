@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+  coverage_web:
+    image: nginx:latest
+    ports: 
+      - 8001:80
+    volumes:
+      - ./coverage:/usr/share/nginx/html
+  memcached:
+    image: memcached:latest
+    ports:
+      - 11211:11211
