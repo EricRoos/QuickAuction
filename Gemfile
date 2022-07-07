@@ -81,3 +81,5 @@ gem 'guard-rspec', '~> 4.7', groups: %i[development test]
 gem 'guard-rubocop', '~> 1.5', groups: %i[development test]
 gem 'rspec-rails', '~> 5.1', groups: %i[development test]
 gem 'rubocop', '~> 1.31', groups: %i[development test]
+
+gem "devise", "~> 4.8"
