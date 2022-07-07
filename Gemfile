@@ -83,3 +83,5 @@ gem 'rspec-rails', '~> 5.1', groups: %i[development test]
 gem 'rubocop', '~> 1.31', groups: %i[development test]
 
 gem "devise", "~> 4.8"
+
+gem "simplecov", "~> 0.21.2", :group => :test
