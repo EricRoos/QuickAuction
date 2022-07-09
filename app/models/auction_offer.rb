@@ -6,6 +6,22 @@ class AuctionOffer < ApplicationRecord
 
   validate :submitter_is_not_owner
 
+  state_machine :state, initial: :sent do
+    event :read do
+      transition sent: :read
+    end
+    event :accept do
+      transition read: :accepted
+    end
+    event :reject do
+      transition read: :rejected
+    end
+  end
+
+  def available_transition_events
+    state_paths.map(&:first).collect(&:event).uniq
+  end
+
   protected
 
   def submitter_is_not_owner

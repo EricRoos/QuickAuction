@@ -88,4 +88,6 @@ gem 'simplecov', '~> 0.21.2', group: :test
 
 gem 'tailwindcss-rails', '~> 2.0'
 
-gem "pundit", "~> 2.2"
+gem 'pundit', '~> 2.2'
+
+gem 'state_machines-activerecord', '~> 0.8.0'

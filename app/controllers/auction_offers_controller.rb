@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AuctionOffersController < ApplicationController
+  include ActionView::RecordIdentifier
   before_action :set_auction_item, only: %i[index new create]
   before_action :set_auction_offer, only: %i[show edit update destroy]
 
@@ -43,9 +44,17 @@ class AuctionOffersController < ApplicationController
     respond_to do |format|
       if @auction_offer.update(auction_offer_params)
         format.html { redirect_to auction_offer_url(@auction_offer), notice: 'Auction offer was successfully updated.' }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(dom_id(@auction_offer), partial: 'auction_offers/auction_offer',
+                                                                            locals: { auction_offer: @auction_offer })
+        end
         format.json { render :show, status: :ok, location: @auction_offer }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream do
+          turbo_stream.replace dom_id(@auction_offer), partial: 'auction_offer',
+                                                       locals: { auction_offer: @auction_offer }
+        end
         format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
       end
     end
@@ -73,7 +82,7 @@ class AuctionOffersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def auction_offer_params
-    params.require(:auction_offer).permit(:auction_item_id, :description).merge(user: current_user)
+    params.require(:auction_offer).permit(:auction_item_id, :description, :state_event).merge(user: current_user)
   end
 
   def set_auction_item
