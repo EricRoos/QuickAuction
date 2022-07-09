@@ -3,6 +3,10 @@
     <strong class="block font-medium mb-1">Title:</strong>
     <%= auction_item.title %>
   </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Auctioned By:</strong>
+    <%= auction_item.user.email %>
+  </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Description:</strong>
@@ -11,7 +15,9 @@
 
   <% if action_name != "show" %>
     <%= link_to "Show this auction item", auction_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this auction item', edit_auction_item_path(auction_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <% if AuctionItemPolicy.new(current_user, auction_item).edit? %>
+      <%= link_to 'Edit this auction item', edit_auction_item_path(auction_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <% end %>
     <hr class="mt-6">
   <% end %>
 </div>

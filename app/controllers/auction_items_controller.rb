@@ -21,7 +21,7 @@ class AuctionItemsController < ApplicationController
 
   # POST /auction_items or /auction_items.json
   def create
-    @auction_item = AuctionItem.new(auction_item_params)
+    @auction_item = current_user.auction_items.build(auction_item_params)
 
     respond_to do |format|
       if @auction_item.save

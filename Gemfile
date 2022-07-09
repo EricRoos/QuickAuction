@@ -87,3 +87,5 @@ gem 'devise', '~> 4.8'
 gem 'simplecov', '~> 0.21.2', group: :test
 
 gem 'tailwindcss-rails', '~> 2.0'
+
+gem "pundit", "~> 2.2"
