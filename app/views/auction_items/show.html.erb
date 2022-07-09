@@ -1,4 +1,4 @@
-<div class="mx-auto md:w-2/3 w-full flex">
+<div class="w-full">
   <div class="mx-auto">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
@@ -13,6 +13,6 @@
     </div>
 
     <hr class="my-6">
-    <%= turbo_frame_tag :auction_items, src: auction_item_auction_offers_path(@auction_item) %>
+    <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) %>
   </div>
 </div>

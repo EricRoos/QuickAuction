@@ -1,16 +1,23 @@
 <div id="<%= dom_id auction_item %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= auction_item.title %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Auctioned By:</strong>
-    <%= auction_item.user.email %>
+    <% if action_name == "show" %>
+      <h1 class="font-bold text-4xl"><%= auction_item.title %></h1>
+    <% end %>
+
+    <% if action_name != "show" %>
+      <strong class="block font-medium mb-1">Title:</strong>
+      <%= auction_item.title %>
+    <% end %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Description:</strong>
     <%= auction_item.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Auctioned By:</strong>
+    <%= auction_item.user.email %>
   </p>
 
   <% if action_name != "show" %>

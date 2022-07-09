@@ -1,4 +1,4 @@
-<%= form_with(model: [@auction_item, auction_offer], class: "contents") do |form| %>
+<%= form_with(model: [@auction_item, auction_offer], class: "contents", data: { turbo_frame: :auction_offers }) do |form| %>
   <% if auction_offer.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(auction_offer.errors.count, "error") %> prohibited this auction_offer from being saved:</h2>

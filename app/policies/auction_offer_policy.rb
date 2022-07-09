@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AuctionItemPolicy < ApplicationPolicy
+class AuctionOfferPolicy < ApplicationPolicy
   def index?
     true
   end
@@ -10,7 +10,8 @@ class AuctionItemPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record.auction_item.user != user &&
+      !record.auction_item.auction_offers.where(user: user).exists?
   end
 
   def new?
@@ -18,7 +19,7 @@ class AuctionItemPolicy < ApplicationPolicy
   end
 
   def update?
-    @record.user == @user
+    false
   end
 
   def edit?

@@ -26,7 +26,10 @@ class AuctionOffersController < ApplicationController
 
     respond_to do |format|
       if @auction_offer.save
-        format.html { redirect_to auction_offer_url(@auction_offer), notice: 'Auction offer was successfully created.' }
+        format.html do
+          redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
+                      notice: 'Auction offer was successfully created.'
+        end
         format.json { render :show, status: :created, location: @auction_offer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +56,10 @@ class AuctionOffersController < ApplicationController
     @auction_offer.destroy
 
     respond_to do |format|
-      format.html { redirect_to auction_offers_url, notice: 'Auction offer was successfully destroyed.' }
+      format.html do
+        redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
+                    notice: 'Auction offer was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
