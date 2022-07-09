@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AuctionOffersController < ApplicationController
+  before_action :set_auction_item, only: %i[index new create]
   before_action :set_auction_offer, only: %i[show edit update destroy]
 
   # GET /auction_offers or /auction_offers.json
@@ -21,7 +22,7 @@ class AuctionOffersController < ApplicationController
 
   # POST /auction_offers or /auction_offers.json
   def create
-    @auction_offer = AuctionOffer.new(auction_offer_params)
+    @auction_offer = @auction_item.auction_offers.build(auction_offer_params)
 
     respond_to do |format|
       if @auction_offer.save
@@ -66,6 +67,10 @@ class AuctionOffersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def auction_offer_params
-    params.require(:auction_offer).permit(:auction_item_id, :description)
+    params.require(:auction_offer).permit(:auction_item_id, :description).merge(user: current_user)
+  end
+
+  def set_auction_item
+    @auction_item = AuctionItem.find(params[:auction_item_id])
   end
 end

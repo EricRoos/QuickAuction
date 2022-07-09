@@ -4,12 +4,15 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
+    <%= link_to 'Back to auction_items', auction_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= render @auction_item %>
 
     <%= link_to 'Edit this auction_item', edit_auction_item_path(@auction_item), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
       <%= button_to 'Destroy this auction_item', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
-    <%= link_to 'Back to auction_items', auction_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <hr class="my-6">
+    <%= turbo_frame_tag :auction_items, src: auction_item_auction_offers_path(@auction_item) %>
   </div>
 </div>

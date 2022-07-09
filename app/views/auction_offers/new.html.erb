@@ -1,7 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New auction offer</h1>
 
-  <%= render "form", auction_offer: @auction_offer %>
+  <%= turbo_frame_tag "new_offer" do %>
+    <%= render "form", auction_offer: @auction_offer %>
 
-  <%= link_to 'Back to auction offers', auction_offers_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Back to auction offers', auction_item_auction_offers_path(@auction_item), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <% end %>
 </div>
