@@ -7,7 +7,7 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers or /auction_offers.json
   def index
-    @auction_offers = AuctionOffer.all
+    @auction_offers = AuctionOffer.where(auction_item: @auction_item)
   end
 
   # GET /auction_offers/1 or /auction_offers/1.json
@@ -52,7 +52,7 @@ class AuctionOffersController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.turbo_stream do
-          turbo_stream.replace dom_id(@auction_offer), partial: 'auction_offer',
+          turbo_stream.replace "form"+dom_id(@auction_offer), partial: 'auction_offers/form',
                                                        locals: { auction_offer: @auction_offer }
         end
         format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
