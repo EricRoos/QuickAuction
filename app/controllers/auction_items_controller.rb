@@ -5,7 +5,8 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items or /auction_items.json
   def index
-    @auction_items = AuctionItem.includes(:user).all
+    @search = ItemSearch.new(search_params.merge(current_user: current_user))
+    @auction_items = @search.call
   end
 
   # GET /auction_items/1 or /auction_items/1.json
@@ -67,5 +68,11 @@ class AuctionItemsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def auction_item_params
     params.require(:auction_item).permit(:title, :description)
+  end
+
+  def search_params
+    params.require(:item_search).permit(:query, :has_no_offers, :my_listings)
+  rescue ActionController::ParameterMissing
+    {}
   end
 end

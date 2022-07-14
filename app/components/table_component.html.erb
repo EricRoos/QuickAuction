@@ -1,0 +1,30 @@
+<div class="overflow-x-auto relative">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <% @headers.each do |header| %>
+          <th scope="col" class="py-3 px-6">
+            <%= header %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @data.each do |item| %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <% item.each_with_index do |attr, index| %>
+            <% if index == 0 %>
+            <th scope="row" class="<%= y_padding_class %> px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <%= attr %>
+            </th>
+            <% else %>
+              <td class="<%= y_padding_class %> px-6">
+                <%= attr %>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

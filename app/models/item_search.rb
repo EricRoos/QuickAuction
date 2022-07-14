@@ -1,0 +1,42 @@
+# frozen_string_literal: true
+
+class ItemSearch
+  include ActiveModel::Model
+  attr_accessor :query, :has_no_offers, :my_listings, :current_user
+
+  def call
+    base_scope = AuctionItem.left_outer_joins(:auction_offers)
+                            .select('auction_items.*, count(auction_offers.id) as offer_count')
+                            .group(:id)
+
+    pipeline = %i[
+      build_query
+      build_filter
+      build_sort
+      build_limit
+    ]
+    pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
+  end
+
+  protected
+
+  def build_query(scope)
+    scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
+    scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
+    scope
+  end
+
+  def build_sort(scope)
+    scope.order(created_at: :desc)
+  end
+
+  def build_limit(scope)
+    scope.limit(50)
+  end
+
+  def build_filter(scope)
+    return scope.having('count(auction_offers.id) = 0') if ActiveRecord::Type::Boolean.new.cast(has_no_offers)
+
+    scope
+  end
+end

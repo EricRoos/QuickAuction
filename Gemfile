@@ -91,3 +91,5 @@ gem 'tailwindcss-rails', '~> 2.0'
 gem 'pundit', '~> 2.2'
 
 gem 'state_machines-activerecord', '~> 0.8.0'
+
+gem 'view_component', '~> 2.59'
