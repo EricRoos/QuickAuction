@@ -5,7 +5,7 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items or /auction_items.json
   def index
-    @auction_items = AuctionItem.all
+    @auction_items = AuctionItem.includes(:user).all
   end
 
   # GET /auction_items/1 or /auction_items/1.json

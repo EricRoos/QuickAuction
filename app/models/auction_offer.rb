@@ -20,11 +20,9 @@ class AuctionOffer < ApplicationRecord
       transition sent: :rejected
       transition acknowledged: :rejected
     end
-
   end
 
   def available_transition_events
     state_paths.map(&:first).collect(&:event).uniq
   end
-
 end

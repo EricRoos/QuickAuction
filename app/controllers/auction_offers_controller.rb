@@ -52,8 +52,8 @@ class AuctionOffersController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.turbo_stream do
-          turbo_stream.replace "form"+dom_id(@auction_offer), partial: 'auction_offers/form',
-                                                       locals: { auction_offer: @auction_offer }
+          turbo_stream.replace "form#{dom_id(@auction_offer)}", partial: 'auction_offers/form',
+                                                                locals: { auction_offer: @auction_offer }
         end
         format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
       end

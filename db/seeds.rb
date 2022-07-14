@@ -6,7 +6,14 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 #
-User.create!(email: 'user1@test.com', password: 'test123456')
-User.create!(email: 'user2@test.com', password: 'test123456')
-User.create!(email: 'user3@test.com', password: 'test123456')
-User.create!(email: 'user4@test.com', password: 'test123456')
+
+5.times do
+  FactoryBot.create(:user)
+end
+
+require 'csv'
+
+CSV.foreach('db/items.csv') do |row|
+  item_name = row[0]
+  FactoryBot.create(:auction_item, title: item_name)
+end
