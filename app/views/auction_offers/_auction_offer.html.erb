@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(auction_offer) do %>
-  <div>
+  <div class='min-w-[300px]'>
     <p class="my-5">
       <strong class="block font-medium mb-1">Description:</strong>
       <%= auction_offer.description %>
@@ -25,7 +25,6 @@
       <% if AuctionOfferPolicy.new(current_user, auction_offer).destroy? %>
         <%= button_to 'Revoke Offer', auction_offer_path(auction_offer), method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { turbo_frame: :auction_offers } %>
       <% end %>
-      <hr class="mt-6">
     <% end %>
   </div>
 <% end %>

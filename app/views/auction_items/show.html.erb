@@ -1,13 +1,19 @@
-<div class="w-full">
-  <div class="mx-auto">
-    <%= link_to 'Back to auction_items', auction_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= render @auction_item %>
-
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this auction_item', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="w-full bg-gray-100 mb-8 p-8">
+  <div class='flex gap-8'>
+    <div class='h-[300px] w-[300px] bg-green-500 aspect-square'>
+      <img class='h-full w-auto' src='https://media.karousell.com/media/photos/products/2021/11/4/diablo_2_item_1635995357_d73ccb9a_progressive.jpg' />
     </div>
-
-    <hr class="my-6">
-    <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) %>
+    <div class='flex flex-col'>
+      <h1 class='text-4xl font-bold'><%= @auction_item.title %></h1>
+      <span class='block text-2xl'><%= time_ago_in_words(@auction_item.created_at) %></span>
+      <div class='flex flex-grow items-end gap-2'>
+        <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>
+        <%= button_to 'Watch Auction', '#', method: :post, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-blue-400" %>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="w-full">
+  <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) %>
 </div>
