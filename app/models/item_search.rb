@@ -5,20 +5,25 @@ class ItemSearch
   attr_accessor :query, :has_no_offers, :my_listings, :current_user
 
   def call
-    base_scope = AuctionItem.left_outer_joins(:auction_offers)
-                            .select('auction_items.*, count(auction_offers.id) as offer_count')
-                            .group(:id)
+    pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
+  end
 
-    pipeline = %i[
+  protected
+
+  def pipeline
+    %i[
       build_query
       build_filter
       build_sort
       build_limit
     ]
-    pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
   end
 
-  protected
+  def base_scope
+    AuctionItem.left_outer_joins(:auction_offers)
+               .select('auction_items.*, count(auction_offers.id) as offer_count')
+               .group(:id)
+  end
 
   def build_query(scope)
     scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?

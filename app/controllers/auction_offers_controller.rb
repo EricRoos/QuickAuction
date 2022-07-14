@@ -18,9 +18,6 @@ class AuctionOffersController < ApplicationController
     @auction_offer = AuctionOffer.new
   end
 
-  # GET /auction_offers/1/edit
-  def edit; end
-
   # POST /auction_offers or /auction_offers.json
   def create
     @auction_offer = @auction_item.auction_offers.build(auction_offer_params)
@@ -34,27 +31,6 @@ class AuctionOffersController < ApplicationController
         format.json { render :show, status: :created, location: @auction_offer }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /auction_offers/1 or /auction_offers/1.json
-  def update
-    respond_to do |format|
-      if @auction_offer.update(auction_offer_params)
-        format.html { redirect_to auction_offer_url(@auction_offer), notice: 'Auction offer was successfully updated.' }
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(dom_id(@auction_offer), partial: 'auction_offers/auction_offer',
-                                                                            locals: { auction_offer: @auction_offer })
-        end
-        format.json { render :show, status: :ok, location: @auction_offer }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream do
-          turbo_stream.replace "form#{dom_id(@auction_offer)}", partial: 'auction_offers/form',
-                                                                locals: { auction_offer: @auction_offer }
-        end
         format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
       end
     end

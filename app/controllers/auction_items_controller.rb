@@ -17,9 +17,6 @@ class AuctionItemsController < ApplicationController
     @auction_item = AuctionItem.new
   end
 
-  # GET /auction_items/1/edit
-  def edit; end
-
   # POST /auction_items or /auction_items.json
   def create
     @auction_item = current_user.auction_items.build(auction_item_params)
@@ -30,19 +27,6 @@ class AuctionItemsController < ApplicationController
         format.json { render :show, status: :created, location: @auction_item }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @auction_item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /auction_items/1 or /auction_items/1.json
-  def update
-    respond_to do |format|
-      if @auction_item.update(auction_item_params)
-        format.html { redirect_to auction_item_url(@auction_item), notice: 'Auction item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @auction_item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @auction_item.errors, status: :unprocessable_entity }
       end
     end

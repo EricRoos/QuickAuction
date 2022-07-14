@@ -22,9 +22,6 @@
 
   <% if action_name != "show" %>
     <%= link_to "Show this auction item", auction_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <% if AuctionItemPolicy.new(current_user, auction_item).edit? %>
-      <%= link_to 'Edit this auction item', edit_auction_item_path(auction_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <% end %>
     <hr class="mt-6">
   <% end %>
 </div>

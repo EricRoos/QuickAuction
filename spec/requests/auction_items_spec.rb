@@ -48,15 +48,6 @@ RSpec.describe '/auction_items', type: :request do
       expect(response).to be_successful
     end
   end
-
-  describe 'GET /edit' do
-    it 'renders a successful response' do
-      auction_item = AuctionItem.create! valid_attributes
-      get edit_auction_item_url(auction_item)
-      expect(response).to be_successful
-    end
-  end
-
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new AuctionItem' do

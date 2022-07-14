@@ -13,7 +13,15 @@
 
   <body>
     <main class="container mx-auto mt-28 px-5 flex">
+      <div class='grid grid-col w-full'>
+      <% if notice.present? %>
+        <div>
+          <p class="w-full py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+        </div>
+      <% end %>
+
       <%= yield %>
+      </div>
     </main>
   </body>
 </html>

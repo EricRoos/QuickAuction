@@ -1,0 +1,17 @@
+<%= form_with(model: @model, url: auction_items_path, method: :get) do |form| %>
+  <div class='flex gap-4'>
+    <%= form.text_field :query, placeholder: "Search Query", class: 'w-full' %>
+    <%= form.submit value: :Search %>
+  </div>
+  <hr class='my-4' />
+  <div class='flex gap-8'>
+    <div class='flex gap-2 items-center'>
+      <%= form.check_box :has_no_offers %>
+      <%= form.label :has_no_offers %>
+    </div>
+    <div class='flex gap-2 items-center'>
+      <%= form.check_box :my_listings %>
+      <%= form.label :my_listings %>
+    </div>
+  </div>
+<% end %>

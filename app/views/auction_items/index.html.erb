@@ -1,33 +1,11 @@
 <div class="w-full">
-
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Auction items</h1>
     <%= link_to 'New auction item', new_auction_item_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div class='bg-gray-100 rounded p-8 my-8'>
-    <%= form_with(model: @search, url: auction_items_path, method: :get) do |form| %>
-      <div class='flex gap-4'>
-        <%= form.text_field :query, placeholder: "Search Query", class: 'w-full' %>
-        <%= form.submit value: :Search %>
-      </div>
-      <hr class='my-4' />
-      <div class='flex gap-8'>
-        <div class='flex gap-2 items-center'>
-          <%= form.check_box :has_no_offers %>
-          <%= form.label :has_no_offers %>
-        </div>
-        <div class='flex gap-2 items-center'>
-          <%= form.check_box :my_listings %>
-          <%= form.label :my_listings %>
-        </div>
-      </div>
-    <% end %>
+    <%= search_form(@search) %>
   </div>
 
   <%= table(@auction_items) %>

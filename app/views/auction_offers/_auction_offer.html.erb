@@ -16,9 +16,6 @@
     </p>
 
     <% if action_name != "show" %>
-      <% if AuctionOfferPolicy.new(current_user, auction_offer).edit? %>
-        <%= link_to 'Edit this auction offer', edit_auction_offer_path(auction_offer), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <% end %>
       <div class='flex gap-4'>
         <%= form_with(model: auction_offer) do |form| %>
           <%= form.select :state_event, auction_offer.available_transition_events, {}, class: "block shadow rounded-md border border-gray-200 outline-none py-2 mt-2 w-full" %>

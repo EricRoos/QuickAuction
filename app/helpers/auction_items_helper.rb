@@ -2,14 +2,6 @@
 
 module AuctionItemsHelper
   def table(auction_items)
-    headers = %w[
-      Title
-      Description
-      Offers
-    ]
-
-    headers << '' # for action rows
-
     data = auction_items.map do |item|
       [
         item.title.to_s,
@@ -18,6 +10,22 @@ module AuctionItemsHelper
         link_to('Show', url_for(item))
       ]
     end
-    render(TableComponent.new(headers: headers, data: data))
+    render(TableComponent.new(headers: table_headers, data: data))
+  end
+
+  def search_form(auction_item)
+    render ItemSearchFormComponent.new(model: auction_item)
+  end
+
+  protected
+
+  def table_headers
+    headers = %w[
+      Title
+      Description
+      Offers
+    ]
+    headers << ''
+    headers
   end
 end

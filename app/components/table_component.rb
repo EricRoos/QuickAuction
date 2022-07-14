@@ -2,6 +2,7 @@
 
 class TableComponent < ViewComponent::Base
   def initialize(headers:, data:, condensed: false)
+    super
     @headers = headers
     @data = data
     @condensed = condensed
