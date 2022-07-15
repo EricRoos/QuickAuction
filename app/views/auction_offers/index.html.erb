@@ -8,8 +8,19 @@
     </div>
 
     <%= turbo_frame_tag :new_offer %>
-    <div id="auction_offers" class="flex flex-wrap gap-8 min-w-full">
-      <%= render @auction_offers %>
+    <div id="auction_offers" class="flex flex-wrap gap-3 w-full">
+      <div class='flex-grow grid grid-col'>
+        <div>Top Offer</div>
+        <% if @current_offer %>
+          <%= turbo_frame_tag 'current_offer', src: auction_offer_path(id: @current_offer.id, format: :turbo_stream) %>
+        <% end %>
+      </div>
+      <div class='flex-grow grid grid-col'>
+        <div>Proposed offer</div>
+        <% if @proposed_offer %>
+          <%= turbo_frame_tag 'proposed_offer', src: auction_offer_path(id: @proposed_offer.id, format: :turbo_stream), data: {turbo_frame: "frame" } %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -7,11 +7,23 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers or /auction_offers.json
   def index
-    @auction_offers = AuctionOffer.where(auction_item: @auction_item)
+    @current_offer = @auction_item.auction_offers.with_state(:accepted).first
+    @proposed_offer = @auction_item.auction_offers
+                                   .without_state('rejected', 'accepted')
+                                   .order(created_at: :asc)
+                                   .first
   end
 
   # GET /auction_offers/1 or /auction_offers/1.json
-  def show; end
+  def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(request.headers['Turbo-Frame'],
+                                                  partial: 'auction_offers/auction_offer', locals: { auction_offer: @auction_offer })
+      end
+    end
+  end
 
   # GET /auction_offers/new
   def new
@@ -40,10 +52,9 @@ class AuctionOffersController < ApplicationController
   def update
     respond_to do |format|
       if @auction_offer.update(update_auction_offer_params)
-        format.html { redirect_to auction_offer_url(@auction_offer), notice: 'Auction offer was successfully updated.' }
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(dom_id(@auction_offer), partial: 'auction_offers/auction_offer',
-                                                                            locals: { auction_offer: @auction_offer })
+        format.html do
+          redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
+                      notice: 'Auction offer was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @auction_offer }
       else
