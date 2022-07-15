@@ -18,9 +18,6 @@ class AuctionOffersController < ApplicationController
     @auction_offer = AuctionOffer.new
   end
 
-  # GET /auction_offers/1/edit
-  def edit; end
-
   # POST /auction_offers or /auction_offers.json
   def create
     @auction_offer = @auction_item.auction_offers.build(auction_offer_params)
@@ -42,7 +39,7 @@ class AuctionOffersController < ApplicationController
   # PATCH/PUT /auction_offers/1 or /auction_offers/1.json
   def update
     respond_to do |format|
-      if @auction_offer.update(auction_offer_params)
+      if @auction_offer.update(update_auction_offer_params)
         format.html { redirect_to auction_offer_url(@auction_offer), notice: 'Auction offer was successfully updated.' }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(dom_id(@auction_offer), partial: 'auction_offers/auction_offer',
@@ -82,7 +79,11 @@ class AuctionOffersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def auction_offer_params
-    params.require(:auction_offer).permit(:auction_item_id, :description, :state_event).merge(user: current_user)
+    params.require(:auction_offer).permit(:description).merge(user: current_user)
+  end
+
+  def update_auction_offer_params
+    params.require(:auction_offer).permit(:state_event)
   end
 
   def set_auction_item
