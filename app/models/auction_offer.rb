@@ -25,7 +25,6 @@ class AuctionOffer < ApplicationRecord
       transition read: :rejected
       transition sent: :rejected
       transition acknowledged: :rejected
-      transition accepted: :rejected
     end
   end
 

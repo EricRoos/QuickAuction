@@ -9,7 +9,9 @@
         <span class='block text-2xl'><%= time_ago_in_words(@auction_item.created_at) %></span>
         <p class='my-4 prose'><%= @auction_item.description %></p>
         <div class='flex flex-grow items-end gap-2'>
-          <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>
+          <% if AuctionItemPolicy.new(current_user, @auction_item).destroy? %>
+            <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>
+          <% end %>
           <%= button_to 'Watch Auction', '#', method: :post, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-blue-400" %>
         </div>
       </div>
@@ -47,12 +49,15 @@
 </div>
 
 <hr class='my-6' />
-<div>
-  <div class='text-xl font-medium mb-4'>Your Offer</div>
-  <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
-</div>
 
-<hr class='my-6' />
+<% if AuctionOfferPolicy.new(current_user, AuctionOffer.new(auction_item: @auction_item)).new? %> 
+  <div>
+    <div class='text-xl font-medium mb-4'>Your Offer</div>
+    <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
+  </div>
+  <hr class='my-6' />
+<% end %>
+
 <div class="w-full">
   <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) do %>
     <div class='flex'>
