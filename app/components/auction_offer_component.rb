@@ -2,16 +2,22 @@
 
 class AuctionOfferComponent < ViewComponent::Base
   include ActionView::Helpers::DateHelper
-  attr_accessor :auction_offer, :loading, :actions_enabled
+  attr_accessor :auction_offer, :loading, :actions_enabled, :current_user
 
-  def initialize(auction_offer:, loading: false, actions_enabled: true)
+  def initialize(auction_offer:, current_user:, loading: false, actions_enabled: true)
     @auction_offer = auction_offer
     @loading = loading
     @actions_enabled = actions_enabled
+    @current_user = current_user
   end
 
   def can_destroy_offer?
     false
+  end
+
+  def can_update_offer
+    Rails.logger.info "#{auction_offer.auction_item.user&.id} == #{current_user.id}"
+    auction_offer.auction_item.user == current_user
   end
 
   def description

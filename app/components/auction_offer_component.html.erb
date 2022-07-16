@@ -21,16 +21,16 @@
             <% if loading %>
               <%= loading_line %>
             <% end %>
-            <% if !loading %>
+            <% if !loading && can_update_offer %>
               <div class='flex gap-4'>
                 <%= form_with(model: auction_offer, class: 'flex gap-4') do |form| %>
-                  <%= form.select :state_event, auction_offer.available_transition_events, {}, class: "block shadow rounded-md border border-gray-200 outline-none py-2 mt-2 w-full" %>
+                  <%= form.select :state_event, auction_offer.available_transition_events, {}, class: "" %>
                   <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
                 <% end %>
               </div>
-              <% if can_destroy_offer? %>
-                <%= button_to 'Revoke Offer', auction_offer_path(auction_offer), method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { turbo_frame: :auction_offers } %>
-              <% end %>
+            <% end %>
+            <% if can_destroy_offer? %>
+              <%= button_to 'Revoke Offer', auction_offer_path(auction_offer), method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { turbo_frame: :auction_offers } %>
             <% end %>
           </dd>
         </div>

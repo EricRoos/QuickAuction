@@ -63,11 +63,11 @@
     <div class='flex'>
       <div class='flex-grow grid grid-col'>
         <div class='text-xl font-medium mb-4'>Top Offer</div>
-        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
       </div>
       <div class='flex-grow grid grid-col'>
         <div class='text-xl font-medium mb-4'>Proposed Offer</div>
-        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
       </div>
     </div>
   <% end %>

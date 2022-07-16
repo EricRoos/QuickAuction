@@ -5,7 +5,7 @@
         <div class='text-xl font-medium mb-4'>Top Offer</div>
         <% if @current_offer %>
           <%= turbo_frame_tag 'current_offer', src: auction_offer_path(id: @current_offer.id, format: :turbo_stream) do %>
-            <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+            <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
           <% end %>
         <% else %>
           <div class='border border-dashed border-8 border-gray-200 flex h-full flex-grow rounded-xl justify-center items-center m-8 text-gray-500 font-bold'>
@@ -17,7 +17,7 @@
         <div class='text-xl font-medium mb-4'>Offer in consideration</div>
         <% if @proposed_offer %>
           <%= turbo_frame_tag 'proposed_offer', src: auction_offer_path(id: @proposed_offer.id, format: :turbo_stream), data: {turbo_frame: "frame" } do %>
-            <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+            <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
           <% end %>
         <% else %>
           <div class='border border-dashed border-8 border-gray-200 flex h-full flex-grow rounded-xl justify-center items-center m-8 text-gray-500 font-bold'>
