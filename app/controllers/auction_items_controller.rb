@@ -11,6 +11,7 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items/1 or /auction_items/1.json
   def show
+    breadcrumbs.add 'Auction Items', auction_items_path
     @current_user_offer = @auction_item.auction_offers.where(user: current_user).first
   end
 
