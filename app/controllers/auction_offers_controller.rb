@@ -16,7 +16,6 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers/1 or /auction_offers/1.json
   def show
-    sleep 2
     respond_to do |format|
       format.html
       format.turbo_stream do
@@ -28,7 +27,16 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers/new
   def new
+    @current_user_offer = @auction_item.auction_offers.where(user: current_user).first
     @auction_offer = AuctionOffer.new
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('offer_form', partial: 'auction_offers/form',
+                                                                locals: { auction_offer: @auction_offer })
+      end
+    end
   end
 
   # POST /auction_offers or /auction_offers.json

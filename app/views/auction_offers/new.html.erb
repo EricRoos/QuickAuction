@@ -1,9 +1,10 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New auction offer</h1>
-
-  <%= turbo_frame_tag "new_offer" do %>
-    <%= render "form", auction_offer: @auction_offer %>
-
-    <%= link_to 'Back to auction offers', auction_item_auction_offers_path(@auction_item), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<%= turbo_frame_tag :new_offer do %>
+  <% if @current_user_offer.present? %>
+    <%= render AuctionOfferComponent.new(auction_offer: @current_user_offer, actions_enabled: false) %>
+  <% else %>
+    <%= turbo_frame_tag 'offer_form' do%>
+      <div>You have not submitted an offer for this item yet</div>
+      <%= link_to 'Submit your offer', new_auction_item_auction_offer_path(@auction_item), method: :get %>
+    <% end %>
   <% end %>
-</div>
+<% end %>

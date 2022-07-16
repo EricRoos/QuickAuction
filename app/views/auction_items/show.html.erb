@@ -49,12 +49,7 @@
 <hr class='my-6' />
 <div>
   <div class='text-xl font-medium mb-4'>Your Offer</div>
-  <% if @current_user_offer.present? %>
-    <%= render AuctionOfferComponent.new(auction_offer: @current_user_offer, actions_enabled: false) %>
-  <% else %>
-    <div>You have not submitted an offer for this item yet</div>
-    <%= link_to 'Submit an Offer', new_auction_item_auction_offer_path(@auction_item) %>
-  <% end %>
+  <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
 </div>
 
 <hr class='my-6' />

@@ -16,7 +16,8 @@
     <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="inline">
+  <div class="inline flex gap-2">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= link_to 'Cancel', new_auction_item_auction_offer_path(@auction_item), class: "rounded-lg py-3 px-5 bg-gray-100 text-black inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
