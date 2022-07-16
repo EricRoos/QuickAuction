@@ -16,6 +16,7 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers/1 or /auction_offers/1.json
   def show
+    sleep 2
     respond_to do |format|
       format.html
       format.turbo_stream do

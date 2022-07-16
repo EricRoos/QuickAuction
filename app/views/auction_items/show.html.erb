@@ -1,19 +1,74 @@
-<div class="w-full bg-gray-100 mb-8 p-8">
-  <div class='flex gap-8'>
-    <div class='h-[300px] w-[300px] bg-green-500 aspect-square'>
-      <img class='h-full w-auto' src='https://media.karousell.com/media/photos/products/2021/11/4/diablo_2_item_1635995357_d73ccb9a_progressive.jpg' />
+<div class='w-full bg-gray-100 p-8'>
+  <div class="w-full">
+    <div class='flex gap-8'>
+      <div class='h-[300px] w-[300px] bg-green-500 aspect-square'>
+        <img class='h-full w-auto' src='https://media.karousell.com/media/photos/products/2021/11/4/diablo_2_item_1635995357_d73ccb9a_progressive.jpg' />
+      </div>
+      <div class='flex flex-col'>
+        <h1 class='text-4xl font-bold'><%= @auction_item.title %></h1>
+        <span class='block text-2xl'><%= time_ago_in_words(@auction_item.created_at) %></span>
+        <p class='my-4 prose'><%= @auction_item.description %></p>
+        <div class='flex flex-grow items-end gap-2'>
+          <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>
+          <%= button_to 'Watch Auction', '#', method: :post, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-blue-400" %>
+        </div>
+      </div>
     </div>
-    <div class='flex flex-col'>
-      <h1 class='text-4xl font-bold'><%= @auction_item.title %></h1>
-      <span class='block text-2xl'><%= time_ago_in_words(@auction_item.created_at) %></span>
-      <div class='flex flex-grow items-end gap-2'>
-        <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>
-        <%= button_to 'Watch Auction', '#', method: :post, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-blue-400" %>
+  </div>
+  <div class='my-4 text-xl font-medium'>
+    Quick Info
+  </div>
+  <div class='flex w-full rounded-xl shadow-lg my-4 bg-white divide-x'>
+    <div class='flex-grow p-4'>
+      <div class='text-gray-500 mb-2'>
+        Total Offers
+      </div>
+      <div class='text-lg font-medium'>
+        <%= @auction_item.offer_count %>
+      </div>
+    </div>
+    <div class='flex-grow p-4'>
+      <div class='text-gray-500 mb-2'>
+        Time Remaining
+      </div>
+      <div class='text-lg font-medium'>
+        N/A
+      </div>
+    </div>
+    <div class='flex-grow p-4'>
+      <div class='text-gray-500 mb-2'>
+        Seller Rating
+      </div>
+      <div class='text-lg font-medium'>
+        N/A
       </div>
     </div>
   </div>
 </div>
 
+<hr class='my-6' />
+<div>
+  <div class='text-xl font-medium mb-4'>Your Offer</div>
+  <% if @current_user_offer.present? %>
+    <%= render AuctionOfferComponent.new(auction_offer: @current_user_offer, actions_enabled: false) %>
+  <% else %>
+    <div>You have not submitted an offer for this item yet</div>
+    <%= link_to 'Submit an Offer', new_auction_item_auction_offer_path(@auction_item) %>
+  <% end %>
+</div>
+
+<hr class='my-6' />
 <div class="w-full">
-  <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) %>
+  <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) do %>
+    <div class='flex'>
+      <div class='flex-grow grid grid-col'>
+        <div class='text-xl font-medium mb-4'>Top Offer</div>
+        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+      </div>
+      <div class='flex-grow grid grid-col'>
+        <div class='text-xl font-medium mb-4'>Proposed Offer</div>
+        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true) %>
+      </div>
+    </div>
+  <% end %>
 </div>

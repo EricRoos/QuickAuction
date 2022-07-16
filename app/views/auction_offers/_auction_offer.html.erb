@@ -1,26 +1,3 @@
 <div class='flex-grow'>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= auction_offer.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Offered By:</strong>
-    <%= auction_offer.user.email %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">State:</strong>
-    <%= auction_offer.state %>
-  </p>
-
-  <div class='flex gap-4'>
-    <%= form_with(model: auction_offer) do |form| %>
-      <%= form.select :state_event, auction_offer.available_transition_events, {}, class: "block shadow rounded-md border border-gray-200 outline-none py-2 mt-2 w-full" %>
-      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-    <% end %>
-  </div>
-  <% if AuctionOfferPolicy.new(current_user, auction_offer).destroy? %>
-    <%= button_to 'Revoke Offer', auction_offer_path(auction_offer), method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { turbo_frame: :auction_offers } %>
-  <% end %>
+  <%= render(AuctionOfferComponent.new(auction_offer: @auction_offer)) %>
 </div>
