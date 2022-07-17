@@ -21,7 +21,7 @@
     Quick Info
   </div>
   <div class='flex w-full rounded-xl shadow-lg my-4 bg-white divide-x'>
-    <div class='flex-grow p-4'>
+    <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
         Total Offers
       </div>
@@ -29,15 +29,17 @@
         <%= @auction_item.offer_count %>
       </div>
     </div>
-    <div class='flex-grow p-4'>
+    <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
         Time Remaining
       </div>
       <div class='text-lg font-medium'>
-        N/A
+        <span data-controller='countdown' data-expires-on='<%= @auction_item.expires_on.to_i %>'>
+          <%= render(LoadingLineComponent.new) %>
+        </span>
       </div>
     </div>
-    <div class='flex-grow p-4'>
+    <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
         Seller Rating
       </div>
@@ -54,6 +56,12 @@
   <div>
     <div class='text-xl font-medium mb-4'>Your Offer</div>
     <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
+  </div>
+  <hr class='my-6' />
+<% elsif @current_user_offer.present? %>
+  <div>
+    <div class='text-xl font-medium mb-4'>Your Offer</div>
+    <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user)) %>
   </div>
   <hr class='my-6' />
 <% end %>
