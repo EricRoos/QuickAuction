@@ -95,3 +95,5 @@ gem 'state_machines-activerecord', '~> 0.8.0'
 gem 'view_component', '~> 2.59'
 
 gem 'breadcrumbs', '~> 0.3.0'
+
+gem 'heroicon', '~> 0.4.0'

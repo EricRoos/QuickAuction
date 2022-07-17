@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class='dark'>
+<html class='<%= request.cookies['darkMode'] %>'>
   <head>
     <title>InstaAuction</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,6 +26,9 @@
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Insta Auction</span>
         </a>
         <div class="flex gap-3 items-center">
+            <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
+              <%= heroicon 'moon', options: { class: 'h-4 w-4'  } %>
+            </button>
             <% if !current_user.present? %>
               <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
             <% end %>
