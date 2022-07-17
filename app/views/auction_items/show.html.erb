@@ -1,4 +1,4 @@
-<div class='w-full bg-gray-100 p-8'>
+<div class='w-full bg-gray-100 dark:bg-slate-700 p-8'>
   <div class="w-full">
     <div class='flex gap-8'>
       <div class='h-[300px] w-[300px] bg-green-500 aspect-square'>
@@ -20,12 +20,12 @@
   <div class='my-4 text-xl font-medium'>
     Quick Info
   </div>
-  <div class='flex w-full rounded-xl shadow-lg my-4 bg-white divide-x'>
+  <div class='flex w-full rounded-xl shadow-lg my-4 dark:bg-slate-800 dar:bg-white divide-x'>
     <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
         Total Offers
       </div>
-      <div class='text-lg font-medium'>
+      <div class='text-lg font-medium dark:text-gray-400'>
         <%= @auction_item.offer_count %>
       </div>
     </div>
@@ -33,7 +33,7 @@
       <div class='text-gray-500 mb-2'>
         Time Remaining
       </div>
-      <div class='text-lg font-medium'>
+      <div class='text-lg font-medium dark:text-gray-400'>
         <span data-controller='countdown' data-expires-on='<%= @auction_item.expires_on.to_i %>'>
           <%= render(LoadingLineComponent.new) %>
         </span>
@@ -43,7 +43,7 @@
       <div class='text-gray-500 mb-2'>
         Seller Rating
       </div>
-      <div class='text-lg font-medium'>
+      <div class='text-lg font-medium dark:text-gray-400'>
         N/A
       </div>
     </div>
@@ -54,13 +54,13 @@
 
 <% if AuctionOfferPolicy.new(current_user, AuctionOffer.new(auction_item: @auction_item)).new? %> 
   <div>
-    <div class='text-xl font-medium mb-4'>Your Offer</div>
+    <div class='text-xl font-medium dark:text-gray-400 mb-4'>Your Offer</div>
     <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
   </div>
   <hr class='my-6' />
 <% elsif @current_user_offer.present? %>
   <div>
-    <div class='text-xl font-medium mb-4'>Your Offer</div>
+    <div class='text-xl font-medium dark:text-gray-400 mb-4'>Your Offer</div>
     <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user)) %>
   </div>
   <hr class='my-6' />
@@ -70,11 +70,11 @@
   <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) do %>
     <div class='flex'>
       <div class='flex-grow grid grid-col'>
-        <div class='text-xl font-medium mb-4'>Top Offer</div>
+        <div class='dark:text-gray-400  text-xl font-medium mb-4'>Top Offer</div>
         <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
       </div>
       <div class='flex-grow grid grid-col'>
-        <div class='text-xl font-medium mb-4'>Proposed Offer</div>
+        <div class='dark:text-gray-400  text-xl font-medium mb-4'>Proposed Offer</div>
         <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
       </div>
     </div>
