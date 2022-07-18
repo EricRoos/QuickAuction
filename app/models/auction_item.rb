@@ -6,8 +6,14 @@ class AuctionItem < ApplicationRecord
 
   before_commit :ensure_expiry, on: :create
 
+  scope :not_expired, -> { where('expires_on >= ?', Time.now) }
+
   def offer_count
     attributes['offer_count'] || auction_offers.count
+  end
+
+  def expired?
+    expires_on < Time.now
   end
 
   protected

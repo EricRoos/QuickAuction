@@ -11,12 +11,12 @@
     </thead>
     <tbody>
       <% @data.each do |item| %>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <% item.each_with_index do |attr, index| %>
+        <tr class="decoration-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 <%= item[:options][:disabled] ? 'line-through' :'' %>">
+          <% item[:elements].each_with_index do |attr, index| %>
             <% if index == 0 %>
-            <th scope="row" class="<%= y_padding_class %> px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <%= attr %>
-            </th>
+              <th scope="row" class="<%= y_padding_class %> px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <%= attr %>
+              </th>
             <% else %>
               <td class="<%= y_padding_class %> px-6">
                 <%= attr %>

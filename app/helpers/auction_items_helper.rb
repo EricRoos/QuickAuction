@@ -3,12 +3,17 @@
 module AuctionItemsHelper
   def table(auction_items)
     data = auction_items.map do |item|
-      [
-        item.title.to_s,
-        item.description.to_s,
-        item.offer_count,
-        link_to('Show', url_for(item))
-      ]
+      {
+        elements: [
+          item.title.to_s,
+          item.description.to_s,
+          item.offer_count,
+          link_to('Show', url_for(item))
+        ],
+        options: {
+          disabled: item.expired?
+        }
+      }
     end
     render(TableComponent.new(headers: table_headers, data: data))
   end

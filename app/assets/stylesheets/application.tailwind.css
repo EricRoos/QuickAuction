@@ -11,3 +11,18 @@
 }
 
 */
+
+@layer components {
+  .field {
+    @apply my-6;
+  }
+
+  .field label {
+    @apply font-medium mb-2;
+  }
+
+  form legend {
+    @apply font-bold text-xl;
+  }
+}
+

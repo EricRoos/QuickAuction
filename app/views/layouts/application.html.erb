@@ -16,72 +16,70 @@
 
     <%= javascript_importmap_tags %>
   </head>
-
-  <body class='bg-white dark:bg-slate-800 dark:text-gray-400'>
-<div class='container mx-auto'>
-<nav class="bg-white border-gray-200 dark:bg-slate-800">
-    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
+  <body class='bg-gray-100 dark:bg-slate-800 dark:text-gray-400'>
+    <div class='container mx-auto'>
+    <nav class="border-gray-200 dark:bg-slate-800">
+      <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
         <a href="https://flowbite.com" class="flex items-center">
-            <span class='text-white'>
-              <%= image_tag 'hammer.svg', class: "mr-3 h-6 sm:h-9" %>
-            </span>
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Insta Auction</span>
+          <span class='text-white'>
+            <%= image_tag 'hammer.svg', class: "mr-3 h-6 sm:h-9" %>
+          </span>
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Insta Auction</span>
         </a>
         <div class="flex gap-3 items-center">
-            <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
-              <%= heroicon 'moon', options: { class: 'h-4 w-4'  } %>
-            </button>
-            <% if !current_user.present? %>
-              <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
-            <% end %>
-            <% if current_user.present? %>
-              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
-            <% end %>
+          <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
+            <%= heroicon 'moon', options: { class: 'h-4 w-4'  } %>
+          </button>
+          <% if !current_user.present? %>
+            <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+          <% end %>
+          <% if current_user.present? %>
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline", data: { turbo: false } %>
+          <% end %>
         </div>
-    </div>
-</nav>
-<nav class="bg-gray-50 dark:bg-gray-700">
-    <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
+      </div>
+    </nav>
+    <nav class="bg-white dark:bg-gray-700">
+      <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
         <div class="flex items-center">
-            <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Support</a>
-                </li>
-            </ul>
+          <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
+            <li>
+              <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-900 dark:text-white hover:underline">Support</a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav>
     </div>
-</nav>
-</div>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-16 px-5 flex">
       <div class='grid grid-col w-full'>
       <% if notice.present? %>
         <div>
           <p class="w-full py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
         </div>
       <% end %>
-
-      <nav class="mb-4 flex" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-          <% breadcrumbs.items.each do |breadcrumb| %>
-            <li class="inline-flex items-center">
-              <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                <% if breadcrumb[1] == "/" %>
-                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                <% else %>
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                <% end %>
-                <%= breadcrumb[0] %>
-              </a>
-            </li>
-          <% end %>
-        </ol>
-      </nav>
-
+      <% if current_user %>
+        <nav class="mb-4 flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <% breadcrumbs.items.each do |breadcrumb| %>
+              <li class="inline-flex items-center">
+                <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                  <% if breadcrumb[1] == "/" %>
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                  <% else %>
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  <% end %>
+                  <%= breadcrumb[0] %>
+                </a>
+              </li>
+            <% end %>
+          </ol>
+        </nav>
+      <% end %>
       <%= yield %>
-      </div>
     </main>
   </body>
 </html>
