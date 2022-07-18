@@ -28,7 +28,7 @@ class ItemSearch
   def build_query(scope)
     scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
     scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
-    scope = scope.not_expired unless include_expired
+    scope = scope.not_expired unless ActiveRecord::Type::Boolean.new.cast(include_expired)
     scope
   end
 

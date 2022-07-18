@@ -3,6 +3,7 @@
 class AuctionItem < ApplicationRecord
   belongs_to :user
   has_many :auction_offers, dependent: :destroy
+  has_one_attached :auction_image
 
   before_commit :ensure_expiry, on: :create
 
