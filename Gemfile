@@ -97,3 +97,5 @@ gem 'view_component', '~> 2.59'
 gem 'breadcrumbs', '~> 0.3.0'
 
 gem 'heroicon', '~> 0.4.0'
+
+gem "noticed", "~> 1.5"

@@ -7,6 +7,9 @@ class AuctionOffer < ApplicationRecord
   before_save :replace_accepted
 
   state_machine :state, initial: :sent do
+    after_transition do |offer, _transition|
+      OfferUpdatedNotification.with(auction_offer: offer, new_state: offer.state).deliver(offer.user)
+    end
     event :acknowledge do
       transition sent: :acknowledged
     end
