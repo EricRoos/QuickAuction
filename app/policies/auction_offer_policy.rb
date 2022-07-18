@@ -11,7 +11,8 @@ class AuctionOfferPolicy < ApplicationPolicy
 
   def create?
     record.auction_item.user != user &&
-      !record.auction_item.auction_offers.where(user: user).exists?
+      !record.auction_item.auction_offers.where(user: user).exists? &&
+      !record.auction_item.expired?
   end
 
   def new?

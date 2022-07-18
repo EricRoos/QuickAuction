@@ -16,9 +16,6 @@
       </div>
     </div>
   </div>
-  <div class='my-4 text-xl font-medium'>
-    Quick Info
-  </div>
   <div class='flex w-full rounded-xl shadow-lg my-4 dark:bg-slate-800 bg-gray-50 divide-x'>
     <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
@@ -60,22 +57,28 @@
 <% elsif @current_user_offer.present? %>
   <div>
     <div class='text-xl font-medium dark:text-gray-400 mb-4'>Your Offer</div>
-    <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user)) %>
+    <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user, actions_enabled: false)) %>
   </div>
   <hr class='my-6' />
 <% end %>
 
 <div class="w-full">
-  <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) do %>
-    <div id="auction_offers" class="grid grid-cols-2 gap-8">
-      <div class='grid grid-col'>
-        <div class='dark:text-gray-400  text-xl font-medium mb-4'>Top offer</div>
-        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
+  <% unless @auction_item.expired? %>
+    <%= turbo_frame_tag :auction_offers, src: auction_item_auction_offers_path(@auction_item) do %>
+      <div id="auction_offers" class="grid grid-cols-2 gap-8">
+        <div class='grid grid-col'>
+          <div class='dark:text-gray-400  text-xl font-medium mb-4'>Current accepted offer</div>
+          <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
+        </div>
+        <div class='grid grid-col'>
+          <div class='dark:text-gray-400  text-xl font-medium mb-4'>Offer in consideration</div>
+          <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
+        </div>
       </div>
-      <div class='grid grid-col'>
-        <div class='dark:text-gray-400  text-xl font-medium mb-4'>Offer in consideration</div>
-        <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
-      </div>
-    </div>
+    <% end %>
+  <% end %>
+  <% if @auction_item.expired? && @accepted_user_offer %>
+    <div class='text-xl font-medium dark:text-gray-400 mb-4'>Accepted Offer</div>
+    <%= render(AuctionOfferComponent.new(auction_offer: @accepted_user_offer, current_user: current_user, actions_enabled: false)) %>
   <% end %>
 </div>

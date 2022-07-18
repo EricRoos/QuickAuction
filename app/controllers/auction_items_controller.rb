@@ -13,6 +13,7 @@ class AuctionItemsController < ApplicationController
   def show
     breadcrumbs.add 'Auction Items', auction_items_path
     @current_user_offer = @auction_item.auction_offers.where(user: current_user).first
+    @accepted_user_offer = @auction_item.auction_offers.with_state(:accepted).first if @auction_item.expired?
   end
 
   # GET /auction_items/new

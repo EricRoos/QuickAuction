@@ -98,4 +98,4 @@ gem 'breadcrumbs', '~> 0.3.0'
 
 gem 'heroicon', '~> 0.4.0'
 
-gem "noticed", "~> 1.5"
+gem 'noticed', '~> 1.5'

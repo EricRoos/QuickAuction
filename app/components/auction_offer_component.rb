@@ -15,8 +15,9 @@ class AuctionOfferComponent < ViewComponent::Base
     false
   end
 
-  def can_update_offer
-    Rails.logger.info "#{auction_offer.auction_item.user&.id} == #{current_user.id}"
+  def can_update_offer?
+    return false unless auction_offer&.auction_item.present?
+
     auction_offer.auction_item.user == current_user
   end
 
@@ -25,7 +26,9 @@ class AuctionOfferComponent < ViewComponent::Base
   end
 
   def offered_by
-    attr_or_loading_line(auction_offer&.user&.email)
+    return '' unless auction_offer.present?
+
+    attr_or_loading_line("User##{auction_offer.user.id}")
   end
 
   def offer_state
