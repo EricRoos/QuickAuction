@@ -46,7 +46,7 @@ class AuctionOffersController < ApplicationController
     respond_to do |format|
       if @auction_offer.save
         format.html do
-          redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
+          redirect_to auction_item_path(@auction_offer.auction_item),
                       notice: 'Auction offer was successfully created.'
         end
         format.json { render :show, status: :created, location: @auction_offer }

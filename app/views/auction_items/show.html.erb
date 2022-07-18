@@ -7,7 +7,7 @@
       <div class='flex flex-col'>
         <h1 class='text-4xl font-bold'><%= @auction_item.title %></h1>
         <span class='block text-2xl'><%= time_ago_in_words(@auction_item.created_at) %></span>
-        <p class='my-4 prose'><%= @auction_item.description %></p>
+        <p class='my-4 prose dark:text-gray-300'><%= @auction_item.description %></p>
         <div class='flex flex-grow items-end gap-2'>
           <% if AuctionItemPolicy.new(current_user, @auction_item).destroy? %>
             <%= button_to 'Remove Auction', auction_item_path(@auction_item), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium bg-red-400" %>

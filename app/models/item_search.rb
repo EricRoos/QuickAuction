@@ -2,7 +2,7 @@
 
 class ItemSearch
   include ActiveModel::Model
-  attr_accessor :query, :has_no_offers, :my_listings, :current_user
+  attr_accessor :query, :has_no_offers, :my_listings, :current_user, :include_expired
 
   def call
     pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
@@ -28,6 +28,7 @@ class ItemSearch
   def build_query(scope)
     scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
     scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
+    scope = scope.not_expired unless include_expired
     scope
   end
 

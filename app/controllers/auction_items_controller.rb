@@ -58,7 +58,7 @@ class AuctionItemsController < ApplicationController
   end
 
   def search_params
-    params.require(:item_search).permit(:query, :has_no_offers, :my_listings)
+    params.require(:item_search).permit(:query, :has_no_offers, :my_listings, :include_expired)
   rescue ActionController::ParameterMissing
     {}
   end
