@@ -33,7 +33,7 @@ class ItemSearch
   end
 
   def build_sort(scope)
-    scope.order(created_at: :desc)
+    scope.order(created_at: :asc)
   end
 
   def build_limit(scope)
