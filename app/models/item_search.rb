@@ -16,13 +16,14 @@ class ItemSearch
       build_filter
       build_sort
       build_limit
+      build_grouping
     ]
   end
 
   def base_scope
     AuctionItem.left_outer_joins(:auction_offers)
                .select('auction_items.*, count(auction_offers.id) as offer_count')
-               .group(:id)
+               .joins("inner join moderation_items on moderation_items.moderatable_id = auction_items.id and moderatable_type='AuctionItem' and moderation_items.state in ('approved') ")
   end
 
   def build_query(scope)
@@ -44,5 +45,9 @@ class ItemSearch
     return scope.having('count(auction_offers.id) = 0') if ActiveRecord::Type::Boolean.new.cast(has_no_offers)
 
     scope
+  end
+
+  def build_grouping(scope)
+    scope.group('auction_items.id')
   end
 end

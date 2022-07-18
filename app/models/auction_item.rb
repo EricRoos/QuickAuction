@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AuctionItem < ApplicationRecord
+  include Moderatable
   belongs_to :user
   has_many :auction_offers, dependent: :destroy
   has_one_attached :auction_image

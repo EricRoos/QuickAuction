@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_012645) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_174610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_012645) do
     t.index ["auction_item_id"], name: "index_auction_offers_on_auction_item_id"
     t.index ["state"], name: "index_auction_offers_on_state"
     t.index ["user_id"], name: "index_auction_offers_on_user_id"
+  end
+
+  create_table "moderation_items", force: :cascade do |t|
+    t.string "moderatable_type", null: false
+    t.bigint "moderatable_id", null: false
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moderatable_type", "moderatable_id"], name: "index_moderation_items_on_moderatable"
   end
 
   create_table "notifications", force: :cascade do |t|
