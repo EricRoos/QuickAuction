@@ -31,12 +31,20 @@
     </div>
     <div class='flex-grow p-4 max-w-[33%]'>
       <div class='text-gray-500 mb-2'>
-        Time Remaining
+        <% if @auction_item.moderation_item.approved? %>
+          Time Remaining
+        <% else %>
+          Under review
+        <% end %>
       </div>
       <div class='text-lg font-medium dark:text-gray-400'>
-        <span data-controller='countdown' data-expires-on='<%= @auction_item.expires_on.to_i %>'>
-          <%= render(LoadingLineComponent.new) %>
-        </span>
+        <% if @auction_item.moderation_item.approved? %>
+          <span data-controller='countdown' data-expires-on='<%= @auction_item.expires_on.to_i %>'>
+            <%= render(LoadingLineComponent.new) %>
+          </span>
+        <% else %>
+          Hang tight while we quickly approve this auction
+        <% end %>
       </div>
     </div>
     <div class='flex-grow p-4 max-w-[33%]'>

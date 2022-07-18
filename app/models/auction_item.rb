@@ -18,6 +18,10 @@ class AuctionItem < ApplicationRecord
     expires_on < Time.now
   end
 
+  def restart_auction
+    update(expires_on: 30.minutes.from_now)
+  end
+
   protected
 
   def ensure_expiry

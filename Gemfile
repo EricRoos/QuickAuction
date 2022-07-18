@@ -100,6 +100,6 @@ gem 'heroicon', '~> 0.4.0'
 
 gem 'noticed', '~> 1.5'
 
-gem "activeadmin", "~> 2.13"
+gem 'activeadmin', '~> 2.13'
 
-gem "sassc", "~> 2.4"
+gem 'sassc', '~> 2.4'
