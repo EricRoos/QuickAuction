@@ -15,7 +15,6 @@ class AuctionOffersController < ApplicationController
   # GET /auction_offers/1 or /auction_offers/1.json
   def show
     respond_to do |format|
-      format.html
       format.turbo_stream
     end
   end
@@ -56,6 +55,7 @@ class AuctionOffersController < ApplicationController
   def update
     respond_to do |format|
       if @auction_offer.update(update_auction_offer_params)
+        format.turbo_stream
         format.html do
           redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
                       notice: 'Auction offer was successfully updated.'

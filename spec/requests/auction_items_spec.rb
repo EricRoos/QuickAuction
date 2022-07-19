@@ -18,14 +18,22 @@ RSpec.describe '/auction_items', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # AuctionItem. As you add validations to AuctionItem, be sure to
   # adjust the attributes here as well.
+  let(:user) { FactoryBot.create(:user) }
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      title: 'title',
+      description: 'description',
+      user: user
+    }
   end
 
   let(:invalid_attributes) do
     skip('Add a hash of attributes invalid for your model')
   end
 
+  before do
+    sign_in user
+  end
   describe 'GET /index' do
     it 'renders a successful response' do
       AuctionItem.create! valid_attributes
@@ -48,6 +56,7 @@ RSpec.describe '/auction_items', type: :request do
       expect(response).to be_successful
     end
   end
+
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new AuctionItem' do
@@ -71,36 +80,6 @@ RSpec.describe '/auction_items', type: :request do
 
       it "renders a successful response (i.e. to display the 'new' template)" do
         post auction_items_url, params: { auction_item: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested auction_item' do
-        auction_item = AuctionItem.create! valid_attributes
-        patch auction_item_url(auction_item), params: { auction_item: new_attributes }
-        auction_item.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the auction_item' do
-        auction_item = AuctionItem.create! valid_attributes
-        patch auction_item_url(auction_item), params: { auction_item: new_attributes }
-        auction_item.reload
-        expect(response).to redirect_to(auction_item_url(auction_item))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        auction_item = AuctionItem.create! valid_attributes
-        patch auction_item_url(auction_item), params: { auction_item: invalid_attributes }
         expect(response).to be_successful
       end
     end

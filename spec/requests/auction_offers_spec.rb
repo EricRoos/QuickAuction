@@ -18,8 +18,18 @@ RSpec.describe '/auction_offers', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # AuctionOffer. As you add validations to AuctionOffer, be sure to
   # adjust the attributes here as well.
+  let(:user) { FactoryBot.create(:user) }
+  let(:auction_item) { FactoryBot.create(:auction_item) }
+  before do
+    sign_in user
+  end
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      description: 'description',
+      user: user,
+      auction_item: auction_item
+    }
   end
 
   let(:invalid_attributes) do
@@ -29,7 +39,7 @@ RSpec.describe '/auction_offers', type: :request do
   describe 'GET /index' do
     it 'renders a successful response' do
       AuctionOffer.create! valid_attributes
-      get auction_offers_url
+      get auction_item_auction_offers_url(auction_item)
       expect(response).to be_successful
     end
   end
@@ -37,14 +47,14 @@ RSpec.describe '/auction_offers', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       auction_offer = AuctionOffer.create! valid_attributes
-      get auction_offer_url(auction_offer)
+      get auction_offer_url(auction_offer, format: :turbo_stream)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /new' do
     it 'renders a successful response' do
-      get new_auction_offer_url
+      get new_auction_item_auction_offer_url(auction_item)
       expect(response).to be_successful
     end
   end
@@ -53,25 +63,25 @@ RSpec.describe '/auction_offers', type: :request do
     context 'with valid parameters' do
       it 'creates a new AuctionOffer' do
         expect do
-          post auction_offers_url, params: { auction_offer: valid_attributes }
+          post auction_item_auction_offers_url(auction_item), params: { auction_offer: valid_attributes }
         end.to change(AuctionOffer, :count).by(1)
       end
 
       it 'redirects to the created auction_offer' do
-        post auction_offers_url, params: { auction_offer: valid_attributes }
-        expect(response).to redirect_to(auction_offer_url(AuctionOffer.last))
+        post auction_item_auction_offers_url(auction_item), params: { auction_offer: valid_attributes }
+        expect(response).to redirect_to(auction_item_path(AuctionOffer.last.auction_item))
       end
     end
 
     context 'with invalid parameters' do
       it 'does not create a new AuctionOffer' do
         expect do
-          post auction_offers_url, params: { auction_offer: invalid_attributes }
+          post auction_item_auction_offers_url(auction_item), params: { auction_offer: invalid_attributes }
         end.to change(AuctionOffer, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post auction_offers_url, params: { auction_offer: invalid_attributes }
+        post auction_item_auction_offers_url(auction_item), params: { auction_offer: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -79,22 +89,25 @@ RSpec.describe '/auction_offers', type: :request do
 
   describe 'PATCH /update' do
     context 'with valid parameters' do
+      let(:user) { auction_item.user }
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          state_event: :accept
+        }
       end
 
       it 'updates the requested auction_offer' do
         auction_offer = AuctionOffer.create! valid_attributes
-        patch auction_offer_url(auction_offer), params: { auction_offer: new_attributes }
+        patch auction_offer_url(auction_offer, format: :turbo_stream), params: { auction_offer: new_attributes }
         auction_offer.reload
-        skip('Add assertions for updated state')
+        expect(auction_offer.state).to eq 'accepted'
       end
 
       it 'redirects to the auction_offer' do
         auction_offer = AuctionOffer.create! valid_attributes
         patch auction_offer_url(auction_offer), params: { auction_offer: new_attributes }
         auction_offer.reload
-        expect(response).to redirect_to(auction_offer_url(auction_offer))
+        expect(response).to redirect_to(auction_item_auction_offers_url(auction_offer.auction_item))
       end
     end
 
@@ -104,21 +117,6 @@ RSpec.describe '/auction_offers', type: :request do
         patch auction_offer_url(auction_offer), params: { auction_offer: invalid_attributes }
         expect(response).to be_successful
       end
-    end
-  end
-
-  describe 'DELETE /destroy' do
-    it 'destroys the requested auction_offer' do
-      auction_offer = AuctionOffer.create! valid_attributes
-      expect do
-        delete auction_offer_url(auction_offer)
-      end.to change(AuctionOffer, :count).by(-1)
-    end
-
-    it 'redirects to the auction_offers list' do
-      auction_offer = AuctionOffer.create! valid_attributes
-      delete auction_offer_url(auction_offer)
-      expect(response).to redirect_to(auction_offers_url)
     end
   end
 end
