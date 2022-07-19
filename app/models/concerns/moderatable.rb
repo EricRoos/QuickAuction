@@ -8,10 +8,6 @@ module Moderatable
     has_one :moderation_item, as: :moderatable
   end
 
-  def moderation_approved?
-    ModerationItem.for(self).exists?
-  end
-
   protected
 
   def create_moderation_item
