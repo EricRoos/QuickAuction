@@ -5,6 +5,7 @@ class AuctionOfferComponent < ViewComponent::Base
   attr_accessor :auction_offer, :loading, :actions_enabled, :current_user
 
   def initialize(auction_offer:, current_user:, loading: false, actions_enabled: true)
+    super
     @auction_offer = auction_offer
     @loading = loading
     @actions_enabled = actions_enabled

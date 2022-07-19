@@ -8,28 +8,15 @@ class AuctionOffersController < ApplicationController
   # GET /auction_offers or /auction_offers.json
   def index
     authorize AuctionOffer
-    rejected_states = %i[
-      rejected
-      accepted
-    ]
-
-    rejected_states << 'sent' if @auction_item.user != current_user
-
-    @current_offer = @auction_item.auction_offers.with_state(:accepted).first
-    @proposed_offer = @auction_item.auction_offers
-                                   .without_states(rejected_states)
-                                   .order(created_at: :asc)
-                                   .first
+    @current_offer = @auction_item.current_accepted_offer
+    @proposed_offer = @auction_item.current_proposed_offer
   end
 
   # GET /auction_offers/1 or /auction_offers/1.json
   def show
     respond_to do |format|
       format.html
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(request.headers['Turbo-Frame'],
-                                                  partial: 'auction_offers/auction_offer', locals: { auction_offer: @auction_offer })
-      end
+      format.turbo_stream
     end
   end
 
@@ -56,13 +43,11 @@ class AuctionOffersController < ApplicationController
     respond_to do |format|
       if @auction_offer.save
         format.html do
-          redirect_to auction_item_path(@auction_offer.auction_item),
-                      notice: 'Auction offer was successfully created.'
+          redirect_to auction_item_path(@auction_offer.auction_item), notice: 'Auction offer was successfully created.'
         end
-        format.json { render :show, status: :created, location: @auction_offer }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end
@@ -75,14 +60,9 @@ class AuctionOffersController < ApplicationController
           redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
                       notice: 'Auction offer was successfully updated.'
         end
-        format.json { render :show, status: :ok, location: @auction_offer }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream do
-          turbo_stream.replace "form#{dom_id(@auction_offer)}", partial: 'auction_offers/form',
-                                                                locals: { auction_offer: @auction_offer }
-        end
-        format.json { render json: @auction_offer.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end
@@ -96,7 +76,6 @@ class AuctionOffersController < ApplicationController
         redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
                     notice: 'Auction offer was successfully destroyed.'
       end
-      format.json { head :no_content }
     end
   end
 

@@ -22,6 +22,22 @@ class AuctionItem < ApplicationRecord
     update(expires_on: 30.minutes.from_now)
   end
 
+  def current_accepted_offer
+    auction_offers.with_state(:accepted).first
+  end
+
+  def current_proposed_offer(include_sent: false)
+    rejected_states = %i[
+      rejected
+      accepted
+    ]
+    rejected_states << 'sent' if include_sent
+    auction_offers
+      .without_states(rejected_states)
+      .order(created_at: :asc)
+      .first
+  end
+
   protected
 
   def ensure_expiry

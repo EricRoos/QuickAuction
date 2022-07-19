@@ -23,10 +23,15 @@ class ItemSearch
   def base_scope
     base = AuctionItem.left_outer_joins(:auction_offers)
                       .select('auction_items.*, count(auction_offers.id) as offer_count')
-    unless ActiveRecord::Type::Boolean.new.cast(my_listings)
-      base = base.joins("inner join moderation_items on moderation_items.moderatable_id = auction_items.id and moderatable_type='AuctionItem' and moderation_items.state in ('approved') ")
-    end
-    base
+
+    return base unless ActiveRecord::Type::Boolean.new.cast(my_listings)
+
+    join_sql = <<-SQL
+      inner join moderation_items on moderation_items.moderatable_id = auction_items.id
+        and moderatable_type='AuctionItem'
+        and moderation_items.state in ('approved')
+    SQL
+    base.joins(join_sql)
   end
 
   def build_query(scope)

@@ -25,16 +25,14 @@ class AuctionItemsController < ApplicationController
 
   # POST /auction_items or /auction_items.json
   def create
-    authorize AuctionItem
     @auction_item = current_user.auction_items.build(auction_item_params)
+    authorize @auction_item
 
     respond_to do |format|
       if @auction_item.save
         format.html { redirect_to auction_item_url(@auction_item), notice: 'Auction item was successfully created.' }
-        format.json { render :show, status: :created, location: @auction_item }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @auction_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,7 +43,6 @@ class AuctionItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to auction_items_url, notice: 'Auction item was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
