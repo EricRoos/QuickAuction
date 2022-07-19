@@ -7,6 +7,7 @@ class AuctionOffersController < ApplicationController
 
   # GET /auction_offers or /auction_offers.json
   def index
+    authorize AuctionOffer
     rejected_states = %i[
       rejected
       accepted
@@ -35,7 +36,8 @@ class AuctionOffersController < ApplicationController
   # GET /auction_offers/new
   def new
     @current_user_offer = @auction_item.auction_offers.where(user: current_user).first
-    @auction_offer = AuctionOffer.new
+    @auction_offer = @auction_item.auction_offers.build
+    authorize @auction_offer
 
     respond_to do |format|
       format.html
@@ -49,6 +51,7 @@ class AuctionOffersController < ApplicationController
   # POST /auction_offers or /auction_offers.json
   def create
     @auction_offer = @auction_item.auction_offers.build(auction_offer_params)
+    authorize @auction_offer
 
     respond_to do |format|
       if @auction_offer.save
@@ -102,6 +105,7 @@ class AuctionOffersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_auction_offer
     @auction_offer = AuctionOffer.find(params[:id])
+    authorize @auction_offer
   end
 
   # Only allow a list of trusted parameters through.

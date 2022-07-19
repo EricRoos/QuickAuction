@@ -5,6 +5,7 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items or /auction_items.json
   def index
+    authorize AuctionItem
     @search = ItemSearch.new(search_params.merge(current_user: current_user))
     @auction_items = @search.call
   end
@@ -19,10 +20,12 @@ class AuctionItemsController < ApplicationController
   # GET /auction_items/new
   def new
     @auction_item = AuctionItem.new
+    authorize @auction_item
   end
 
   # POST /auction_items or /auction_items.json
   def create
+    authorize AuctionItem
     @auction_item = current_user.auction_items.build(auction_item_params)
 
     respond_to do |format|
@@ -51,6 +54,7 @@ class AuctionItemsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_auction_item
     @auction_item = AuctionItem.find(params[:id])
+    authorize @auction_item
   end
 
   # Only allow a list of trusted parameters through.

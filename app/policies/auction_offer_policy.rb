@@ -20,7 +20,7 @@ class AuctionOfferPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    record.auction_item.user == user
   end
 
   def edit?
