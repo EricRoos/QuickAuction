@@ -32,7 +32,7 @@ class AuctionOffer < ApplicationRecord
     event :accept_other_offer do
       transition accepted: :rejected, unless: lambda { |offer|
                                                 offer.auction_item.expired? ||
-                                                  !offer.auction_item.auction_offers.with_states(:sent, :acknowledged).count.zero?
+                                                  offer.auction_item.auction_offers.without_states(:accepted, :rejected).count.zero?
                                               }
     end
 
