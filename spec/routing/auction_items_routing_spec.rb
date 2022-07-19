@@ -16,10 +16,6 @@ RSpec.describe AuctionItemsController, type: :routing do
       expect(get: '/auction_items/1').to route_to('auction_items#show', id: '1')
     end
 
-    it 'routes to #edit' do
-      expect(get: '/auction_items/1/edit').to route_to('auction_items#edit', id: '1')
-    end
-
     it 'routes to #create' do
       expect(post: '/auction_items').to route_to('auction_items#create')
     end

@@ -7,13 +7,6 @@ RSpec.describe AuctionOffer, type: :model do
   subject { auction_offer }
   it { is_expected.to be_persisted }
 
-  context 'when the offer is from the listing' do
-    before do
-      auction_offer.user = auction_offer.auction_item.user
-    end
-    it { is_expected.to_not be_valid }
-  end
-
   describe 'accepting offer rejects others' do
     let(:auction_item) { FactoryBot.create(:auction_item) }
     let(:offer) { FactoryBot.create(:auction_offer, auction_item: auction_item) }
