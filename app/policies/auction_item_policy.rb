@@ -6,7 +6,9 @@ class AuctionItemPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    return true if @record.user == @user
+
+    @record.moderation_item.approved?
   end
 
   def create?
@@ -18,7 +20,7 @@ class AuctionItemPolicy < ApplicationPolicy
   end
 
   def update?
-    @record.user == @user
+    false
   end
 
   def edit?

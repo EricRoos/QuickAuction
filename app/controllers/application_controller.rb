@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :log_current_user
   before_action :add_initial_breadcrumbs
 
-  after_action :verify_authorized
+  after_action :verify_authorized, unless: -> { devise_controller? }
 
   def log_current_user
     Rails.logger.info "CURRENT USER:\t #{current_user&.id}"

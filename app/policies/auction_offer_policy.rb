@@ -6,12 +6,12 @@ class AuctionOfferPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    @record.auction_item.moderation_item.approved?
   end
 
   def create?
     record.auction_item.user != user &&
-      !record.auction_item.auction_offers.where(user: user).exists? &&
+      !record.auction_item.auction_offers.where(user: user).with_states(:accepted, :acknowledged).exists? &&
       !record.auction_item.expired?
   end
 
