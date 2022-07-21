@@ -55,7 +55,6 @@ class AuctionOffersController < ApplicationController
   def update
     respond_to do |format|
       if @auction_offer.update(update_auction_offer_params)
-        format.turbo_stream
         format.html do
           redirect_to auction_item_auction_offers_url(@auction_offer.auction_item),
                       notice: 'Auction offer was successfully updated.'
