@@ -1,26 +1,26 @@
 <%= turbo_frame_tag :auction_offers do %>
   <div class="w-full">
     <div id="auction_offers" class="grid grid-cols-2 gap-8">
-      <div class='h-full flex flex-col'>
+      <section class='h-full flex flex-col' aria-label='Current accepted offer'>
         <div class='text-xl font-medium mb-4'>Current accepted offer</div>
         <% if @current_offer %>
           <%= turbo_frame_tag 'current_offer', src: auction_offer_path(id: @current_offer.id, format: :turbo_stream) do %>
             <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
           <% end %>
         <% else %>
-          <div class='border border-dashed border-8 dark:border-slate-700 border-gray-200 flex h-full flex-grow rounded-xl justify-center items-center text-gray-500 font-bold'>
+          <div class='border border-dashed border-4 dark:border-slate-700 border-gray-200 flex h-full flex-grow rounded-xl justify-center items-center text-gray-500 font-bold'>
             No offers have been accepted yet
           </div>
         <% end %>
       </div>
-      <div class='h-full flex flex-col'>
+      <section class='h-full flex flex-col' aria-label='Offer in consideration'>
         <div class='text-xl font-medium mb-4'>Offer in consideration</div>
         <% if @proposed_offer %>
           <%= turbo_frame_tag 'proposed_offer', src: auction_offer_path(id: @proposed_offer.id, format: :turbo_stream), data: {turbo_frame: "frame" } do %>
             <%= render AuctionOfferComponent.new(auction_offer: nil, loading: true, current_user: current_user) %>
           <% end %>
         <% else %>
-          <div class='border border-dashed flex-grow dark:border-slate-700 border-8 border-gray-200 flex flex-grow rounded-xl justify-center items-center text-gray-500 font-bold'>
+          <div class='border border-dashed flex-grow dark:border-slate-700 border-4 border-gray-200 flex flex-grow rounded-xl justify-center items-center text-gray-500 font-bold'>
             No offers under consideration
           </div>
         <% end %>

@@ -24,6 +24,7 @@
             <% if !loading %>
               <div class='flex gap-4'>
                 <%= form_with(model: auction_offer, class: 'flex gap-4') do |form| %>
+                  <%= form.label :state_event, class: 'hidden' %>
                   <%= form.select :state_event, auction_offer.available_transition_events, {}, class: "" %>
                   <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
                 <% end %>

@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+Before do
+  @data = ActiveSupport::HashWithIndifferentAccess.new
+end
+
+def human_to_factory(class_name)
+  class_name.downcase.underscore.gsub(' ', '_')
+end
+
+def create_object(factory_name, factory_opts = {}, data_label = nil)
+  @data[data_label || factory_name] = FactoryBot.create(factory_name, factory_opts)
+end
+
 Given('the user is logged in') do
   visit new_user_session_path
   fill_in 'Email', with: @data['user'].email
@@ -9,65 +21,40 @@ Given('the user is logged in') do
 end
 
 Given('a {string} exists') do |class_name|
-  @data ||= {}
-  class_sym = class_name.downcase.gsub(' ', '_').to_sym
-  @data[class_name] = FactoryBot.create(class_sym)
+  create_object(human_to_factory(class_name))
 end
 
 Given('the {string} has the attribute {string} with value of {string}') do |class_name, attribute_name, val|
-  update_hash = {}
-  update_hash[attribute_name] = val
-  @data[class_name].update(update_hash)
+  update_hash = { attribute_name => val }
+  @data[human_to_factory(class_name)].update(update_hash)
 end
 
 Given('the user has a list of {string}') do |class_name|
-  @data ||= {}
-  class_sym = class_name.singularize.downcase.gsub(' ', '_').to_sym
-  @data[class_name] = FactoryBot.create_list(class_sym, 5).map(&:decorate)
+  5.times do
+    create_object(human_to_factory(class_name), user: @data[:user])
+  end
 end
 
 Given('the user has a {string}') do |class_name|
-  @data ||= {}
-  class_sym = class_name.singularize.downcase.gsub(' ', '_').to_sym
-  @data[class_name] = FactoryBot.create(class_sym).decorate
+  create_object(class_name, user: @data[:user])
 end
 
-Given('the user is on the {string} page') do |page_nm|
-  case page_nm.downcase
-  when 'sign in'
-    visit new_user_session_path
-  else
-    raise 'Unknown path'
-  end
-end
-
-Then('the user sees the {string} of every {string}') do |attribute, data_class|
-  @data[data_class.pluralize].each do |model|
-    within id: dom_id(model) do
-      expect(page).to have_content(model.send(attribute.downcase.gsub(' ', '_').to_sym))
-    end
-  end
-end
-
-Then('the user sees the {string} of the {string}') do |attribute, data_class|
-  model = @data[data_class]
-  within id: dom_id(model) do
-    expect(page).to have_content(model.send(attribute.downcase.gsub(' ', '_').to_sym))
-  end
+Given('the user has a {string} known as {string}') do |class_name, label|
+  create_object(human_to_factory(class_name), { user: @data[:user] }, label)
 end
 
 Then('the user should see {string}') do |content|
   expect(page).to have_content(content)
 end
 
+Then('the user should not see {string}') do |content|
+  expect(page).to_not have_content(content)
+end
+
 Given('the {string} has {int} {string}') do |owner, count, class_name|
-  @data ||= {}
-  class_sym = class_name.singularize.downcase.gsub(' ', '_').to_sym
-  FactoryBot.build_list(class_sym.to_sym, count).each do |built|
-    @data[owner].send(class_sym.to_s.pluralize.to_sym) << built
+  count.times do
+    create_object(human_to_factory(class_name), { human_to_factory(@data[owner].model_name.human) => @data[owner] })
   end
-  @data[class_name] = @data[owner].send(class_sym.to_s.pluralize.to_sym).map(&:decorate)
-  @data[class_name.singularize] = @data[class_name].first if count == 1
 end
 
 When('the user fills in {string} with {string}') do |field, value|
@@ -79,19 +66,9 @@ When('the user presses {string}') do |button|
 end
 
 Given('the {string} has a {string}') do |owner, class_name|
-  obj = FactoryBot.build(class_name.downcase.underscore.to_sym)
-  @data[owner].send("#{class_name.downcase.underscore}=".to_sym, obj)
-  @data[owner.save]
-end
-
-Given('the {string} has a {string} of {string}') do |owner, attribute, val|
-  updates = {}
-  updates[attribute.to_sym] = val
-  updated = @data[owner].update(updates)
-end
-
-Given('a tag exists') do
-  @data['tag'] = FactoryBot.create(:tag)
+  obj = FactoryBot.build(class_name.downcase.underscore)
+  @data[owner].send("#{human_to_factory(class_name)}=", obj)
+  @data[owner].save
 end
 
 When('the user clicks on {string}') do |string|
@@ -103,6 +80,29 @@ Then('the user does not see the {string}') do |data_class|
   expect { page.find(id: dom_id(model)) }.to raise_error(Capybara::ElementNotFound)
 end
 
-Given('the user sees the {string}') do |data_class|
-  # expect{ page.find(id: dom_id(model)) }.to_not raise_error(Capybara::ElementNotFound)
+Given('the user is on the page for the {string}') do |class_name|
+  url = polymorphic_path(@data[class_name])
+  visit url
+end
+
+When('the user selects {string} from {string}') do |value, label|
+  select value, from: label
+end
+
+When('the user selects {string} from {string} within the {string} section') do |value, label, aria_label|
+  within("[aria-label='#{aria_label}']") do
+    select value, from: label
+  end
+end
+
+Then('the user should see {string} within the {string} section') do |content, aria_label|
+  within("[aria-label='#{aria_label}']") do
+    expect(page).to have_content(content)
+  end
+end
+
+When('the user presses {string} within {string}') do |btn_label, aria_label|
+  within("[aria-label='#{aria_label}']") do
+    click_on btn_label
+  end
 end

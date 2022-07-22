@@ -104,6 +104,6 @@ gem 'activeadmin', '~> 2.13'
 
 gem 'sassc', '~> 2.4'
 
-gem "cucumber-rails", "~> 2.5", require: false, groups: %[test]
+gem 'cucumber-rails', '~> 2.5', require: false, groups: %(test)
 
-gem "database_cleaner", "~> 2.0", groups: %i[test]
+gem 'database_cleaner', '~> 2.0', groups: %i[test]
