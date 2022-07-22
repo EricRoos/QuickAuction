@@ -9,7 +9,7 @@ Feature: Manage an auction
     And the user is logged in
     And the user is on the page for the "auction item"
     When the user selects "accept" from "State event"
-    And the user presses "Update Auction offer"
+    And the user clicks on "Update Auction offer"
     Then the user should see "My Offer"
     And the user should see "accepted"
 
@@ -22,7 +22,7 @@ Feature: Manage an auction
     And the user is logged in
     And the user is on the page for the "auction item"
     When the user selects "reject" from "State event"
-    And the user presses "Update Auction offer"
+    And the user clicks on "Update Auction offer"
     Then the user should not see "My Offer"
 
   @javascript
@@ -34,7 +34,7 @@ Feature: Manage an auction
     And the user is logged in
     And the user is on the page for the "auction item"
     When the user selects "acknowledge" from "State event"
-    And the user presses "Update Auction offer"
+    And the user clicks on "Update Auction offer"
     Then the user should see "My Offer"
     And the user should see "acknowledged"
 
@@ -60,7 +60,7 @@ Feature: Manage an auction
     And the user is logged in
     And the user is on the page for the "auction item"
     When the user selects "accept" from "State event" within the "Offer in consideration" section
-    And the user presses "Update Auction offer" within "Offer in consideration"
+    And the user clicks on "Update Auction offer" within "Offer in consideration"
     Then the user should see "next to accept" within the "Current accepted offer" section
     And the user should see "accepted" within the "Current accepted offer" section
     And the user should see "No offers under consideration" within the "Offer in consideration" section
