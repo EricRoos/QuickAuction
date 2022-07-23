@@ -1,7 +1,7 @@
 <%= turbo_frame_tag :new_offer do %>
   <div class='flex justify-center w-full'>
     <% if @current_user_offer.present? %>
-      <%= render AuctionOfferComponent.new(auction_offer: @current_user_offer, actions_enabled: false) %>
+      <%= render AuctionOfferComponent.new(auction_offer: @current_user_offer, actions_enabled: false, current_user: current_user) %>
     <% else %>
       <%= turbo_frame_tag 'offer_form' do %>
         <div class='flex items-center flex-col gap-4 my-4'>

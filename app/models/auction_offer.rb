@@ -7,6 +7,7 @@ class AuctionOffer < ApplicationRecord
   belongs_to :user
 
   before_save :replace_accepted
+  validates_presence_of :description
 
   def available_transition_events
     state_paths.map(&:first).collect(&:event).uniq
