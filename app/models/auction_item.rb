@@ -2,9 +2,12 @@
 
 class AuctionItem < ApplicationRecord
   include Moderatable
+
   belongs_to :user
   has_many :auction_offers, dependent: :destroy
   has_one_attached :auction_image
+
+  validates_presence_of :title
 
   before_commit :ensure_expiry, on: :create
 
