@@ -19,7 +19,8 @@ RSpec.describe '/auction_offers', type: :request do
   # AuctionOffer. As you add validations to AuctionOffer, be sure to
   # adjust the attributes here as well.
   let(:user) { FactoryBot.create(:user) }
-  let(:auction_item) { FactoryBot.create(:auction_item) }
+  let(:auction_item) { FactoryBot.create(:moderated_auction_item) }
+
   before do
     sign_in user
   end
@@ -47,7 +48,7 @@ RSpec.describe '/auction_offers', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       auction_offer = AuctionOffer.create! valid_attributes
-      get auction_offer_url(auction_offer, format: :turbo_stream)
+      get auction_offer_url(auction_offer, format: :turbo_stream), headers: { 'Turbo-Frame': 'foo' }
       expect(response).to be_successful
     end
   end
@@ -98,7 +99,7 @@ RSpec.describe '/auction_offers', type: :request do
 
       it 'updates the requested auction_offer' do
         auction_offer = AuctionOffer.create! valid_attributes
-        patch auction_offer_url(auction_offer, format: :turbo_stream), params: { auction_offer: new_attributes }
+        patch auction_offer_url(auction_offer), params: { auction_offer: new_attributes }
         auction_offer.reload
         expect(auction_offer.state).to eq 'accepted'
       end

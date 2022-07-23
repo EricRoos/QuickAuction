@@ -49,13 +49,13 @@ unless ARGV.any? { |a| a =~ /^gems/ } # Don't load anything when running the gem
 
     task default: :cucumber
 
-    task features: :cucumber do
-      warn "*** The 'features' task is deprecated. See rake -T cucumber ***"
-    end
+    # task features: :cucumber do
+    warn "*** The 'features' task is deprecated. See rake -T cucumber ***"
+    # end
 
     # In case we don't have the generic Rails test:prepare hook, append a no-op task that we can depend upon.
-    task 'test:prepare' do
-    end
+    # task 'test:prepare' do
+    # end
 
     task stats: 'cucumber:statsetup'
   rescue LoadError

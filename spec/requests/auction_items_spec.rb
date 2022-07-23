@@ -45,6 +45,7 @@ RSpec.describe '/auction_items', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       auction_item = AuctionItem.create! valid_attributes
+      auction_item.moderation_item.approve
       get auction_item_url(auction_item)
       expect(response).to be_successful
     end
