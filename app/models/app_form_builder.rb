@@ -2,7 +2,7 @@
 
 class AppFormBuilder < ActionView::Helpers::FormBuilder
   def label(attr, options = {})
-    content_tag(:span, class: 'flex gap') do
+    content_tag(:span, class: 'flex gap dark:text-gray-500 font-medium') do
       super + required_flag(attr)
     end
   end
@@ -15,8 +15,8 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
     super(attr, merge_options_and_class(text_area_classes, options.merge({ required: attr_required?(attr) })))
   end
 
-  def submit(options = {})
-    super(merge_options_and_class(submit_classes, options))
+  def submit(value = nil, options = {})
+    super(value, merge_options_and_class(submit_classes, options))
   end
 
   def form_field(options = {}, &block)
@@ -34,10 +34,18 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
         return true unless v.options[:if].present? || v.options[:unless].present?
 
         lam = v.options[:if]
-        return @object.instance_exec(&lam) if lam
+        if lam
+          return @object.send(lam) if lam.is_a?(Symbol)
+
+          return @object.instance_exec(&lam)
+        end
 
         lam = v.options[:unless]
-        return !@object.instance_exec(&lam) if lam
+        if lam
+          return !@object.send(lam) if lam.is_a?(Symbol)
+
+          return !@object.instance_exec(&lam)
+        end
 
         return false
       end
