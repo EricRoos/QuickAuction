@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "notification_#{notification_id}", src: inbox_message_path(notification_id: notification_id) do %>
+  <div class="sm:flex sm:justify-between sm:items-baseline">
+    <h3 class="text-base font-medium">
+      <%= render LoadingLineComponent.new %>
+    </h3>
+  </div>
+  <div class="mt-4 space-y-6 text-sm text-gray-800">
+    <%= render LoadingLineComponent.new %>
+  </div>
+<% end %>

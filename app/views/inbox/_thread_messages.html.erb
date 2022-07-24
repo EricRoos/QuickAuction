@@ -1,14 +1,7 @@
 <% params[:focused_id].present? && @inbox_threads.detect{ |d| d.key_value == params[:focused_id].to_i }.notification_ids.each do |notification_id| %>
-  <%= turbo_frame_tag "notification_#{notification_id}", src: inbox_message_path(notification_id: notification_id) do %>
-    <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
-      <div class="sm:flex sm:justify-between sm:items-baseline">
-        <h3 class="text-base font-medium">
-          <%= render LoadingLineComponent.new %>
-        </h3>
-      </div>
-      <div class="mt-4 space-y-6 text-sm text-gray-800">
-        <%= render LoadingLineComponent.new %>
-      </div>
-    </li>
-  <% end %>
+  <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
+    <%= turbo_frame_tag "notification_#{notification_id}", src: inbox_message_path(notification_id: notification_id) do %>
+      <%= render partial: 'thread_message', locals: { notification_id: notification_id } %>
+    <% end %>
+  </li>
 <% end %>

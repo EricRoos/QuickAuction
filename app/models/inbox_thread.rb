@@ -3,17 +3,18 @@
 class InboxThread
   include ActiveModel::Model
 
-  attr_accessor :last_message_text, :notification_ids, :title, :key_value
+  attr_accessor :last_message_text, :notification_ids, :title, :key_value, :last_activity_at
 
   def self.thread_data(key_name, recipient, additional_scope = {})
     base_arel = Notification
-                .select("array_agg(notifications.id), array_agg(params -> '#{key_name}')")
+                .select("array_agg(notifications.id), array_agg(params -> '#{key_name}'), max(notifications.created_at) as max_date")
                 .where(recipient: recipient)
                 .where(additional_scope)
+                .order("max_date desc")
                 .group("params #>> '{#{key_name}}'")
                 .arel
     Notification.connection.select_all(base_arel).result.cast_values.map do |data|
-      { key_value: data[1].first, notification_ids: data[0] }
+      { key_value: data[1].first, notification_ids: data[0], last_activity: data[2] }
     end
   end
 
@@ -29,7 +30,7 @@ class InboxThread
       message = message_map[t[:notification_ids].last]
       title = 'N/A'
       title = block.call(t) if block_given?
-      new(title: title, last_message_text: message, notification_ids: t[:notification_ids], key_value: t[:key_value])
+      new(title: title, last_message_text: message, notification_ids: t[:notification_ids], key_value: t[:key_value], last_activity_at: t[:last_activity])
     end
   end
 
