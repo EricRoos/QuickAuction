@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :log_current_user
   before_action :add_initial_breadcrumbs
 
-  after_action :verify_authorized, unless: -> { devise_controller? }
+  after_action :verify_authorized, unless: -> { devise_controller? || active_admin_request? }
 
   default_form_builder AppFormBuilder
 
@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def active_admin_request?
+    request.path.starts_with?('/admin')
+    true
+  end
 
   def add_initial_breadcrumbs
     breadcrumbs.add 'Home', root_path
