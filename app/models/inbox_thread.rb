@@ -10,7 +10,7 @@ class InboxThread
                 .select("array_agg(notifications.id), array_agg(params -> '#{key_name}'), max(notifications.created_at) as max_date")
                 .where(recipient: recipient)
                 .where(additional_scope)
-                .order("max_date desc")
+                .order('max_date desc')
                 .group("params #>> '{#{key_name}}'")
                 .arel
     Notification.connection.select_all(base_arel).result.cast_values.map do |data|
@@ -30,7 +30,8 @@ class InboxThread
       message = message_map[t[:notification_ids].last]
       title = 'N/A'
       title = block.call(t) if block_given?
-      new(title: title, last_message_text: message, notification_ids: t[:notification_ids], key_value: t[:key_value], last_activity_at: t[:last_activity])
+      new(title: title, last_message_text: message, notification_ids: t[:notification_ids], key_value: t[:key_value],
+          last_activity_at: t[:last_activity])
     end
   end
 

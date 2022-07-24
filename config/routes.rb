@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "auction_items#index"
+  get '/:landing_page_id', to: 'landing_page#show'
+  root 'landing_page#show'
 end

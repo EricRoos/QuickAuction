@@ -4,7 +4,7 @@ class InboxController < ApplicationController
   skip_after_action :verify_authorized
   def index
     @inbox_threads = InboxThread.auction_threads_for(current_user)
-    @focused = @inbox_threads.detect { |t| t.key_value.to_s == params[:focused_id]}
+    @focused = @inbox_threads.detect { |t| t.key_value.to_s == params[:focused_id] }
     respond_to do |format|
       format.html
       format.turbo_stream do
@@ -15,6 +15,7 @@ class InboxController < ApplicationController
 
   def show
     return if fragment_exist?(cache_key)
+
     @notification = Notification.find(params[:notification_id])
   end
 
