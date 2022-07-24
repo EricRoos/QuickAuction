@@ -88,4 +88,5 @@ production:
   <<: *default
   database: insta_auction_house_production
   username: insta_auction_house
-  password: <%= ENV["ECHOES_DATABASE_PASSWORD"] %>
+  host: "<%= ENV["DATABASE_HOST"] %>"
+  password: <%= ENV["DATABASE_PASSWORD"] %>
