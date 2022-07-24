@@ -15,7 +15,7 @@ class OfferUpdatedNotification < Noticed::Base
 
   # Add required params
   #
-  param :auction_offer, :new_state
+  param :new_state, :auction_item_id, :auction_title
 
   # Define helper methods to make rendering easier.
   #
@@ -23,7 +23,7 @@ class OfferUpdatedNotification < Noticed::Base
   #   t(".message")
   # end
   def message
-    "Your offer for #{params[:auction_offer].auction_item.title} was updated to: #{params[:new_state]}"
+    "Your offer for #{params[:auction_title]} was updated to: #{params[:new_state]}"
   end
   #
   # def url

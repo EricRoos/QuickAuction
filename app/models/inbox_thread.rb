@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+class InboxThread
+  include ActiveModel::Model
+
+  attr_accessor :last_message_text, :notification_ids, :title, :key_value
+
+  def self.thread_data(key_name, recipient, additional_scope = {})
+    base_arel = Notification
+                .select("array_agg(notifications.id), array_agg(params -> '#{key_name}')")
+                .where(recipient: recipient)
+                .where(additional_scope)
+                .group("params #>> '{#{key_name}}'")
+                .arel
+    Notification.connection.select_all(base_arel).result.cast_values.map do |data|
+      { key_value: data[1].first, notification_ids: data[0] }
+    end
+  end
+
+  def self.all(key_name, recipient, &block)
+    thread_data = thread_data(key_name, recipient)
+    last_notification_ids = thread_data.map { |t| t[:notification_ids].last }.compact
+
+    message_map = Notification.includes(:recipient).where(id: last_notification_ids).map do |notification|
+      { notification.id => notification.to_notification.message }
+    end.reduce(&:merge)
+
+    thread_data.map do |t|
+      message = message_map[t[:notification_ids].last]
+      title = 'N/A'
+      title = block.call(t) if block_given?
+      new(title: title, last_message_text: message, notification_ids: t[:notification_ids], key_value: t[:key_value])
+    end
+  end
+
+  def self.auction_threads_for(user)
+    InboxThread.all('auction_item_id', user) do |data|
+      "Auction ##{data[:key_value]}"
+    end
+  end
+end

@@ -5,9 +5,15 @@ module StateMachine
     extend ActiveSupport::Concern
 
     included do
+      after_create do
+        OfferUpdatedNotification.with(auction_item_id: auction_item_id,
+                                      auction_title: auction_item.title, new_state: state).deliver(user)
+      end
+
       state_machine :state, initial: :sent do
         after_transition do |offer, _transition|
-          OfferUpdatedNotification.with(auction_offer: offer, new_state: offer.state).deliver(offer.user)
+          OfferUpdatedNotification.with(auction_item_id: offer.auction_item_id,
+                                        auction_title: offer.auction_item.title, new_state: offer.state).deliver(offer.user)
         end
 
         before_transition any => :accepted do |offer, _transition|

@@ -1,0 +1,17 @@
+
+<%= turbo_frame_tag request.headers['Turbo-Frame'] do %>
+  <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
+    <div class="sm:flex sm:justify-between sm:items-baseline">
+      <h3 class="text-base font-medium">
+        <span class="text-gray-900">Auctioneer</span>
+        <span class="text-gray-600">wrote</span>
+      </h3>
+      <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+        <time datetime="2021-01-28T19:24"><%= time_ago_in_words(Time.now - 30.seconds) %></time>
+      </p>
+    </div>
+    <div class="mt-4 space-y-6 text-sm text-gray-800">
+      <p><%= @notification.message %></p>
+    </div>
+  </li>
+<% end %>

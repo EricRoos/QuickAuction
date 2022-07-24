@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'inbox', to: 'inbox#index'
+  get 'inbox/:notification_id', to: 'inbox#show', as: :inbox_message
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :auction_items, except: [:edit ] do
