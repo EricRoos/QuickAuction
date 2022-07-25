@@ -179,6 +179,10 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    flipper (0.25.0)
+    flipper-active_record (0.25.0)
+      activerecord (>= 4.2, < 8)
+      flipper (~> 0.25.0)
     formatador (1.1.0)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
@@ -492,6 +496,8 @@ DEPENDENCIES
   debug
   devise (~> 4.8)
   factory_bot_rails (~> 6.2)
+  flipper (~> 0.25.0)
+  flipper-active_record (~> 0.25.0)
   guard-livereload (~> 2.5)
   guard-rails (~> 0.8.1)
   guard-rspec (~> 4.7)
