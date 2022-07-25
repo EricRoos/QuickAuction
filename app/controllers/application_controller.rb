@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   before_action :authenticate_user!
-  before_action :log_current_user
   before_action :add_initial_breadcrumbs
 
   after_action :verify_authorized, unless: -> { devise_controller? || active_admin_request? }
