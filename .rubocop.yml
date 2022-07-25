@@ -6,6 +6,7 @@ AllCops:
                 - './config/**/*'
                 - './db/**/*'
                 - './app/admin/**/*'
+                - 'vendor/'
                 - 'Guardfile'
 Style/Documentation:
         Enabled: false
