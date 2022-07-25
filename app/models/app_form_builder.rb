@@ -30,27 +30,21 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
       .class
       .validators_on(attr)
       .select { |v| v.is_a?(ActiveRecord::Validations::PresenceValidator) }
-      .select do |v|
-        return true unless v.options[:if].present? || v.options[:unless].present?
-
-        lam = v.options[:if]
-        if lam
-          return @object.send(lam) if lam.is_a?(Symbol)
-
-          return @object.instance_exec(&lam)
-        end
-
-        lam = v.options[:unless]
-        if lam
-          return !@object.send(lam) if lam.is_a?(Symbol)
-
-          return !@object.instance_exec(&lam)
-        end
-
-        return false
-      end
+      .select { |v| attr_required_selector(v) }
       .size
       .positive?
+  end
+
+  def attr_required_selector(val)
+    lam = val.options[:if]
+    return @object.send(lam) if lam.is_a?(Symbol)
+    return @object.instance_exec(&lam) if lam
+
+    lam = val.options[:unless]
+    return !@object.send(lam) if lam.is_a?(Symbol)
+    return !@object.instance_exec(&lam) if lam
+
+    false
   end
 
   def required_flag(attr)

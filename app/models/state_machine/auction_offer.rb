@@ -13,7 +13,9 @@ module StateMachine
       state_machine :state, initial: :sent do
         after_transition do |offer, _transition|
           OfferUpdatedNotification.with(auction_item_id: offer.auction_item_id,
-                                        auction_title: offer.auction_item.title, new_state: offer.state).deliver(offer.user)
+                                        auction_title: offer.auction_item.title,
+                                        new_state: offer.state)
+                                  .deliver(offer.user)
         end
 
         before_transition any => :accepted do |offer, _transition|

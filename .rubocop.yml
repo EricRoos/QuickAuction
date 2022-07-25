@@ -13,3 +13,5 @@ Metrics/BlockLength:
         Exclude:
                 - './spec/**/*'
                 - './app/models/state_machine/**/*'
+Metrics/MethodLength:
+        Max: 15
