@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
+  before_action :check_public_access_enabled, if: -> { devise_controller? }
   before_action :authenticate_user!
   before_action :add_initial_breadcrumbs
 
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def check_public_access_enabled
+    redirect_to root_path unless Flipper.enabled?(:public_access)
+  end
 
   def active_admin_request?
     request.path.starts_with?('/admin')
