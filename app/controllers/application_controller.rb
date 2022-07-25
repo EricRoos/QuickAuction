@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_public_access_enabled
-    redirect_to root_path unless Flipper.enabled?(:public_access)
+    redirect_to root_path unless Rails.env.test? || Flipper.enabled?(:public_access)
   end
 
   def active_admin_request?
