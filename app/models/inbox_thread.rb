@@ -7,13 +7,13 @@ class InboxThread
 
   def self.thread_data(key_name, recipient, additional_scope = {})
     select_sql = 'array_agg(notifications.id), array_agg(params -> :key_name), max(notifications.created_at) as max_date'
-    group_sql = "params #>> '{:key_name}'"
+    group_sql = 'params #>> :key_name'
     base_arel = Notification
                 .select(ActiveRecord::Base.sanitize_sql_array([select_sql, { key_name: key_name }]))
                 .where(recipient: recipient)
                 .where(additional_scope)
                 .order('max_date desc')
-                .group(ActiveRecord::Base.sanitize_sql_array([group_sql, { key_name: key_name }]))
+                .group(ActiveRecord::Base.sanitize_sql_array([group_sql, { key_name: "{#{key_name}}" }]))
                 .arel
     Notification.connection.select_all(base_arel).result.cast_values.map do |data|
       { key_value: data[1].first, notification_ids: data[0], last_activity: data[2] }
