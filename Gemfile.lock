@@ -90,6 +90,9 @@ GEM
       activesupport
       i18n
     builder (3.2.4)
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     capybara (3.37.1)
       addressable
       matrix
@@ -480,6 +483,7 @@ DEPENDENCIES
   activeadmin (~> 2.13)
   bootsnap
   breadcrumbs (~> 0.3.0)
+  bundler-audit (~> 0.9.1)
   capybara
   cucumber-rails (~> 2.5)
   database_cleaner (~> 2.0)
