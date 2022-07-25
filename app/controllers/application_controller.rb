@@ -15,9 +15,10 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "CURRENT USER:\t #{current_user&.id}"
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     auction_items_path
   end
+
   protected
 
   def active_admin_request?

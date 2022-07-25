@@ -108,6 +108,6 @@ gem 'cucumber-rails', '~> 2.5', require: false, groups: %(test)
 
 gem 'database_cleaner', '~> 2.0', groups: %i[test]
 
-gem "bundler-audit", "~> 0.9.1"
+gem 'bundler-audit', '~> 0.9.1'
 
-gem "brakeman", "~> 5.2"
+gem 'brakeman', '~> 5.2'
