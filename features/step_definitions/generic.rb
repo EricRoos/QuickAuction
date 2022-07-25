@@ -100,3 +100,7 @@ When('the user presses {string} within {string}') do |btn_label, aria_label|
     click_on btn_label
   end
 end
+
+When('the user presses {string}') do |btn_label|
+  click_on btn_label
+end
