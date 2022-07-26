@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
   default_form_builder AppFormBuilder
 
   def after_sign_in_path_for(resource)
-    return admin_dashboard_path if resource.is_a?(AdminUser) 
+    return admin_dashboard_path if resource.is_a?(AdminUser)
+
     auction_items_path
   end
 
