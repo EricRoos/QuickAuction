@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  before_action :check_public_access_enabled, if: -> { devise_controller? }
+  before_action :check_public_access_enabled, if: -> { devise_controller? && !active_admin_request? }
   before_action :authenticate_user!, unless: -> { active_admin_request? }
   before_action :add_initial_breadcrumbs
 
