@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :help_articles
   get 'inbox', to: 'inbox#index'
   get 'inbox/:notification_id', to: 'inbox#show', as: :inbox_message
 
