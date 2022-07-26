@@ -10,12 +10,13 @@ ActiveAdmin.register HelpArticle do
   # or
   #
   permit_params do
-    [:title, :content, :content_text]
+    [:title, :content, :content_text, :slug]
   end
 
   form do |f|
     f.inputs 'Help Article' do
       f.input :title
+      f.input :slug
       f.input :content_text, as: :quill_editor
     end
     f.actions

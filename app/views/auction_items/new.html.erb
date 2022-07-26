@@ -9,7 +9,12 @@
       <li class='mb-2'>Accept any new offer to reject the current winner</li>
       <li class='mb-2'>You will only see the currently accepted offer, and the first offer received that has not been responded to</li>
       <li class='mb-2'>When an auction ends, you and the winner will receive game information to finish the trade</li>
-      <li class='mb-2'>All auctions require moderation before becoming searchable/active</li>
+      <li class='mb-2'>
+        All auctions require moderation before becoming searchable/active.
+        <button class='text-blue-500 decoration-dashed underline' data-controller='modal' data-action='modal#open' data-modal-content-source-param='<%= help_article_path(id: 'why-we-moderate') %>'>
+          ? *
+        </button>
+      </li>
       <li class='mb-2'>Upload an image of the in game item you wish to trade</li>
       <li class='mb-2 font-bold text-red-500'>NO REAL WORLD ITEMS CAN BE TRADED</li>
       <li class='mb-2 font-bold text-green-500'>Be kind and hae fun</li>
