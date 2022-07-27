@@ -1,4 +1,8 @@
+echo "Starting RSpec"
 ./bin/bundle exec rspec
+echo "Starting Cucumber"
 ./bin/bundle exec cucumber
-./bin/brakeman
+echo "Starting Brakeman"
+./bin/brakeman --color -o /dev/stdout
+echo "Starting Rubocop"
 ./bin/rubocop
