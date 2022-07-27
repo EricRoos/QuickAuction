@@ -16,7 +16,7 @@ class InboxController < ApplicationController
   def show
     return if fragment_exist?(cache_key)
 
-    @notification = Notification.find(params[:notification_id])
+    @notification = current_user.notifications.find(params[:notification_id])
   end
 
   private

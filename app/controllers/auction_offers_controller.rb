@@ -82,7 +82,8 @@ class AuctionOffersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_auction_offer
-    @auction_offer = AuctionOffer.find(params[:id])
+    @auction_offer ||= @auction_item.auction_offers.find(params[:id]) if @auction_item.present?
+    @auction_offer ||= AuctionOffer.find(params[:id])
     authorize @auction_offer
   end
 
