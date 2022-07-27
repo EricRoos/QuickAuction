@@ -116,3 +116,5 @@ gem 'flipper', '~> 0.25.0'
 gem 'flipper-active_record', '~> 0.25.0'
 
 gem 'activeadmin_quill_editor', '~> 1.0'
+
+gem 'rack-throttle', '~> 0.7.0'
