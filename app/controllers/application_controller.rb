@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
     auction_items_path
   end
 
+  def root_path
+    return super unless current_user.present?
+
+    auction_items_path
+  end
+  helper_method :root_path
+
   protected
 
   def check_public_access_enabled

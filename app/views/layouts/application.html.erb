@@ -20,18 +20,21 @@
     <div class='container mx-auto'>
     <nav class="border-gray-200 dark:bg-slate-800">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
-        <a href="https://flowbite.com" class="flex items-center">
+        <a href="<%= root_path %>" class="flex items-center">
           <span class='text-white'>
             <%= image_tag 'hammer.svg', class: "mr-3 h-6 sm:h-9" %>
           </span>
           <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Insta Auction</span>
         </a>
         <div class="flex gap-3 items-center">
+          <a href='/inbox' class='p-1'>
+            <%= heroicon 'bell', options: { class: 'h-4 w-4'  } %>
+          </a>
           <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
             <%= heroicon 'moon', options: { class: 'h-4 w-4'  } %>
           </button>
           <% if !current_user.present? %>
-            <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+            <a href="/users/sign_in" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
           <% end %>
           <% if current_user.present? %>
             <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline", data: { turbo: false } %>
@@ -44,7 +47,7 @@
         <div class="flex items-center">
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li>
-              <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+              <a href="<%= root_path %>" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
             </li>
             <li>
               <a href="#" class="text-gray-900 dark:text-white hover:underline">Support</a>
