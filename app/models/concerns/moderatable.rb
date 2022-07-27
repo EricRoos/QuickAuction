@@ -8,6 +8,14 @@ module Moderatable
     has_one :moderation_item, as: :moderatable
   end
 
+  class_methods do
+    def after_moderation(method)
+      define_method(:perform_after_moderation) do
+        send(method)
+      end
+    end
+  end
+
   protected
 
   def create_moderation_item

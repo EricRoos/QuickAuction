@@ -13,6 +13,8 @@ class AuctionItem < ApplicationRecord
 
   scope :not_expired, -> { where('expires_on >= ?', Time.now) }
 
+  after_moderation :after_moderation_work
+
   def offer_count
     attributes['offer_count'] || auction_offers.count
   end
@@ -48,5 +50,13 @@ class AuctionItem < ApplicationRecord
 
     self.expires_on = Time.now + 15.minutes
     save
+  end
+
+  def after_moderation_work
+    bump_expires_at
+  end
+
+  def bump_expires_at
+    update(expires_on: 30.minutes.from_now)
   end
 end
