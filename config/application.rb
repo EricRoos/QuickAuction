@@ -11,7 +11,7 @@ class Rack::Throttle::RequestMethod < Rack::Throttle::Second
   def max_per_second(request = nil)
     return (options[:max_per_second] || options[:max] || 1) unless request
     if request.request_method == "POST"
-      1
+      4
     else
       100
     end

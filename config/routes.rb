@@ -1,4 +1,13 @@
+class CanAccessFlipperUI
+  def self.matches?(request)
+    current_user = request.env['warden'].user
+    current_user.is_a?(AdminUser)
+  end
+end
 Rails.application.routes.draw do
+  constraints CanAccessFlipperUI do
+    mount Flipper::UI.app(Flipper) => '/flipper'
+  end
   resources :interested_people
   resources :help_articles
 
