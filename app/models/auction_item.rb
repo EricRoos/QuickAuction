@@ -54,6 +54,7 @@ class AuctionItem < ApplicationRecord
 
   def after_moderation_work
     bump_expires_at
+    AuctionApprovedNotification.new(auction_item_id: id, auction_title: title).deliver_later(user)
   end
 
   def bump_expires_at
