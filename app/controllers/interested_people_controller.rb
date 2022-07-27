@@ -7,12 +7,9 @@ class InterestedPeopleController < ApplicationController
 
   def create
     @interested_person = InterestedPerson.new(interested_person_params)
-    if @interested_person.save
-      session[:subscribed_to_email] = true
-      redirect_to root_path, notice: 'Thanks for subscribing'
-    else
-      redirect_to root_path, alert: 'Something went wrong'
-    end
+    @interested_person.save
+    session[:subscribed_to_email] = true
+    redirect_to root_path, notice: 'Thanks for subscribing'
   end
 
   protected
