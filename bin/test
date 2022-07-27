@@ -1,3 +1,4 @@
 ./bin/bundle exec rspec
 ./bin/bundle exec cucumber
 ./bin/brakeman
+./bin/rubocop
