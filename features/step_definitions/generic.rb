@@ -65,6 +65,12 @@ When('the user fills in {string} with {string}') do |field, value|
   fill_in field, with: value
 end
 
+When('the user fills in {string} with {string} within {string}') do |field, value, aria_label|
+  within_aria_label(aria_label) do
+    fill_in field, with: value
+  end
+end
+
 When('the user clicks on {string}') do |string|
   click_on string
 end

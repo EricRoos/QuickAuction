@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :interested_people
   resources :help_articles
 
   resource 'help_articles', only: %i[show]
