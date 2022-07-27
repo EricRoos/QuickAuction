@@ -429,6 +429,8 @@ GEM
       nokogiri (>= 1.12.0)
     sassc (2.4.0)
       ffi (~> 1.9)
+    scout_apm (5.2.0)
+      parser
     selenium-webdriver (4.3.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -534,6 +536,7 @@ DEPENDENCIES
   rspec-rails (~> 5.1)
   rubocop (~> 1.31)
   sassc (~> 2.4)
+  scout_apm
   selenium-webdriver
   simplecov (~> 0.21.2)
   sprockets-rails
