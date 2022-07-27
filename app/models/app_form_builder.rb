@@ -11,6 +11,14 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
     super(attr, merge_options_and_class(text_field_classes, options.merge({ required: attr_required?(attr) })))
   end
 
+  def email_field(attr, options = {})
+    super(attr, merge_options_and_class(text_field_classes, options.merge({ required: attr_required?(attr) })))
+  end
+
+  def password_field(attr, options = {})
+    super(attr, merge_options_and_class(text_field_classes, options.merge({ required: attr_required?(attr) })))
+  end
+
   def text_area(attr, options = {})
     super(attr, merge_options_and_class(text_area_classes, options.merge({ required: attr_required?(attr) })))
   end
