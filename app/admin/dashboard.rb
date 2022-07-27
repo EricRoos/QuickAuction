@@ -3,13 +3,6 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
-    div class: "blank_slate_container", id: "dashboard_default_message" do
-      span class: "blank_slate" do
-        span I18n.t("active_admin.dashboard_welcome.welcome")
-        small I18n.t("active_admin.dashboard_welcome.call_to_action")
-      end
-    end
-
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do
@@ -22,12 +15,20 @@ ActiveAdmin.register_page "Dashboard" do
     #       end
     #     end
     #   end
-
-    #   column do
-    #     panel "Info" do
-    #       para "Welcome to ActiveAdmin."
-    #     end
-    #   end
-    # end
-  end # content
+    columns do
+      column do
+        panel "Users created today" do
+          User.where("created_at >= ? ", Date.today).count
+        end
+      end
+      column do
+        panel "Quick Links" do
+          ul do
+            li link_to('Manage feature flags', '/flipper')
+            li link_to('Moderation Queue', admin_moderation_items_path('q[state_equals]': 'waiting_for_review'))
+          end
+        end
+      end
+    end
+  end
 end
