@@ -7,21 +7,17 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-class Rack::Throttle::RequestMethod < Rack::Throttle::Second
-  def max_per_second(request = nil)
-    return (options[:max_per_second] || options[:max] || 1) unless request
-    if request.request_method == "POST"
-      4
-    else
-      100
-    end
-  end
-  alias_method :max_per_window, :max_per_second
-end
-
 module InstaAuction
   class Application < Rails::Application
-    config.middleware.use Rack::Throttle::RequestMethod unless Rails.env.test?
+    unless Rails.env.test?
+      rules = [
+        { method: "POST", path: "/interested_people", limit: 3, time_window: :hour },
+      ]
+      ip_whitelist = []
+      default = 10
+      config.middleware.use Rack::Throttle::Rules, rules: rules, ip_whitelist: ip_whitelist, default: default
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
