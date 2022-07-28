@@ -24,7 +24,7 @@ class ItemSearch
     base = AuctionItem.left_outer_joins(:auction_offers)
                       .select('auction_items.*, count(auction_offers.id) as offer_count')
 
-    return base unless ActiveRecord::Type::Boolean.new.cast(my_listings)
+    return base if ActiveRecord::Type::Boolean.new.cast(my_listings)
 
     join_sql = <<-SQL
       inner join moderation_items on moderation_items.moderatable_id = auction_items.id

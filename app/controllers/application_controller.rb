@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   default_form_builder AppFormBuilder
 
-  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_401
+  rescue_from Pundit::NotAuthorizedError, with: :render_not_authorized
 
   def after_sign_in_path_for(resource)
     return admin_dashboard_path if resource.is_a?(AdminUser)
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def redirect_to_401
+  def render_not_authorized
     redirect_to '/401' and return
   end
 
