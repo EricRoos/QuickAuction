@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
 
   match "/401", to: "errors#not_authorized", via: :all
+  match "/404", to: "errors#not_found", via: :all
   get '/service-worker.js', to: 'service_worker#show'
   get '/:landing_page_id', to: 'landing_page#show'
 
