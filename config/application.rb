@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 
 module InstaAuction
   class Application < Rails::Application
+    config.exceptions_app = self.routes
     unless Rails.env.test?
       rules = [
         { method: "POST", path: "/interested_people", limit: 3, time_window: :hour },

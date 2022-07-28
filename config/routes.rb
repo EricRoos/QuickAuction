@@ -5,6 +5,8 @@ class CanAccessFlipperUI
   end
 end
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/not_authorized'
   constraints CanAccessFlipperUI do
     mount Flipper::UI.app(Flipper) => '/flipper'
   end
@@ -25,7 +27,11 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
+
+  match "/401", to: "errors#not_authorized", via: :all
   get '/service-worker.js', to: 'service_worker#show'
   get '/:landing_page_id', to: 'landing_page#show'
+
+
   root 'landing_page#show'
 end

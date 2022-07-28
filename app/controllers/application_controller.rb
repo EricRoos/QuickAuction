@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
 
   default_form_builder AppFormBuilder
 
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_401
+
   def after_sign_in_path_for(resource)
     return admin_dashboard_path if resource.is_a?(AdminUser)
 
@@ -25,6 +27,10 @@ class ApplicationController < ActionController::Base
   helper_method :root_path
 
   protected
+
+  def redirect_to_401
+    redirect_to '/401' and return
+  end
 
   def check_public_access_enabled
     redirect_to root_path unless Rails.env.test? || Flipper.enabled?(:public_access)
