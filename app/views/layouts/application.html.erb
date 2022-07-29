@@ -21,17 +21,19 @@
     <nav class="border-gray-200 dark:bg-slate-800">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
         <a href="<%= root_path %>" class="flex items-center">
-          <span class='text-white'>
-            <%= image_tag 'hammer.svg', class: "mr-3 h-6 sm:h-9" %>
+          <span class='dark:hidden'>
+            <%= image_tag('brand-black.png', class: 'h-6 md:h-9 lg:h-12') %> 
           </span>
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Insta Auction</span>
+          <span class='hidden dark:inline'>
+            <%= image_tag('brand-yellow.png', class: 'h-6 md:h-9 lg:h-12') %> 
+          </span>
         </a>
         <div class="flex gap-3 items-center">
           <a href='/inbox' class='p-1'>
-            <%= heroicon 'bell', options: { class: 'h-4 w-4'  } %>
+            <%= heroicon 'bell', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </a>
           <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
-            <%= heroicon 'moon', options: { class: 'h-4 w-4'  } %>
+            <%= heroicon 'moon', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </button>
           <% if !current_user.present? %>
             <a href="/users/sign_in" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
