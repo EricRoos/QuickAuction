@@ -10,8 +10,8 @@ class InterestedPerson < ApplicationRecord
 
   def send_welcome_email
     ZeptoTemplateMailer.send(
-      ENV['ZEPTO_WELCOME_MAILER_KEY'],
+      ENV.fetch('ZEPTO_WELCOME_MAILER_KEY', nil),
       email
-    )
+    ).is_a?(Net::HTTPCreated)
   end
 end
