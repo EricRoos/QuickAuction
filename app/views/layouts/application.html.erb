@@ -18,7 +18,7 @@
   </head>
   <body class='bg-gray-light dark:bg-black'>
     <div class='container mx-auto'>
-    <nav class="border-gray-light dark:bg-slate-800">
+    <nav class="">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
         <a href="<%= root_path %>" class="flex items-center">
           <span class='dark:hidden'>
@@ -32,7 +32,7 @@
           <a href='/inbox' class='p-1'>
             <%= heroicon 'bell', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </a>
-          <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
+          <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-gray-dark hover:bg-gray-dark hover:text-white'>
             <%= heroicon 'moon', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </button>
           <% if !current_user.present? %>
