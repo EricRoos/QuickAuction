@@ -1,1 +1,2 @@
-<%= render partial: 'home' %>
+<%= render partial: 'tos' if params[:landing_page_id] == 'tos' %>
+<%= render partial: 'home' if params[:landing_page_id].nil? %>

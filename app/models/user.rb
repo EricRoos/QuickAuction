@@ -9,4 +9,12 @@ class User < ApplicationRecord
   has_many :auction_items
 
   has_many :notifications, as: :recipient
+
+  after_create :agree_to_tos
+
+  protected
+
+  def agree_to_tos
+    FinePrint.sign_contract(self, 'terms-of-use')
+  end
 end
