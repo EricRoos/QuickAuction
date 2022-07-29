@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   constraints CanAccessFlipperUI do
     mount Flipper::UI.app(Flipper) => '/flipper'
   end
+  mount FinePrint::Engine => "/fine_print"
+
   resources :interested_people
   resources :help_articles
 

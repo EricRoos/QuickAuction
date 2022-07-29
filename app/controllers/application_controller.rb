@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     auction_items_path
   end
 
+  def current_user
+    user = current_admin_user || super
+    Rails.logger.info(user) if user
+    user
+  end
+
   def root_path
     return super unless current_user.present?
 

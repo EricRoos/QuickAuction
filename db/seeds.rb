@@ -13,17 +13,17 @@ end
 
 require 'csv'
 
-CSV.foreach('db/items.csv') do |row|
-  item_name = row[0]
-
-  num_items = rand(0...3)
-  num_items.times do
-    num_offers = rand(0...6)
-    puts "Seeding auctions for '#{item_name}' with '#{num_offers}' offers"
-    item = FactoryBot.create(:auction_item, title: item_name)
-    num_offers.times do
-      FactoryBot.create(:auction_offer, auction_item: item)
-    end
-  end
-end
+# CSV.foreach('db/items.csv') do |row|
+#   item_name = row[0]
+# 
+#   num_items = rand(0...3)
+#   num_items.times do
+#     num_offers = rand(0...6)
+#     puts "Seeding auctions for '#{item_name}' with '#{num_offers}' offers"
+#     item = FactoryBot.create(:auction_item, title: item_name)
+#     num_offers.times do
+#       FactoryBot.create(:auction_offer, auction_item: item)
+#     end
+#   end
+# end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
