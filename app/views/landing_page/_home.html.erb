@@ -10,12 +10,12 @@
               <p class="mt-6 text-xl text-gray-500">Instead of trashing your "worthless" stuff. Try to trade it for <em>SOMETHING</em>. Your trash is someone else's treasure.</p>
             </div>
             <% unless session[:subscribed_to_email].present? %>
-              <%= form_with(model: InterestedPerson.new, class: "mt-12 sm:max-w-lg sm:w-full flex items-center") do |form| %>
-                <div class="min-w-0 flex-1">
+              <%= form_with(builder: ActionView::Helpers::FormBuilder, model: InterestedPerson.new, class: "mt-12 sm:max-w-lg sm:w-full flex justify-center items-center gap-2") do |form| %>
+                <div class="flex-grow">
                   <%= form.label :email, class: "sr-only" %>
                   <%= form.email_field :email, class: "block w-full border border-gray-300 rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-yellow-500 focus:ring-yellow-500", placeholder: "Enter your email" %>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-3">
+                <div class="">
                   <%= form.submit 'Notify me', class:"block w-full rounded-md border border-transparent px-5 py-3 bg-yellow-500 text-base font-medium text-white shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 sm:px-10" %>
                 </div>
               <% end %>
@@ -37,7 +37,7 @@
               <rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
             </svg>
           </div>
-          <div class="relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:max-w-none lg:h-full lg:pl-12">
+          <div class="relative sm:mx-auto sm:max-w-3xl sm:px-0 lg:max-w-none lg:h-full lg:pl-12">
             <img class="w-full rounded-md shadow-xl lg:h-full lg:w-auto lg:max-w-none" src="<%= image_path('app_screenshot.PNG') %>" alt="">
           </div>
         </div>
@@ -122,12 +122,12 @@
                   Stay up to date with our development process. We'll let you know as we get closer to launch!
                 </p>
               </div>
-              <%= form_with(model: InterestedPerson.new, class: "mt-12 sm:mx-auto sm:max-w-lg flex items-center") do |form| %>
-                <div class="min-w-0 flex-1">
+              <%= form_with(builder: ActionView::Helpers::FormBuilder, model: InterestedPerson.new, class: "mt-12 sm:mx-auto sm:max-w-lg flex items-center gap-4") do |form| %>
+                <div class="flex-grow flex-1">
                   <%= form.label :email, class: "sr-only" %>
-                  <%= form.email_field :email, class: "block w-full border border-gray-300 rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-yellow-500 focus:ring-yellow-500", placeholder: "Enter your email" %>
+                  <%= form.email_field :email, class: "", placeholder: "Enter your email" %>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-3">
+                <div class="">
                   <%= form.submit 'Notify me', class: "block w-full rounded-md border border-transparent px-5 py-3 bg-gray-900 text-base font-medium text-white shadow hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-yellow-500 sm:px-10" %>
                 </div>
               <% end %>
