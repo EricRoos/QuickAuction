@@ -66,7 +66,9 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def base_input_class
+    # rubocop:disable Layout/LineLength
     "block shadow rounded-md dark:bg-gray-light border border-gray-light outline-none px-3 py-2 w-full focus:ring-accent-dark focus:border-0 #{text_color_classes}"
+    # rubocop:enable Layout/LineLength
   end
 
   def text_area_classes
