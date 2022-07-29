@@ -1,10 +1,9 @@
-<%= form_with(model: @model, url: auction_items_path, method: :get) do |form| %>
+<%= form_with(builder: AppFormBuilder, model: @model, url: auction_items_path, method: :get) do |form| %>
   <div class='flex gap-4'>
     <%= form.text_field :query, placeholder: "Search Query", class: 'w-full' %>
-    <%= form.submit value: :Search %>
+    <%= form.submit :Search, class: 'bg-transparent border-accent-dark border-solid border-2 text-accent-dark dark:text-gray-light' %>
   </div>
-  <hr class='my-4' />
-  <div class='flex gap-8'>
+  <div class='flex gap-8 mt-5'>
     <div class='flex gap-2 items-center'>
       <%= form.check_box :has_no_offers %>
       <%= form.label :has_no_offers %>

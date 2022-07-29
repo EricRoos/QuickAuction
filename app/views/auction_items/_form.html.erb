@@ -1,6 +1,6 @@
 <%= form_with(model: auction_item, class: "contents") do |form| %>
   <% if auction_item.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-light px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(auction_item.errors.count, "error") %> prohibited this auction_item from being saved:</h2>
 
       <ul>

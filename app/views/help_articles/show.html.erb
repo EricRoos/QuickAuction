@@ -1,14 +1,14 @@
 <%= turbo_frame_tag request.headers['Turbo-Frame'] do %>
   <% cache(cache_key, skip_digest: true) do %>
     <div>
-      <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full text-blue-700">
+      <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full text-accent-primary">
         <!-- Heroicon name: outline/check -->
         <%= heroicon 'information-circle' %>
       </div>
       <div class="mt-3 text-center sm:mt-5">
-        <h3 class="font-semibold mt-4 text-lg leading-6 font-medium text-gray-900" id="modal-title"><%= @help_article.title %></h3>
+        <h3 class="font-semibold mt-4 text-lg leading-6 font-medium text-gray-dark" id="modal-title"><%= @help_article.title %></h3>
         <div class="mt-2">
-          <p class="text-sm text-gray-500"><%= @help_article.content %></p>
+          <p class="text-sm text-gray-light"><%= @help_article.content %></p>
         </div>
       </div>
     </div>

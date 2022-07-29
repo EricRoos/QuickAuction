@@ -1,7 +1,7 @@
 <div class='mx-auto bg-gray-50 py-8 px-10 rounded-xl'>
   <div class='mb-8'>
-    <div class="pb-5 border-b border-gray-200">
-      <h3 class="text-2xl leading-6 font-bold text-gray-900">Welcome back</h3>
+    <div class="pb-5 border-b border-gray-light">
+      <h3 class="text-2xl leading-6 font-bold text-gray-dark">Welcome back</h3>
     </div>
   </div>
 
@@ -21,10 +21,10 @@
         <% if devise_mapping.rememberable? %>
           <div class="relative flex items-start gap-4 items-center">
             <div class="flex items-center">
-              <%= f.check_box :remember_me, class: "focus:ring-indigo-500 h-4 w-4 text-blue-600 border-gray-300 rounded" %>
+              <%= f.check_box :remember_me, class: "focus:ring-indigo-500 h-4 w-4 text-accent-primary border-gray-light rounded" %>
             </div>
             <div class="">
-              <%= f.label :remember_me, class: "font-medium text-gray-700" %>
+              <%= f.label :remember_me, class: "font-medium text-gray-dark" %>
             </div>
           </div>
         <% end %>
