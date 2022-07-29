@@ -30,16 +30,17 @@
             <%= f.label :password_confirmation %>
             <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
           </div>
-
-          <div class="w-full">
-            <div class="relative flex items-start gap-4 items-center">
-              <div class="">
-                <label for='tos_agree' class = "font-medium text-gray-700 font-bold">
-                  By clicking Sign Up, I agree to the <a class='text-blue-500 underline' href='/tos', target='top'>Terms of Service</a>
-                </label>
+          <% if Flipper.enabled?(:write_to_fine_print) %>
+            <div class="w-full">
+              <div class="relative flex items-start gap-4 items-center">
+                <div class="">
+                  <label for='tos_agree' class = "font-medium text-gray-700 font-bold">
+                    By clicking Sign Up, I agree to the <a class='text-blue-500 underline' href='/tos', target='top'>Terms of Service</a>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
 
         <div class="actions mt-8">
