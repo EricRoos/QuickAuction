@@ -2,7 +2,7 @@
 
 class AppFormBuilder < ActionView::Helpers::FormBuilder
   def label(attr, options = {})
-    content_tag(:span, class: 'flex gap dark:text-gray-500 font-medium') do
+    content_tag(:span, class: 'flex gap dark:text-gray-light font-medium') do
       super + required_flag(attr)
     end
   end
@@ -65,16 +65,22 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
     'text-dark'
   end
 
+  def base_input_class
+    # rubocop:disable Layout/LineLength
+    "block shadow rounded-md dark:bg-gray-light border border-gray-light outline-none px-3 py-2 w-full focus:ring-accent-dark focus:border-0 #{text_color_classes}"
+    # rubocop:enable Layout/LineLength
+  end
+
   def text_area_classes
-    "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full #{text_color_classes}"
+    base_input_class
   end
 
   def text_field_classes
-    "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full #{text_color_classes}"
+    base_input_class
   end
 
   def submit_classes
-    'rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer'
+    'rounded-lg py-3 px-5 bg-accent-primary text-white inline-block font-medium cursor-pointer hover:shadow'
   end
 
   def merge_options_and_class(default_classes, options)

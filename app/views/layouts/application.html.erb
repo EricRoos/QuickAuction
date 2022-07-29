@@ -16,9 +16,9 @@
 
     <%= javascript_importmap_tags %>
   </head>
-  <body class='bg-gray-100 dark:bg-slate-800'>
+  <body class='bg-gray-light dark:bg-black'>
     <div class='container mx-auto'>
-    <nav class="border-gray-200 dark:bg-slate-800">
+    <nav class="">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
         <a href="<%= root_path %>" class="flex items-center">
           <span class='dark:hidden'>
@@ -32,27 +32,27 @@
           <a href='/inbox' class='p-1'>
             <%= heroicon 'bell', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </a>
-          <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-slate-800 hover:bg-slate-800 hover:text-white'>
+          <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-gray-dark hover:bg-gray-dark hover:text-white'>
             <%= heroicon 'moon', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </button>
           <% if !current_user.present? %>
-            <a href="/users/sign_in" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+            <a href="/users/sign_in" class="text-sm font-medium text-accent-primary dark:text-accent-primary hover:underline">Login</a>
           <% end %>
           <% if current_user.present? %>
-            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline", data: { turbo: false } %>
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "text-sm font-medium text-accent-primary dark:text-accent-primary hover:underline", data: { turbo: false } %>
           <% end %>
         </div>
       </div>
     </nav>
-    <nav class="bg-white dark:bg-slate-700">
+    <nav class="bg-white dark:bg-gray-dark">
       <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
         <div class="flex items-center">
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li>
-              <a href="<%= root_path %>" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+              <a href="<%= root_path %>" class="text-gray-dark dark:text-white hover:underline" aria-current="page">Home</a>
             </li>
             <li>
-              <a href="#" class="text-gray-900 dark:text-white hover:underline">Support</a>
+              <a href="#" class="text-gray-dark dark:text-white hover:underline">Support</a>
             </li>
           </ul>
         </div>
@@ -62,7 +62,7 @@
     <main class="container mx-auto mt-8 px-5">
       <% if notice.present? %>
         <div class='grid grid-col w-full'>
-          <div class="w-full py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg" id="notice">
+          <div class="w-full py-2 px-3 bg-green-50 mb-5 text-green-light font-medium rounded-lg" id="notice">
             <div class='flex gap-4 items-center'>
               <div><%= heroicon 'check', options: { class: 'h-4 w-4'} %></div>
               <div><%= notice %></div>
@@ -72,7 +72,7 @@
       <% end %>
       <% if alert.present? %>
         <div>
-          <p class="w-full py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
+          <p class="w-full py-2 px-3 bg-red-50 mb-5 text-red-light font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
         </div>
       <% end %>
       <% if current_user %>
@@ -80,11 +80,11 @@
           <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <% breadcrumbs.items.each do |breadcrumb| %>
               <li class="inline-flex items-center">
-                <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                <a href="/" class="inline-flex items-center text-sm font-medium text-gray-dark hover:text-gray-dark dark:text-gray-light dark:hover:text-white">
                   <% if breadcrumb[1] == "/" %>
                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                   <% else %>
-                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <svg class="w-6 h-6 text-gray-light" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
                   <% end %>
                   <%= breadcrumb[0] %>
                 </a>
@@ -107,7 +107,7 @@
           From: "opacity-100"
           To: "opacity-0"
       -->
-      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+      <div class="fixed inset-0 bg-gray-light bg-opacity-75 transition-opacity"></div>
 
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
@@ -124,18 +124,18 @@
           <div class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 max-w-sm md:max-w-[50%] w-full sm:p-6">
             <%= turbo_frame_tag 'modal_content' do %>
               <div>
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full text-blue-700">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full text-accent-primary">
                   <!-- Heroicon name: outline/check -->
                   <%= heroicon 'information-circle' %>
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="font-semibold mt-4 text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                  <h3 class="font-semibold mt-4 text-lg leading-6 font-medium text-gray-dark" id="modal-title">
                     <div class='w-3/4 mx-auto'>
                       <%= render LoadingLineComponent.new %>
                     </div>
                   </h3>
                   <div class="mt-2">
-                    <p class="text-sm text-gray-500">
+                    <p class="text-sm text-gray-light">
                       <%= render LoadingLineComponent.new %>
                       <%= render LoadingLineComponent.new %>
                       <%= render LoadingLineComponent.new %>

@@ -17,8 +17,8 @@ module AuctionItemsHelper
   def item_to_table_data(item)
     {
       elements: [
-        item.title.to_s,
-        item.description.to_s,
+        item.title,
+        item.description,
         item.offer_count,
         link_to('Show', url_for(item))
       ],

@@ -1,6 +1,6 @@
 <div class="overflow-x-auto relative">
-  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+  <table class="w-full text-sm text-left text-gray-light dark:text-gray-light">
+    <thead class="text-xs text-gray-dark uppercase bg-gray-50 dark:bg-gray-dark dark:text-gray-light">
       <tr>
         <% @headers.each do |header| %>
           <th scope="col" class="py-3 px-6">
@@ -11,14 +11,14 @@
     </thead>
     <tbody>
       <% @data.each do |item| %>
-        <tr class="decoration-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 <%= item[:options][:disabled] ? 'line-through' :'' %>">
+        <tr class="decoration-2 bg-white border-b dark:bg-gray-dark dark:border-gray-dark <%= item[:options][:disabled] ? 'line-through' :'' %>">
           <% item[:elements].each_with_index do |attr, index| %>
             <% if index == 0 %>
-              <th scope="row" class="<%= y_padding_class %> px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <th scope="row" class="<%= y_padding_class %> px-6 font-medium text-black whitespace-nowrap dark:text-white">
                 <%= attr %>
               </th>
             <% else %>
-              <td class="<%= y_padding_class %> px-6">
+              <td class="<%= y_padding_class %> px-6 text-gray-light ">
                 <%= attr %>
               </td>
             <% end %>

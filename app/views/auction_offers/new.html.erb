@@ -5,8 +5,8 @@
     <% else %>
       <%= turbo_frame_tag 'offer_form' do %>
         <div class='flex items-center flex-col gap-4 my-4'>
-          <div class='text-lg text-gray-500'>You have not submitted an offer for this item yet</div>
-          <%= link_to 'Submit your offer', new_auction_item_auction_offer_path(@auction_item), method: :get, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+          <div class='text-lg text-gray-light'>You have not submitted an offer for this item yet</div>
+          <%= link_to 'Submit your offer', new_auction_item_auction_offer_path(@auction_item), method: :get, class: "rounded-lg py-3 px-5 bg-accent-primary text-white block font-medium" %>
         </div>
       <% end %>
     <% end %>

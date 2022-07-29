@@ -17,6 +17,39 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
     },
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      'white': '#ffffff',
+      accent: {
+        primary: '#42765E',
+        dark: '#42765E',
+      },
+      black: '#1b1d1f',
+      brand: {
+        primary: '#EEB53B',
+        dark: '#42765E',
+      },
+      gray: {
+        dark: '#4C4C4C',
+        light: '#f3f4f6'
+      },
+      yellow: {
+        100: '#FEF9C3',
+        200: '#FEF08A',
+        400: '#FACC15',
+        500: '#EAB308'
+      },
+      red: {
+        default: '#f87171',
+        light: '#F87171',
+        dark: '#DC2626'
+      },
+      green: {
+        dark: '#15803D',
+        light: '#4ADE80' 
+      }
+    }
   },
   plugins: [
     require('@tailwindcss/forms'),
