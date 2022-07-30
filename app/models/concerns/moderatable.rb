@@ -19,6 +19,8 @@ module Moderatable
   protected
 
   def create_moderation_item
-    ModerationItem.create(moderatable: self)
+    ModerationItem.create(moderatable: self).tap do |moderation_item|
+      moderation_item.approve if Flipper.enabled?(:auto_approve_moderations)
+    end
   end
 end
