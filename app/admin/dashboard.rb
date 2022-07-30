@@ -25,6 +25,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Quick Links" do
           ul do
             li link_to('Manage feature flags', '/flipper')
+            li link_to('Manage contracts', '/fine_print')
             li link_to('Moderation Queue', admin_moderation_items_path('q[state_equals]': 'waiting_for_review'))
           end
         end
