@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    user = current_admin_user || super
-    Rails.logger.info(user) if user
-    user
+    return current_admin_user if active_admin_request? || flipper_request? || fine_print_request?
+
+    super
   end
 
   def root_path
@@ -44,6 +44,14 @@ class ApplicationController < ActionController::Base
 
   def active_admin_request?
     request.path.starts_with?('/admin')
+  end
+
+  def flipper_request?
+    request.path.starts_with?('/flipper')
+  end
+
+  def fine_print_request?
+    request.path.starts_with?('/fine_print')
   end
 
   def add_initial_breadcrumbs
