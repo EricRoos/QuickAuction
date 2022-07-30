@@ -125,3 +125,5 @@ gem 'rack-throttle', '~> 0.7.0'
 gem 'flipper-ui', '~> 0.25.0'
 
 gem 'fine_print', '~> 6.0'
+
+gem 'aws-sdk-s3', '~> 1.114'
