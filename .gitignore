@@ -35,3 +35,5 @@
 !/app/assets/builds/.keep
 
 *.swp
+
+/config/credentials/production.key
