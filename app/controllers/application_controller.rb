@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
+  before_action :verify_origin_server
+
   before_action :check_public_access_enabled, if: -> { devise_controller? && !active_admin_request? }
   before_action :authenticate_user!, unless: -> { active_admin_request? }
   before_action :add_initial_breadcrumbs
@@ -56,5 +58,12 @@ class ApplicationController < ActionController::Base
 
   def add_initial_breadcrumbs
     breadcrumbs.add 'Home', root_path
+  end
+
+  def verify_origin_server
+    return unless ENV['INTERNAL_CF_KEY_INSTAAUCTION'].present?
+    return if ENV['INTERNAL_CF_KEY_INSTAAUCTION'] == request.headers['INTERNAL_CF_KEY_INSTAAUCTION']
+
+    head(:no_content)
   end
 end
