@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 
   def verify_origin_server
     Rails.logger.info("#{ENV.fetch('INTERNAL_CF_KEY_INSTAAUCTION',
-                                   nil)} == #{request.headers['INTERNAL_CF_KEY_INSTAAUCTION']} (#{request.headers})}")
+                                   nil)} == #{request.headers['HTTP_INTERNAL_CF_KEY_INSTAAUCTION']}")
     return unless ENV['INTERNAL_CF_KEY_INSTAAUCTION'].present?
     return if ENV['INTERNAL_CF_KEY_INSTAAUCTION'] == request.headers['INTERNAL_CF_KEY_INSTAAUCTION']
 
