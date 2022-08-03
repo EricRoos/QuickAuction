@@ -9,7 +9,7 @@ class InterestedPeopleController < ApplicationController
     @interested_person = InterestedPerson.new(interested_person_params)
     @interested_person.save
     session[:subscribed_to_email] = true
-    redirect_to root_path, notice: 'Thanks for subscribing'
+    redirect_to root_path(subscribed: '1'), notice: 'Thanks for subscribing'
   end
 
   protected
