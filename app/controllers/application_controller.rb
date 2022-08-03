@@ -27,10 +27,10 @@ class ApplicationController < ActionController::Base
     super
   end
 
-  def root_path
+  def root_path(opts = {})
     return super unless current_user.present?
 
-    auction_items_path
+    auction_items_path(opts)
   end
   helper_method :root_path
 
