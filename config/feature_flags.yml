@@ -1,0 +1,12 @@
+default: &default
+  public_access: false
+  zepto_mail: false
+  auto_approve_moderations: false
+
+development:
+  <<: *default
+  public_access: true
+  auto_approve_moderations: true
+
+production:
+  <<: *default
