@@ -6,6 +6,12 @@
         <div>
           <div class="mt-20">
             <div class="mt-6 sm:max-w-xl">
+              <% cache('latest-blog-post-pill', expires_in: 30.minutes) do %>
+                <% blog = Blog.last %>
+                <% if blog %>
+                  <%= link_to "See our latest blog post", blog_path(slug: Blog.last.id), class: 'bg-accent-primary rounded px-3 py text-sm inline-block text-white shadow mb-4' %>
+                <% end %>
+              <% end %>
               <h1 class="text-4xl font-extrabold text-gray-dark tracking-tight sm:text-5xl">Quick auctions for gamers who hate to throw things out</h1>
               <p class="mt-6 text-xl text-gray-dark">Instead of trashing your "worthless" stuff. Try to trade it for <em>SOMETHING</em>. Your trash is someone else's treasure.</p>
             </div>

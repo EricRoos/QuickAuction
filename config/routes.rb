@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resource 'help_articles', only: %i[show]
 
-  get 'blog/:slug', to: 'blog#show'
+  get 'blog/:slug', to: 'blog#show', as: :blog
   get 'inbox', to: 'inbox#index'
   get 'inbox/:notification_id', to: 'inbox#show', as: :inbox_message
 
