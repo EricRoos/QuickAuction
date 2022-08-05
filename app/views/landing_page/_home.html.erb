@@ -13,7 +13,7 @@
                 <% end %>
               <% end %>
               <h1 class="text-4xl font-extrabold text-gray-dark tracking-tight sm:text-5xl">Quick auctions for gamers who hate to throw things out</h1>
-              <p class="mt-6 text-xl text-gray-dark">Instead of trashing your "worthless" stuff. Try to trade it for <em>SOMETHING</em>. Your trash is someone else's treasure.</p>
+              <p class="mt-6 text-xl text-gray-dark">Instead of trashing your "worthless" stuff. Trade it for <em>SOMETHING</em>. Your trash is someone else's treasure.</p>
             </div>
             <% unless session[:subscribed_to_email].present? %>
               <%= form_with(builder: ActionView::Helpers::FormBuilder, model: InterestedPerson.new, class: "mt-12 sm:max-w-lg sm:w-full flex justify-center items-center gap-2") do |form| %>
