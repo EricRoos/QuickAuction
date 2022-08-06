@@ -46,8 +46,8 @@ Feature: Manage an auction
     And the "auction item" has 1 "auction offer"
     And the user is logged in
     And the user is on the page for the "auction item"
-    Then the user should see "MyText" within the "Current accepted offer" section
-    Then the user should see "MyText" within the "Offer in consideration" section
+    Then the user should see "Offered By" within the "Current accepted offer" section
+    Then the user should see "Offered By" within the "Offer in consideration" section
 
 
   @javascript
