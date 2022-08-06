@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :auction_offer do
     user
     auction_item factory: :moderated_auction_item
-    description { 'MyText' }
+    description { "#{rand(1...10)} Perfect gems" }
   end
 
   factory :accepted_auction_offer, parent: :auction_offer do

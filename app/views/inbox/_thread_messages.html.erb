@@ -1,6 +1,6 @@
-<% params[:focused_id].present? && @inbox_threads.detect{ |d| d.key_value == params[:focused_id].to_i }.notification_ids.each do |notification_id| %>
+<% params[:focused_id].present? && @inbox_threads.detect{ |d| d.key_value == params[:focused_id].to_i }.notification_ids.reverse.each do |notification_id| %>
   <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
-    <%= turbo_frame_tag "notification_#{notification_id}", src: inbox_message_path(notification_id: notification_id) do %>
+    <%= turbo_frame_tag "notification_#{notification_id}", src: inbox_message_path(notification_id: notification_id), loading: "lazy" do %>
       <%= render partial: 'thread_message', locals: { notification_id: notification_id } %>
     <% end %>
   </li>

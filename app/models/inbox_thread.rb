@@ -27,8 +27,10 @@ class InboxThread
   end
 
   def self.auction_threads_for(user)
-    InboxThread.all('auction_item_id', user) do |data|
-      "Auction ##{data[:key_value]}"
+    inbox_threads = InboxThread.all('auction_item_id', user)
+    title_map = AuctionItem.where(id: inbox_threads.collect(&:key_value)).pluck(:id, :title).to_h
+    inbox_threads.each do |inbox_thread|
+      inbox_thread.title = "Auction for #{title_map[inbox_thread.key_value]}"
     end
   end
 

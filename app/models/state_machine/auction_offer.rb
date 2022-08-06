@@ -6,8 +6,9 @@ module StateMachine
 
     included do
       after_create do
+        OfferReceivedNotification.with(auction_item_id: auction_item_id).deliver_later(auction_item.user)
         OfferUpdatedNotification.with(auction_item_id: auction_item_id,
-                                      auction_title: auction_item.title, new_state: state).deliver(user)
+                                      auction_title: auction_item.title, new_state: state).deliver_later(user)
       end
 
       state_machine :state, initial: :sent do

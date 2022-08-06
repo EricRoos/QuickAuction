@@ -46,9 +46,6 @@
           </span>
         </a>
         <div class="flex gap-3 items-center">
-          <a href='/inbox' class='p-1'>
-            <%= heroicon 'bell', options: { class: 'h-4 w-4 dark:text-white'  } %>
-          </a>
           <button data-controller='dark-mode' data-action='click->dark-mode#toggle' class='p-1 border-2 border-solid rounded border-gray-dark hover:bg-gray-dark hover:text-white'>
             <%= heroicon 'moon', options: { class: 'h-4 w-4 dark:text-white'  } %>
           </button>
@@ -69,7 +66,7 @@
               <a href="<%= root_path %>" class="text-gray-dark dark:text-white hover:underline" aria-current="page">Home</a>
             </li>
             <li>
-              <a href="#" class="text-gray-dark dark:text-white hover:underline">Support</a>
+              <a href="/inbox" class="text-gray-dark dark:text-white hover:underline">Inbox</a>
             </li>
           </ul>
         </div>

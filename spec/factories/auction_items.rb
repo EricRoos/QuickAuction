@@ -3,8 +3,13 @@
 FactoryBot.define do
   factory :auction_item do
     user
-    title { 'MyString' }
-    description { 'MyText' }
+    title do
+      quality = %w[Normal Exceptional Elite].sample
+      armor_piece = %w[gloves helm chest].sample
+      enhanced_defence = rand(5...30)
+      "#{quality} #{armor_piece} #{enhanced_defence} ED"
+    end
+    description { "Looking for #{rand(2...6)} Perfect Gems" }
   end
 
   factory :moderated_auction_item, parent: :auction_item do

@@ -31,11 +31,11 @@
           <div class="flex-shrink-0">
             <div class="h-16 bg-white px-6 flex flex-col justify-center">
               <div class="flex items-baseline space-x-3">
-                <h2 class="text-lg font-medium text-gray-dark">Inbox</h2>
-                <p class="text-sm font-medium text-gray-light"><%= @inbox_threads.size %> threads</p>
+                <h2 class="text-lg font-medium text-black">Inbox</h2>
+                <p class="text-sm font-medium text-gray-dark"><%= @inbox_threads.size %> threads</p>
               </div>
             </div>
-            <div class="border-t border-b border-gray-light bg-gray-50 px-6 py-2 text-sm font-medium text-gray-light">Sorted by date</div>
+            <div class="border-t border-b border-gray-light bg-white px-6 py-2 text-sm font-medium text-gray-dark">Sorted by date</div>
           </div>
           <nav aria-label="Message list" class="min-h-0 flex-1 overflow-y-auto">
             <ul role="list" class="border-b border-gray-light divide-y divide-gray-light min-h-[300px] max-h-[50%] overflow-y-scroll bg-white">
@@ -45,10 +45,10 @@
                     <div class="min-w-0 flex-1">
                       <%= link_to inbox_path(focused_id: inbox_thread.key_value), class: "block focus:outline-none" do %>
                         <span class="absolute inset-0" aria-hidden="true"></span>
-                        <p class="text-sm font-medium text-gray-dark truncate"><%= inbox_thread.title %></p>
+                        <p class="text-sm font-medium text-black truncate"><%= inbox_thread.title %></p>
                       <% end %>
                     </div>
-                    <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-light"><%= time_ago_in_words(inbox_thread.last_activity_at) %></time>
+                    <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-dark"><%= time_ago_in_words(inbox_thread.last_activity_at) %></time>
                   </div>
                   <div class="mt-1">
                     <p class="line-clamp-2 text-sm text-gray-dark"><%= inbox_thread.last_message_text %></p>
