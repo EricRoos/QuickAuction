@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
 
   before_action :check_public_access_enabled, if: -> { devise_controller? && !active_admin_request? }
   before_action :authenticate_user!, unless: -> { active_admin_request? }
+  before_action :check_beta_access, if: lambda {
+                                          !active_admin_request? && !flipper_request? && !fine_print_request? && !devise_controller?
+                                        }
   before_action :add_initial_breadcrumbs
 
   after_action :verify_authorized, unless: -> { devise_controller? || active_admin_request? }
@@ -35,6 +38,12 @@ class ApplicationController < ActionController::Base
   helper_method :root_path
 
   protected
+
+  def check_beta_access
+    return if Flipper.enabled?(:closed_beta, current_user)
+
+    redirect_to landing_page_path(landing_page_id: 'request-beta-access')
+  end
 
   def render_not_authorized
     redirect_to '/401' and return

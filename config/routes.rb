@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   match "/401", to: "errors#not_authorized", via: :all
   match "/404", to: "errors#not_found", via: :all
   get '/service-worker.js', to: 'service_worker#show'
-  get '/:landing_page_id', to: 'landing_page#show'
+  get '/:landing_page_id', to: 'landing_page#show', as: 'landing_page'
 
 
   root 'landing_page#show'
