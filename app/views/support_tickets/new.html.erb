@@ -89,35 +89,12 @@
       <!-- Contact form -->
       <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
         <%= turbo_frame_tag 'new_support_ticket' do %>
-          <% form_with_params = { model: @support_ticket, scope: :support_ticket } %>
-          <% form_with_params = form_with_params.merge(url: support_tickets_path, method: :post) if @support_ticket.type.present? %>
-          <% form_with_params = form_with_params.merge(url: new_support_ticket_path, method: :get) unless @support_ticket.type.present? %>
-          <%= form_with(**form_with_params) do |form| %>
-            <% if !@support_ticket.type %>
-              <%= form.form_field do %>
-                <%= form.label :type %>
-                <%= form.select :type, SupportTicket.descendants.map(&:to_s), include_blank: true %>
-              <% end %>
+          <%= form_with(model: @support_ticket) do |form| %>
+            <%= form.form_field do %>
+              <%= form.label :type %>
+              <%= form.select :type, SupportTicket.available_types_for(current_user), include_blank: true %>
             <% end %>
-            <% if @support_ticket.type %>
-              <%= form.form_field do %>
-                <%= form.label :type %>
-                <%= form.text_field :type, disabled: true %>
-              <% end %>
-            <% end %>
-            <% if @support_ticket.type && @support_ticket.supports_description? %>
-              <%= form.form_field do %>
-                <%= form.label :description %>
-                <%= form.text_area :description %>
-              <% end %>
-            <% end %>
-            <% if !@support_ticket.type %>
-              <%= form.submit 'Next' %>
-            <% end %>
-            <% if @support_ticket.type %>
-              <%= form.submit 'Send' %>
-              <%= link_to 'Start Over', new_support_ticket_path %>
-            <% end %>
+            <%= form.submit 'Next' %>
           <% end %>
         <% end %>
       </div>

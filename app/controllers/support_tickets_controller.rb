@@ -9,7 +9,8 @@ class SupportTicketsController < ApplicationController
   end
 
   def create
-    @support_ticket = current_user.support_tickets.create(support_ticket_params)
+    @support_ticket = SupportTicket.new(support_ticket_params)
+    redirect_to(polymorphic_path(@support_ticket.class, action: :new))
   end
 
   protected
@@ -17,6 +18,6 @@ class SupportTicketsController < ApplicationController
   def support_ticket_params
     return {} unless params[:support_ticket].present?
 
-    params.require(:support_ticket).permit(:type, :description)
+    params.require(:support_ticket).permit(:type)
   end
 end

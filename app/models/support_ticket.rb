@@ -8,6 +8,14 @@ class SupportTicket < ApplicationRecord
   def supports_description?
     true
   end
+
+  def self.available_for?(_user)
+    true
+  end
+
+  def self.available_types_for(user)
+    descendants.select { |d| d.available_for?(user) }.map(&:to_s)
+  end
 end
 
 require_dependency 'support_ticket/request_beta_access'
