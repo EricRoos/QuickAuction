@@ -28,7 +28,7 @@ ActiveAdmin.register SupportTicket do
       row :id
       row :type
       row 'user' do |ticket|
-        link_to ticket.user.email, '#'
+        link_to ticket.user.email, url_for([:admin,ticket.user])
       end
       row :description
       row :created_at
