@@ -7,6 +7,10 @@ end
 Rails.application.routes.draw do
   resources 'support_tickets', only: %i[new create]
 
+  namespace 'support_ticket', module: 'support_ticket_controllers' do
+    resources 'request_beta_accesses', only: [:new, :create]
+  end
+
   get 'errors/not_found'
   get 'errors/not_authorized'
   constraints CanAccessFlipperUI do

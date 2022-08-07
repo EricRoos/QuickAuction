@@ -78,14 +78,16 @@
     </div>
     <main class="container mx-auto mt-8 px-5">
       <% if notice.present? %>
-        <div class='grid grid-col w-full'>
-          <div class="w-full py-2 px-3 bg-green-50 mb-5 text-green-light font-medium rounded-lg" id="notice">
-            <div class='flex gap-4 items-center'>
-              <div><%= heroicon 'check', options: { class: 'h-4 w-4'} %></div>
-              <div><%= notice %></div>
+        <%= turbo_frame_tag 'notice' do %>
+          <div class='grid grid-col w-full'>
+            <div class="w-full py-2 px-3 bg-green-50 mb-5 text-green-light font-medium rounded-lg" id="notice">
+              <div class='flex gap-4 items-center'>
+                <div><%= heroicon 'check', options: { class: 'h-4 w-4'} %></div>
+                <div><%= notice %></div>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if alert.present? %>
         <div>
