@@ -10,7 +10,7 @@ class AuctionOffer < ApplicationRecord
   validates_presence_of :description
 
   def available_transition_events
-    state_paths.map(&:first).collect(&:event).uniq
+    state_paths.map(&:first).map { |path| [path.to, path.to_name] }
   end
 
   protected
