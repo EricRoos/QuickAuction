@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace 'support_ticket', module: 'support_ticket_controllers' do
     resources 'request_beta_accesses', only: [:new, :create]
+    resources 'general_supports', only: [:new, :create]
   end
 
   get 'errors/not_found'

@@ -1,0 +1,17 @@
+<%= turbo_frame_tag 'new_support_ticket' do %>
+  <% if alert.present? %>
+    <div>
+      <p class="w-full py-2 px-3 bg-red-50 mb-5 text-red-light font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
+    </div>
+  <% end %>
+  <%= form_with(model: @support_ticket) do |form| %>
+    <h1 class='text-xl font-bold mb-2'>Sorry you had problems</h1>
+    <h2 class='text-lg mb-2'>How can we help?</h2>
+
+    <%= form.form_field do %>
+      <%= form.label :description, 'Tell us what happened, more specifics the better' %>
+      <%= form.text_area :description %>
+    <% end %>
+    <%= form.submit 'Send' %>
+  <% end %>
+<% end %>

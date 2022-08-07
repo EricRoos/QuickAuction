@@ -13,7 +13,7 @@ module StateMachine
         after_transition do |ticket, _transition|
         end
 
-        event :lock do
+        event :mark_in_progress do
           transition open: :in_progress
         end
 
