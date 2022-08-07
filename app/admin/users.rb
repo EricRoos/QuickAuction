@@ -19,6 +19,7 @@ ActiveAdmin.register User do
     panel "Tickets" do
       table_for user.support_tickets do
         column :type
+        column :state
         column :description
         column :created_at
         column :updated_at
