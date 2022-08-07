@@ -3,6 +3,7 @@
 module StateMachine
   module AuctionOffer
     extend ActiveSupport::Concern
+    include Base
 
     included do
       after_create do
