@@ -5,6 +5,8 @@ class CanAccessFlipperUI
   end
 end
 Rails.application.routes.draw do
+  resources 'support_tickets', only: %i[new create]
+
   get 'errors/not_found'
   get 'errors/not_authorized'
   constraints CanAccessFlipperUI do

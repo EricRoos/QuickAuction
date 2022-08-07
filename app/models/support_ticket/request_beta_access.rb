@@ -3,5 +3,9 @@
 class SupportTicket
   class RequestBetaAccess < SupportTicket
     validates_uniqueness_of :user, scope: :type
+
+    def supports_description?
+      false
+    end
   end
 end
