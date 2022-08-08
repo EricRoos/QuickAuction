@@ -33,7 +33,7 @@
             </button>
           </div>
           <% if AuctionItemPolicy.new(current_user, @auction_item).destroy? %>
-            <%= button_to @auction_item, method: :delete, class:'aspect-square p-4 text-red-light hover:text-red-dark' do %>
+            <%= button_to @auction_item, method: :delete, class:'aspect-square p-4 text-red-light hover:text-red-dark', data: { confirm: 'Are you sure?' } do %>
               <%= heroicon 'trash', variant: :outline, options: { class: 'h-6 w-6' } %>
             <% end %>
           <% end %>
