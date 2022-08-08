@@ -1,0 +1,8 @@
+<%= form_with(model: @support_ticket) do |form| %>
+  <h1 class='text-xl font-bold mb-2'>We would love to have you join the Beta</h1>
+  <%= form.form_field do %>
+    <%= form.label :description, 'Tell us a little bit about what got you intersted.' %>
+    <%= form.text_area :description %>
+  <% end %>
+  <%= form.submit 'Send' %>
+<% end %>

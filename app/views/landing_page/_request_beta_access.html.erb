@@ -34,7 +34,7 @@
           <p class="text-lg text-black">
             Interested in trying InstaAuction? While we finish development we could use some help and feedback to make sure we build something great.
           </p>
-          <a class="block w-full py-3 px-5 text-center bg-white border border-transparent rounded-md shadow-md text-base font-medium text-indigo-700 hover:bg-gray-light sm:inline-block sm:w-auto" href="#">
+          <a href='<%= new_support_ticket_path(support_ticket: { type: 'SupportTicket::RequestBetaAccess'})%>' class="block w-full py-3 px-5 text-center bg-white border border-transparent rounded-md shadow-md text-base font-medium text-indigo-700 hover:bg-gray-light sm:inline-block sm:w-auto" href="#">
             Request now
           </a>
         </div>

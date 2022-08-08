@@ -9,10 +9,6 @@ class AuctionOffer < ApplicationRecord
   before_save :replace_accepted
   validates_presence_of :description
 
-  def available_transition_events
-    state_paths.map(&:first).map { |path| [path.to, path.to_name] }
-  end
-
   protected
 
   def check_auction_not_expired
