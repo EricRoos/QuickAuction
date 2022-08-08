@@ -276,9 +276,6 @@ GEM
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
-    jbuilder (2.11.5)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     jmespath (1.6.1)
     jquery-rails (4.5.0)
       rails-dom-testing (>= 1, < 3)
@@ -552,7 +549,6 @@ DEPENDENCIES
   heroicon (~> 0.4.0)
   image_processing (~> 1.12.2)
   importmap-rails
-  jbuilder
   noticed (~> 1.5)
   pg (~> 1.1)
   puma (~> 5.0)
@@ -580,4 +576,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.3.7
+   2.3.19
