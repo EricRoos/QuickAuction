@@ -6,13 +6,7 @@ module StateMachine
     include Base
 
     included do
-      after_create do
-      end
-
       state_machine :state, initial: :open do
-        after_transition do |ticket, _transition|
-        end
-
         event :mark_in_progress do
           transition open: :in_progress
         end

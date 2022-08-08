@@ -112,5 +112,7 @@ When('the user presses {string}') do |btn_label|
 end
 
 When('I debug') do
+  # rubocop:disable Lint/Debugger
   debugger
+  # rubocop:enable Lint/Debugger
 end
