@@ -3,6 +3,8 @@
 class BlogController < ApplicationController
   skip_before_action :authenticate_user!
   skip_after_action :verify_authorized
+  skip_before_action :check_beta_access
+
   layout 'landing_page'
 
   def show
