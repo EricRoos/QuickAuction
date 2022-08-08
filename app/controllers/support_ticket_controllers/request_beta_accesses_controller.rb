@@ -6,6 +6,12 @@ module SupportTicketControllers
     skip_after_action :verify_authorized
     def new
       @support_ticket = SupportTicket::RequestBetaAccess.new
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('new_support_ticket', partial: 'form',
+                                                                         locals: { support_ticket: @support_ticket })
+        end
+      end
     end
 
     def create

@@ -80,7 +80,7 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit_classes
-    'rounded-lg py-3 px-5 bg-accent-primary text-white inline-block font-medium cursor-pointer hover:shadow'
+    'rounded-lg py-3 px-5 bg-accent-primary text-white inline-block font-medium cursor-pointer disabled:hover:shadow-none hover:shadow disabled:text-white disabled:cursor-default disabled:bg-gray-light'
   end
 
   def merge_options_and_class(default_classes, options)

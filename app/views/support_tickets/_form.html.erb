@@ -1,0 +1,7 @@
+<%= form_with(model: support_ticket, url: support_tickets_path) do |form| %>
+  <%= form.form_field do %>
+    <%= form.label :type, 'What can we help with?' %>
+    <%= form.select :type, SupportTicket.available_types_for(current_user).map { |t| [t.model_name.human, t.to_s] }, include_blank: true %>
+  <% end %>
+  <%= form.submit 'Next' %>
+<% end %>

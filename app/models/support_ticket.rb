@@ -14,7 +14,7 @@ class SupportTicket < ApplicationRecord
   end
 
   def self.available_types_for(user)
-    descendants.select { |d| d.available_for?(user) }.map(&:to_s)
+    descendants.select { |d| d.available_for?(user) }
   end
 end
 

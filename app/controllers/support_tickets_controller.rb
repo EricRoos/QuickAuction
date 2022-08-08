@@ -6,6 +6,13 @@ class SupportTicketsController < ApplicationController
 
   def new
     @support_ticket = SupportTicket.new(support_ticket_params)
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update('new_support_ticket', partial: 'form',
+                                                                       locals: { support_ticket: @support_ticket })
+      end
+    end
   end
 
   def create
