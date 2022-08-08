@@ -110,3 +110,7 @@ end
 When('the user presses {string}') do |btn_label|
   click_on btn_label
 end
+
+When('I debug') do
+  debugger
+end

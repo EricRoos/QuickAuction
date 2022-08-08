@@ -15,13 +15,14 @@ module SupportTicketControllers
     end
 
     def create
-      @support_ticket = SupportTicket::RequestBetaAccess.create(support_ticket_params)
-      if @support_ticket.persisted?
-        redirect_to new_support_ticket_path, notice: 'Thanks for your inquiry.'
-      else
-        Rails.logger.debug(@support_ticket.errors.to_json)
-        flash[:alert] = 'Something went wrong.'
-        render :new
+      @support_ticket = SupportTicket::RequestBetaAccess.new(support_ticket_params)
+      respond_to do |format|
+        partial = @support_ticket.save ? 'success' : 'error'
+
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('new_support_ticket', partial: partial,
+                                                                         locals: { support_ticket: @support_ticket })
+        end
       end
     end
 
