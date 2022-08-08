@@ -18,6 +18,7 @@ ActiveAdmin.register User do
     default_main_content
     panel "Tickets" do
       table_for user.support_tickets do
+        column :id
         column :type
         column :state
         column :description
