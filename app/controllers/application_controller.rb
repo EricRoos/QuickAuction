@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
   before_action :check_public_access_enabled, if: -> { devise_controller? && !active_admin_request? }
   before_action :authenticate_user!, unless: -> { active_admin_request? }
   before_action :check_beta_access, if: lambda {
-                                          !active_admin_request? && !flipper_request? && !fine_print_request? && !devise_controller?
+                                          !active_admin_request? &&
+                                            !flipper_request? &&
+                                            !fine_print_request? &&
+                                            !devise_controller?
                                         }
   before_action :add_initial_breadcrumbs
 
