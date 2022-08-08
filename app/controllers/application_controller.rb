@@ -18,10 +18,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :render_not_authorized
 
-  before_action if: -> { request.format.turbo_stream? && Flipper.enabled?(:slow_turbo_stream) } do
-    sleep 2
-  end
-
   def after_sign_in_path_for(resource)
     return admin_dashboard_path if resource.is_a?(AdminUser)
 
@@ -44,6 +40,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_beta_access
+    return if Rails.env.test?
     return if Flipper.enabled?(:closed_beta, current_user)
 
     redirect_to landing_page_path(landing_page_id: 'request-beta-access')
