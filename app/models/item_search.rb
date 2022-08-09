@@ -2,7 +2,12 @@
 
 class ItemSearch
   include ActiveModel::Model
-  attr_accessor :query, :has_no_offers, :my_listings, :current_user, :include_expired
+  attr_accessor :query, :has_no_offers, :my_listings, :current_user, :include_expired, :tags
+
+  def initialize(params = {})
+    super
+    @tags ||= []
+  end
 
   def call
     pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
@@ -35,10 +40,34 @@ class ItemSearch
   end
 
   def build_query(scope)
-    scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
-    scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
-    scope = scope.not_expired unless ActiveRecord::Type::Boolean.new.cast(include_expired)
-    scope
+    scope = build_title_query(scope)
+    scope = build_my_listings_query(scope)
+    scope = build_include_expired_query(scope)
+    build_tag_query(scope)
+  end
+
+  def build_title_query(scope)
+    return scope unless query.present?
+
+    scope.where('lower(title) like ?', "%#{query.downcase}%")
+  end
+
+  def build_my_listings_query(scope)
+    return scope unless ActiveRecord::Type::Boolean.new.cast(my_listings)
+
+    scope.where(user_id: current_user)
+  end
+
+  def build_include_expired_query(scope)
+    return scope if ActiveRecord::Type::Boolean.new.cast(include_expired)
+
+    scope.not_expired
+  end
+
+  def build_tag_query(scope)
+    return scope if tags.empty?
+
+    scope.tagged_with(tags, on: :game_items)
   end
 
   def build_sort(scope)

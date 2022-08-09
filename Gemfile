@@ -126,3 +126,5 @@ gem 'flipper-ui', '~> 0.25.0'
 gem 'fine_print', '~> 6.0'
 
 gem 'aws-sdk-s3', '~> 1.114'
+
+gem 'acts-as-taggable-on', '~> 9.0'

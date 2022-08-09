@@ -10,6 +10,7 @@ FactoryBot.define do
       "#{quality} #{armor_piece} #{enhanced_defence} ED"
     end
     description { "Looking for #{rand(2...6)} Perfect Gems" }
+    game_item_list { %w[Item1 Item2] }
   end
 
   factory :moderated_auction_item, parent: :auction_item do
