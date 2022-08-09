@@ -3,6 +3,9 @@
 class AuctionItem < ApplicationRecord
   include Moderatable
 
+  acts_as_taggable_on :tags
+  acts_as_taggable_on :game_items
+
   belongs_to :user
   has_many :auction_offers, dependent: :destroy
   has_one_attached :auction_image
