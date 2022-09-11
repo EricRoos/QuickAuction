@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_07_050842) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_11_031431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,7 +85,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_07_050842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "expires_on"
+    t.string "region_cd", default: "us"
+    t.string "game_cd", default: "diablo_2r"
+    t.boolean "is_ladder", default: false
+    t.boolean "is_hardcore", default: false
     t.index ["expires_on"], name: "index_auction_items_on_expires_on"
+    t.index ["region_cd", "is_ladder", "is_hardcore"], name: "region_ladder_hardcore_idx"
     t.index ["title"], name: "index_auction_items_on_title"
     t.index ["user_id"], name: "index_auction_items_on_user_id"
   end

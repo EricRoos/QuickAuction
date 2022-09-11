@@ -2,7 +2,7 @@
 
 class ItemSearch
   include ActiveModel::Model
-  attr_accessor :query, :has_no_offers, :my_listings, :current_user, :include_expired
+  attr_accessor :query, :has_no_offers, :my_listings, :current_user, :include_expired, :is_ladder, :is_hardcore
 
   def call
     pipeline.inject(base_scope) { |scope, operation| send(operation, scope) }
@@ -38,7 +38,10 @@ class ItemSearch
     scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
     scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
     scope = scope.not_expired unless ActiveRecord::Type::Boolean.new.cast(include_expired)
-    scope
+    scope.where(
+      is_hardcore: is_hardcore || false,
+      is_ladder: is_ladder || false
+    )
   end
 
   def build_sort(scope)
