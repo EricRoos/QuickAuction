@@ -47,12 +47,13 @@
       </div>
     <% end %>
     </div>
-    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-24">
+    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-24 flex items-center justify-between w-full">
       <div class='max-w-[300px] mt-8'>
         <a href='<%= root_path %>'>
           <%= image_tag('brand-black.png', class: 'w-full h-auto') %>
         </a>
       </div>
+      <%= link_to 'Register / Sign in', new_user_session_path, class: 'text-right text-brand-dark' %>
     </div>
     <%= yield %>
 

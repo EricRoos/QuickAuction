@@ -80,20 +80,21 @@
   </div>
 </div>
 
-
-<% if AuctionOfferPolicy.new(current_user, AuctionOffer.new(auction_item: @auction_item)).new? %> 
-  <hr class='my-6' />
-  <div>
-    <div class='text-xl font-medium dark:text-gray-light mb-4'>Your Offer</div>
-    <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
-  </div>
-  <hr class='my-6' />
-<% elsif @current_user_offer.present? %>
-  <div>
-    <div class='text-xl font-medium dark:text-gray-light mb-4'>Your Offer</div>
-    <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user, actions_enabled: false)) %>
-  </div>
-  <hr class='my-6' />
+<% if current_user %>
+  <% if AuctionOfferPolicy.new(current_user, AuctionOffer.new(auction_item: @auction_item)).new? %> 
+    <hr class='my-6' />
+    <div>
+      <div class='text-xl font-medium dark:text-gray-light mb-4'>Your Offer</div>
+      <%= turbo_frame_tag 'new_offer', src: new_auction_item_auction_offer_path(@auction_item, format: :html) %>
+    </div>
+    <hr class='my-6' />
+  <% elsif @current_user_offer.present? %>
+    <div>
+      <div class='text-xl font-medium dark:text-gray-light mb-4'>Your Offer</div>
+      <%= render(AuctionOfferComponent.new(auction_offer: @current_user_offer, current_user: current_user, actions_enabled: false)) %>
+    </div>
+    <hr class='my-6' />
+  <% end %>
 <% end %>
 
 <div class="w-full">
