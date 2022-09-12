@@ -126,3 +126,5 @@ gem 'flipper-ui', '~> 0.25.0'
 gem 'fine_print', '~> 6.0'
 
 gem 'aws-sdk-s3', '~> 1.114'
+
+gem 'i18n-debug', '~> 1.2', group: :development

@@ -1,0 +1,12 @@
+en:
+  helpers:
+    submit:
+      auction_item:
+        create: List item
+    label:
+      auction_item:
+        game_item_name: Item
+        title: Title
+        is_ladder: Ladder
+        is_hardcore: Hardcore
+        auction_image: Screenshot
