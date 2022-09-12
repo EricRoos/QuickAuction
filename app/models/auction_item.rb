@@ -4,6 +4,8 @@ class AuctionItem < ApplicationRecord
   include Moderatable
 
   belongs_to :user
+  belongs_to :game_item
+
   has_many :auction_offers, dependent: :destroy
   has_one_attached :auction_image
 

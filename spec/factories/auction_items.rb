@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :auction_item do
+    game_item
     user
     title do
       quality = %w[Normal Exceptional Elite].sample

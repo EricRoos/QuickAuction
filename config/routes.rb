@@ -5,6 +5,7 @@ class CanAccessFlipperUI
   end
 end
 Rails.application.routes.draw do
+  resources 'game_items', only: %i[index]
   resources 'support_tickets', only: %i[new create]
 
   namespace 'support_ticket', module: 'support_ticket_controllers' do

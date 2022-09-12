@@ -1,4 +1,3 @@
-<%= form_with(model: auction_item, class: "contents") do |form| %>
   <% if auction_item.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-light px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(auction_item.errors.count, "error") %> prohibited this auction_item from being saved:</h2>
@@ -11,22 +10,47 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.text_area :description, rows: 4 %>
-  </div>
-
-  <%= form.form_field do %>
-    <%= form.label :auction_image %>
-    <%= form.file_field :auction_image %>
+<% if auction_item.game_item.nil? %>
+  <%= form_with(model: auction_item, method: :get, url: new_auction_item_path, class: "contents") do |form| %>
+    <div class="field" data-controller='search-select'>
+      <%= form.hidden_field :game_item_id, data: { 'search-select-target': 'hiddenField' } %>
+      <%= form.label :game_item_name %>
+      <%= form.text_field :game_item_name, name: nil , data: { 'search-select-target': 'input' }, list: 'game-item-list' %>
+      <%= turbo_frame_tag 'game_items', data: { 'search-select-target': 'dataListFrame' } do %>
+      <% end %>
+    </div>
+    <div class="inline">
+      <%= form.submit 'Next' %>
+    </div>
   <% end %>
+<% else %>
+  <%= form_with(model: auction_item, class: "contents") do |form| %>
+    <%= form.form_field do %>
+      <%= form.hidden_field :game_item_id %>
+      <%= form.label :game_item_name%>
+      <%= form.text_field :game_item_name, name: nil, disabled: true, value: auction_item.game_item.name %>
+      <%= link_to new_auction_item_path do %>
+        <small>clear</small>
+      <% end %>
+    <% end %>
 
-  <div class="inline">
-    <%= form.submit %>
-  </div>
+    <%= form.form_field do %>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    <% end %>
+
+    <%= form.form_field do %>
+      <%= form.label :description %>
+      <%= form.text_area :description, rows: 4 %>
+    <% end %>
+
+    <%= form.form_field do %>
+      <%= form.label :auction_image %>
+      <%= form.file_field :auction_image %>
+    <% end %>
+
+    <div class="inline">
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>

@@ -24,6 +24,10 @@
   form legend {
     @apply font-bold text-xl;
   }
+
+  .field input {
+    @apply disabled:bg-gray-light;
+  }
 }
 
 @keyframes loader-rotate {
