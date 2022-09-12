@@ -40,6 +40,20 @@
     <% end %>
 
     <%= form.form_field do %>
+      <div class='flex gap-2 items-center'>
+        <%= form.check_box :is_ladder %>
+        <%= form.label :is_ladder, class: '!mb-0'  %>
+      </div>
+    <% end %>
+
+    <%= form.form_field do %>
+      <div class='flex gap-2 items-center'>
+        <%= form.check_box :is_hardcore %>
+        <%= form.label :is_hardcore, class: '!mb-0'  %>
+      </div>
+    <% end %>
+
+    <%= form.form_field do %>
       <%= form.label :description %>
       <%= form.text_area :description, rows: 4 %>
     <% end %>
