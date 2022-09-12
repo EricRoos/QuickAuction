@@ -13,9 +13,8 @@
 <% if auction_item.game_item.nil? %>
   <%= form_with(model: auction_item, method: :get, url: new_auction_item_path, class: "contents") do |form| %>
     <div class="field" data-controller='search-select'>
-      <%= form.hidden_field :game_item_id, data: { 'search-select-target': 'hiddenField' } %>
       <%= form.label :game_item_name %>
-      <%= form.text_field :game_item_name, name: nil , data: { 'search-select-target': 'input' }, list: 'game-item-list' %>
+      <%= form.text_field :game_item_name, name: nil , data: { 'search-select-target': 'input' } %>
       <%= turbo_frame_tag 'game_items', data: { 'search-select-target': 'dataListFrame' } do %>
       <% end %>
     </div>
