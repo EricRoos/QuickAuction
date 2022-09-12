@@ -13,6 +13,7 @@ module InstaAuction
     unless Rails.env.test?
       rules = [
         { method: "POST", path: "/interested_people", limit: 3, time_window: :hour },
+        { method: "GET", path: "/assets/*", whitelisted: true }
       ]
       ip_whitelist = []
       default = 10

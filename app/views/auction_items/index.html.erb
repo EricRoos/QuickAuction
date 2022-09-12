@@ -1,7 +1,9 @@
 <div class="w-full">
   <div class="flex justify-between items-center">
     <h1 class="text-black dark:text-gray-light font-bold text-4xl">Search for items</h1>
-    <%= link_to 'Create auction', new_auction_item_path, class: "rounded-lg py-3 px-5 bg-accent-primary text-white block font-medium hover:shadow" %>
+    <% if AuctionItemPolicy.new(current_user, nil).new? %>
+      <%= link_to 'Create auction', new_auction_item_path, class: "rounded-lg py-3 px-5 bg-accent-primary text-white block font-medium hover:shadow" %>
+    <% end %>
   </div>
 
   <div class='dark:bg-gray-dark bg-white rounded-xl p-8 my-8 shadow'>

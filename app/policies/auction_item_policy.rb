@@ -12,6 +12,8 @@ class AuctionItemPolicy < ApplicationPolicy
   end
 
   def create?
+    return false unless @user.present?
+
     true
   end
 

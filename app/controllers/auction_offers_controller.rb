@@ -5,6 +5,9 @@ class AuctionOffersController < ApplicationController
   before_action :set_auction_item, only: %i[index new create]
   before_action :set_auction_offer, only: %i[show edit update destroy]
 
+  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :check_beta_access, only: %i[index]
+
   # GET /auction_offers or /auction_offers.json
   def index
     authorize AuctionOffer

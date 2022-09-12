@@ -2,6 +2,8 @@
 
 class AuctionItemsController < ApplicationController
   before_action :set_auction_item, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_before_action :check_beta_access, only: %i[index show]
 
   # GET /auction_items or /auction_items.json
   def index
@@ -60,7 +62,8 @@ class AuctionItemsController < ApplicationController
   end
 
   def search_params
-    params.require(:item_search).permit(:query, :has_no_offers, :my_listings, :include_expired)
+    params.require(:item_search).permit(:query, :has_no_offers, :my_listings, :include_expired, :is_ladder,
+                                        :is_hardcore)
   rescue ActionController::ParameterMissing
     {}
   end

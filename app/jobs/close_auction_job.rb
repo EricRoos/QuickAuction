@@ -9,7 +9,7 @@ class CloseAuctionJob < ApplicationJob
 
     # generate some game info
     # generate a game name
-    name = (0...8).map { rand(65..90).chr }.join
+    name = (0...5).map { rand(65..90).chr }.join
     # generate a game password
     password = (0...3).map { rand(65..90).chr }.join
 
