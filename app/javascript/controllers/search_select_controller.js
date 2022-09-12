@@ -1,5 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-
+/*
+* TODO: export to data attrs
+* - endpoint path
+* - message
+* - data attribute name for hidden field value
+*
+*/
 export default class extends Controller {
   static targets = ['input', 'dataListFrame', 'hiddenField']
   connect() {
