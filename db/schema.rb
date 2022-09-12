@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_11_031431) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_12_023702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,7 +89,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_031431) do
     t.string "game_cd", default: "diablo_2r"
     t.boolean "is_ladder", default: false
     t.boolean "is_hardcore", default: false
+    t.bigint "game_item_id", null: false
     t.index ["expires_on"], name: "index_auction_items_on_expires_on"
+    t.index ["game_item_id"], name: "index_auction_items_on_game_item_id"
     t.index ["region_cd", "is_ladder", "is_hardcore"], name: "region_ladder_hardcore_idx"
     t.index ["title"], name: "index_auction_items_on_title"
     t.index ["user_id"], name: "index_auction_items_on_user_id"
@@ -153,6 +155,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_031431) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
+  create_table "game_items", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "help_articles", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -214,6 +222,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_031431) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "auction_items", "game_items"
   add_foreign_key "auction_items", "users"
   add_foreign_key "auction_offers", "auction_items"
   add_foreign_key "auction_offers", "users"

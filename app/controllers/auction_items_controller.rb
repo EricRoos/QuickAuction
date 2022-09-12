@@ -21,7 +21,10 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items/new
   def new
-    @auction_item = AuctionItem.new
+    @auction_item = AuctionItem.new(auction_item_params)
+    if @auction_item.game_item && @auction_item.title.blank?
+      @auction_item.title = "Trading my #{@auction_item.game_item.name} for ..."
+    end
     authorize @auction_item
   end
 
@@ -58,7 +61,9 @@ class AuctionItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def auction_item_params
-    params.require(:auction_item).permit(:title, :description, :auction_image)
+    return {} if action_name == 'new' && params[:auction_item].blank?
+
+    params.require(:auction_item).permit(:title, :description, :auction_image, :game_item_id)
   end
 
   def search_params

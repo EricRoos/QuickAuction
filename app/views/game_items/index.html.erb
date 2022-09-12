@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'game_items', data: { 'search-select-target': 'dataListFrame' } do %>
+  <datalist id='game-item-list'>
+    <% @game_items.each do |game_item| %>
+      <option data-game-item-id="<%=game_item.id%>" value='<%= game_item.name %>'>
+    <% end %>
+  </datalist>
+<% end %>

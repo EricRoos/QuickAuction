@@ -28,7 +28,7 @@ class AppFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def form_field(options = {}, &block)
-    content_tag(:div, merge_options_and_class('my-5', options), &block)
+    content_tag(:div, merge_options_and_class('field my-5', options), &block)
   end
 
   private
