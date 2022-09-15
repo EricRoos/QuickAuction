@@ -1,0 +1,16 @@
+<ul class='list-disc text-sm'>
+  <li class='mb-2'>Auctions last for 30 minutes</li>
+  <li class='mb-2'>The auction is only over when time is up</li>
+  <li class='mb-2'>Accept any new offer to reject the current winner</li>
+  <li class='mb-2'>You will only see the currently accepted offer, and the first offer received that has not been responded to</li>
+  <li class='mb-2'>When an auction ends, you and the winner will receive game information to finish the trade</li>
+  <% if !Flipper.enabled?(:auto_approve_moderations) %>
+    <li class='mb-2'>
+      Auctions require moderation before becoming searchable/active.
+      <button class='text-accent-primary decoration-dashed underline' data-controller='modal' data-action='modal#open' data-modal-content-source-param='<%= help_article_path(id: 'why-we-moderate') %>'>
+        ? *
+      </button>
+    </li>
+  <% end %>
+  <li class='mb-2 font-bold text-red-light'>NO REAL WORLD ITEMS CAN BE TRADED</li>
+</ul>
