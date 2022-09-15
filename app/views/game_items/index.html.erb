@@ -1,6 +1,6 @@
 <%= turbo_frame_tag 'game_items', data: { 'search-select-target': 'dataListFrame' } do %>
   <fieldset>
-    <div class="mt-4 grid grid-col-1 gap-4 border-t border-b border-gray-light max-h-96 overflow-scroll">
+    <div class="mt-4 grid grid-col-1 gap-4 border-t border-b border-gray-light max-h-96 overflow-y-scroll">
       <% @game_items.each do |game_item| %>
         <div class="relative flex items-start p-4 bg-white rounded">
           <div class="min-w-0 flex-1 text-sm">

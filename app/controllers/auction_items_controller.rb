@@ -3,7 +3,6 @@
 class AuctionItemsController < ApplicationController
   before_action :set_auction_item, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
-  skip_before_action :check_beta_access, only: %i[index show]
 
   # GET /auction_items or /auction_items.json
   def index
@@ -21,7 +20,10 @@ class AuctionItemsController < ApplicationController
 
   # GET /auction_items/new
   def new
+    breadcrumbs.add 'Auction Items', auction_items_path
     @auction_item = AuctionItem.new(auction_item_params)
+    @current_step = params[:step] || 1
+    @current_step = @current_step.to_i
     if @auction_item.game_item && @auction_item.title.blank?
       @auction_item.title = "Trading my #{@auction_item.game_item.name} for ..."
     end

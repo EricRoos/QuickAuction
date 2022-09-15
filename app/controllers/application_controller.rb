@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
   def add_initial_breadcrumbs
-    breadcrumbs.add 'Home', root_path
+    # breadcrumbs.add 'Home', auction_items_path
   end
 
   def verify_origin_server
