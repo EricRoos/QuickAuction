@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { useDebounce } from 'stimulus-use'
 /*
 * TODO: export to data attrs
 * - endpoint path
@@ -8,10 +9,13 @@ import { Controller } from "@hotwired/stimulus"
 */
 export default class extends Controller {
   static targets = ['input', 'dataListFrame', 'hiddenField']
+  static debounces = ['setFrameSrc']
+
   connect() {
+    useDebounce(this);
+
     this.inputTarget.addEventListener('keyup', ({target: { value} }) => {
-      const searchParams = new URLSearchParams({query: value});
-      this.dataListFrameTarget.setAttribute('src', `/game_items?${searchParams}`)
+      this.setFrameSrc(value, {wait: 500 });
     });
 
     this.inputTarget.addEventListener('change', ({target: { value} }) => {
@@ -23,5 +27,10 @@ export default class extends Controller {
       this.inputTarget.setCustomValidity("")
       this.hiddenFieldTarget.value = found.getAttribute("data-game-item-id");
     });
+  }
+
+  setFrameSrc(queryValue){
+    const searchParams = new URLSearchParams({query: queryValue});
+    this.dataListFrameTarget.setAttribute('src', `/game_items?${searchParams}`)
   }
 }
