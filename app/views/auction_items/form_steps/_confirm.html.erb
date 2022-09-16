@@ -1,0 +1,32 @@
+<%= form_with(model: auction_item, class: "contents") do |form| %>
+  <%= form.hidden_field :game_item_id %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :description %>
+  <%= form.hidden_field :is_hardcore %>
+  <%= form.hidden_field :is_ladder %>
+  <div class='hidden'>
+    <%= form.file_field :auction_image, data: { controller: 'temp-file' } %>
+  </div>
+  <div class='grid grid-col-1 gap-4'>
+    <div class='text-xl font-bold'>
+      Confirm your auction details
+    </div>
+    <div>
+      <span class='font-semibold'>Title:</span> <%= auction_item.title %>
+    </div>
+    <div>
+      <div class='font-semibold'>Description:</div>
+      <%= auction_item.description %>
+    </div>
+    <div>
+      <span class='font-semibold'>Ladder: </span> <%= auction_item.is_ladder %>
+    </div>
+    <div>
+      <span class='font-semibold'>Hardcore: </span> <%= auction_item.is_hardcore%>
+    </div>
+  </div>
+  <hr class='my-4'/>
+  <div class="inline">
+    <%= form.submit "List now" %>
+  </div>
+<% end %>

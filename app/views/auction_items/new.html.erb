@@ -1,7 +1,7 @@
 <h1 class="mb-4 dark:text-gray-light font-bold text-4xl">Post new auction</h1>
 <div class='flex gap-[50px] w-full'>
   <div class='w-full'>
-    <%= render "form", auction_item: @auction_item %>
+    <%= new_auction_wizard(@auction_item, @current_step) %>
   </div>
   <div class='dark:bg-gray-dark bg-white p-8 rounded-xl w-full dark:text-white'>
     <%= render 'stepper' %>

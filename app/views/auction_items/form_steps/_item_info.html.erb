@@ -1,0 +1,44 @@
+<%= form_with(model: auction_item, method: :get, url: new_auction_item_path, class: "contents") do |form| %>
+  <input name='step' type='hidden' value='3' />
+  <%= form.form_field do %>
+    <%= form.hidden_field :game_item_id %>
+    <%= form.label :game_item_name%>
+    <%= form.text_field :game_item_name, name: nil, disabled: true, value: auction_item.game_item.name %>
+    <%= link_to new_auction_item_path do %>
+      <small>clear</small>
+    <% end %>
+  <% end %>
+
+  <%= form.form_field do %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  <% end %>
+
+  <%= form.form_field do %>
+    <div class='flex gap-2 items-center'>
+      <%= form.check_box :is_ladder %>
+      <%= form.label :is_ladder, class: '!mb-0'  %>
+    </div>
+  <% end %>
+
+  <%= form.form_field do %>
+    <div class='flex gap-2 items-center'>
+      <%= form.check_box :is_hardcore %>
+      <%= form.label :is_hardcore, class: '!mb-0'  %>
+    </div>
+  <% end %>
+
+  <%= form.form_field do %>
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4 %>
+  <% end %>
+
+  <% form.form_field do %>
+    <% form.label :auction_image %>
+    <% form.file_field :auction_image %>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit "Next" %>
+  </div>
+<% end %>

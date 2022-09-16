@@ -53,19 +53,20 @@ class AuctionItemsController < ApplicationController
     end
   end
 
+  # Only allow a list of trusted parameters through.
+  def auction_item_params
+    return {} if action_name == 'new' && params[:auction_item].blank?
+
+    params.require(:auction_item).permit(:title, :description, :auction_image, :game_item_id)
+  end
+  helper_method :auction_item_params
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_auction_item
     @auction_item = AuctionItem.find(params[:id])
     authorize @auction_item
-  end
-
-  # Only allow a list of trusted parameters through.
-  def auction_item_params
-    return {} if action_name == 'new' && params[:auction_item].blank?
-
-    params.require(:auction_item).permit(:title, :description, :auction_image, :game_item_id)
   end
 
   def search_params

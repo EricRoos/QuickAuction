@@ -12,6 +12,16 @@ module AuctionItemsHelper
     render ItemSearchFormComponent.new(model: auction_item)
   end
 
+  def new_auction_wizard(auction_item, current_step = 0)
+    ordered_partials = [
+      'auction_items/form_steps/find_item',
+      'auction_items/form_steps/item_info',
+      'auction_items/form_steps/screenshot',
+      'auction_items/form_steps/confirm'
+    ]
+    render partial: ordered_partials[current_step - 1], locals: { auction_item: auction_item }
+  end
+
   protected
 
   def item_to_table_data(item)

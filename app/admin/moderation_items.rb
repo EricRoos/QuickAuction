@@ -24,14 +24,14 @@ ActiveAdmin.register ModerationItem do
     column "Description" do |item|
       div item.moderatable.title if item.moderatable.is_a?(AuctionItem)
       div item.moderatable.description if item.moderatable.is_a?(AuctionItem)
-      img src: (item.moderatable.auction_image.url rescue nil)
+      img src: (item.moderatable.auction_image.url rescue nil), style: 'max-height: 200px'
     end
   end
 
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |item|
       item.approve
-      redirect_to collection_path, alert: 'Items have been approved'
     end
+    redirect_to collection_path, alert: 'Items have been approved'
   end
 end
