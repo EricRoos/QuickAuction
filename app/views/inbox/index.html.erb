@@ -35,7 +35,6 @@
                 <p class="text-sm font-medium text-gray-dark"><%= @inbox_threads.size %> threads</p>
               </div>
             </div>
-            <div class="border-t border-b border-gray-light bg-white px-6 py-2 text-sm font-medium text-gray-dark">Sorted by date</div>
           </div>
           <nav aria-label="Message list" class="min-h-0 flex-1 overflow-y-auto">
             <ul role="list" class="border-b border-gray-light divide-y divide-gray-light min-h-[300px] max-h-[50%] overflow-y-scroll bg-white">
@@ -45,7 +44,13 @@
                     <div class="min-w-0 flex-1">
                       <%= link_to inbox_path(focused_id: inbox_thread.key_value), class: "block focus:outline-none" do %>
                         <span class="absolute inset-0" aria-hidden="true"></span>
-                        <p class="text-sm font-medium text-black truncate"><%= inbox_thread.title %></p>
+                        <p class="text-sm font-medium text-black truncate">
+                        <div>
+                          <% if inbox_thread.read_at.nil? %>
+                            <span class='animate-ping inline-block rounded-full h-[5px] w-[5px] bg-green-dark'>&nbsp;</span>
+                          <% end %>
+                          <%= inbox_thread.title%></p>
+                        </div>
                       <% end %>
                     </div>
                     <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-dark"><%= time_ago_in_words(inbox_thread.last_activity_at) %></time>

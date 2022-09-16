@@ -63,11 +63,11 @@
       <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
         <div class="flex items-center">
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
-            <li>
-              <a href="<%= root_path %>" class="text-gray-dark dark:text-white hover:underline" aria-current="page">Home</a>
-            </li>
-            <li>
+            <li class='flex justify-center gap-2'>
               <a href="/inbox" class="text-gray-dark dark:text-white hover:underline">Inbox</a>
+              <% if has_new_message?(current_user) %>
+                <span class='animate-ping inline-block rounded-full h-[5px] w-[5px] bg-green-dark'>&nbsp;</span>
+              <% end %>
             </li>
             <li>
               <a href="<%= new_support_ticket_path %>" class="text-gray-dark dark:text-white hover:underline">Support</a>

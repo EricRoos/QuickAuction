@@ -5,6 +5,7 @@ class InboxController < ApplicationController
   def index
     @inbox_threads = InboxThread.auction_threads_for(current_user)
     @focused = @inbox_threads.detect { |t| t.key_value.to_s == params[:focused_id] }
+    Notification.where(id: @focused.notification_ids).each(&:mark_as_read!) if @focused
     respond_to do |format|
       format.html
       format.turbo_stream do
