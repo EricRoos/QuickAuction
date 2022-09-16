@@ -23,7 +23,7 @@ class InboxThread
       title = 'N/A'
       title = block.call(t) if block_given?
       read_at = nil
-      read_at = t[:read_at]&.detect(&:present?)
+      read_at = t[:read_at].any?(&:nil?) ? nil : t[:read_at].last
       new(t.merge(last_message_text: message, title: title, read_at: read_at))
     end
   end

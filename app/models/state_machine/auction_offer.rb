@@ -35,7 +35,9 @@ module StateMachine
         end
 
         event :cancel_accept do
-          transition accepted: :acknowledged, unless: ->(offer) { offer.auction_item.expired? }
+          transition accepted: :acknowledged, unless: lambda { |offer|
+                                                        offer.auction_item.expired? || offer.updated_at < 2.minutes.ago
+                                                      }
         end
 
         event :accept_other_offer do

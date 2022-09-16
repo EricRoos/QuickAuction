@@ -9,9 +9,10 @@
             <div class="px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8">
               <div class="sm:w-0 sm:flex-1">
                 <% if params[:focused_id] %>
-                  <%= link_to auction_item_path(id: params[:focused_id]) do %>
-                    <h1 id="message-heading" class="text-lg font-medium text-gray-dark">
+                  <%= link_to auction_item_path(id: params[:focused_id]), target: '_blank' do %>
+                    <h1 id="message-heading" class="text-lg font-medium text-gray-dark flex gap-2">
                       <%= @inbox_threads.detect{ |d| d.key_value == params[:focused_id].to_i }&.title %>
+                      <%= heroicon 'link', options: { class: 'h-4 w-4'} %>
                     </h1>
                   <% end %>
                 <% end %>
