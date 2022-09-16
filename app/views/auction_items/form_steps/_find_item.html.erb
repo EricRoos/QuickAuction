@@ -1,0 +1,12 @@
+<%= form_with(model: auction_item, method: :get, url: new_auction_item_path, class: "contents") do |form| %>
+  <input name='step' type='hidden' value='2' />
+  <div class="field" data-controller='search-select'>
+    <%= form.label :game_item_name %>
+    <%= form.text_field :game_item_name, name: nil , data: { 'search-select-target': 'input' }, placeholder: 'e.g Magefist' %>
+    <%= turbo_frame_tag 'game_items', data: { 'search-select-target': 'dataListFrame' } do %>
+    <% end %>
+  </div>
+  <div class="inline">
+    <%= form.submit 'Next' %>
+  </div>
+<% end %>

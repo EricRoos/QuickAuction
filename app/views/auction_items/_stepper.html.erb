@@ -4,7 +4,7 @@
     <li class="relative pb-10">
       <div class="absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-brand-primary" aria-hidden="true"></div>
       <!-- Complete Step -->
-      <a href="#" class="group relative flex items-start">
+      <a href="<%= new_auction_item_path(auction_item: auction_item_params, step: 1) %>" class="group relative flex items-start">
         <% if @current_step > 1 %>
           <span class="flex h-9 items-center">
             <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary group-hover:bg-indigo-800">
@@ -29,7 +29,8 @@
     <li class="relative pb-10">
       <div class="absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-light" aria-hidden="true"></div>
       <!-- Upcoming Step -->
-      <a href="#" class="group relative flex items-start">
+      <% href = @current_step < 2 ? '#' : new_auction_item_path(auction_item: auction_item_params, step: 2) %>
+      <a href="<%= href %>" class="group relative flex items-start">
         <% if @current_step > 2 %>
           <span class="flex h-9 items-center">
             <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary group-hover:bg-indigo-800">
@@ -60,7 +61,8 @@
     <li class="relative pb-10">
       <div class="absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-light" aria-hidden="true"></div>
       <!-- Upcoming Step -->
-      <a href="#" class="group relative flex items-start">
+      <% href = @current_step < 3 ? '#' : new_auction_item_path(auction_item: auction_item_params, step: 3) %>
+      <a href="<%= href %>" class="group relative flex items-start">
         <% if @current_step > 3 %>
           <span class="flex h-9 items-center">
             <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary group-hover:bg-indigo-800">
@@ -90,12 +92,21 @@
 
     <li class="relative">
       <!-- Upcoming Step -->
-      <a href="#" class="group relative flex items-start">
-        <span class="flex h-9 items-center" aria-hidden="true">
-          <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-light bg-white group-hover:border-gray-400">
-            <span class="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-light"></span>
+      <% href = @current_step < 4 ? '#' : new_auction_item_path(auction_item: auction_item_params, step: 4) %>
+      <a href="<%= href %>" class="group relative flex items-start">
+        <% if @current_step  < 4  %>
+          <span class="flex h-9 items-center" aria-hidden="true">
+            <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-light bg-white group-hover:border-gray-400">
+              <span class="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-light"></span>
+            </span>
           </span>
-        </span>
+        <% else %>
+          <span class="flex h-9 items-center" aria-hidden="true">
+            <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-brand-primary bg-white">
+              <span class="h-2.5 w-2.5 rounded-full bg-brand-primary"></span>
+            </span>
+          </span>
+        <% end %>
         <span class="ml-4 flex min-w-0 flex-col text-gray-dark">
           <span class="text-sm font-medium text-gray-dark">4. Confirm</span>
           <span class="text-sm text-gray-dark mt-4">How auctions work:</span>

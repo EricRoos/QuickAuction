@@ -1,0 +1,16 @@
+
+    <%= form_with(model: auction_item, method: :get, url: new_auction_item_path, class: "contents") do |form| %>
+      <input name='step' type='hidden' value='4' />
+      <%= form.hidden_field :game_item_id %>
+      <%= form.hidden_field :title %>
+      <%= form.hidden_field :description %>
+      <%= form.hidden_field :is_hardcore %>
+      <%= form.hidden_field :is_ladder %>
+      <%= form.form_field do %>
+        <%= form.label :auction_image %>
+        <%= form.file_field :auction_image, data: { controller: 'temp-file' } %>
+      <% end %>
+      <div class="inline">
+        <%= form.submit "Next" %>
+      </div>
+    <% end %>
