@@ -10,5 +10,9 @@
     <%= search_form(@search) %>
   </div>
 
-  <%= table(@auction_items) %>
+  <% if @auction_items.exists? %>
+    <%= table(@auction_items) %>
+  <% elsif params[:item_search].present? %>
+    No results found
+  <% end %>
 </div>
