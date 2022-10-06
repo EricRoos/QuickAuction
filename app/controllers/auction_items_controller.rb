@@ -31,6 +31,7 @@ class AuctionItemsController < ApplicationController
   # POST /auction_items or /auction_items.json
   def create
     @auction_item = current_user.auction_items.build(auction_item_params)
+    @current_step = params[:step] || 1
     authorize @auction_item
 
     respond_to do |format|
