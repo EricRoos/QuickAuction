@@ -1,6 +1,6 @@
 Feature: Create an auction
-  @javascript
-  Scenario: Logged in and no problems
+  #@javascript
+  #Scenario: Logged in and no problems
     # Given a "user" exists
     # And the user is logged in
     # And the user is on the "new auction" page
