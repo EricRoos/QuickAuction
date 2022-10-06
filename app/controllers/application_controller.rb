@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   def check_beta_access
     return if Rails.env.test?
-    return if Flipper.enabled?(:closed_beta, current_user)
+    return if Flipper.enabled?(:beta_access, current_user)
 
     redirect_to landing_page_path(landing_page_id: 'request-beta-access')
   end
