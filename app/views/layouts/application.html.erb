@@ -65,7 +65,7 @@
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li class='flex justify-center gap-2'>
               <a href="/inbox" class="text-gray-dark dark:text-white hover:underline">Inbox</a>
-              <% if has_new_message?(current_user) %>
+              <% if new_message?(current_user) %>
                 <span class='animate-ping inline-block rounded-full h-[5px] w-[5px] bg-green-dark'>&nbsp;</span>
               <% end %>
             </li>
