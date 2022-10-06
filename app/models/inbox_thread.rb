@@ -12,21 +12,20 @@ class InboxThread
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.all(key_name, recipient, &block)
     thread_data = thread_data(key_name, recipient)
     last_notification_ids = thread_data.map { |t| t[:notification_ids].last }.compact
-
     message_map = message_map(last_notification_ids)
-
     thread_data.map do |t|
-      message = message_map[t[:notification_ids].last]
-      title = 'N/A'
-      title = block.call(t) if block_given?
-      read_at = nil
-      read_at = t[:read_at].any?(&:nil?) ? nil : t[:read_at].last
-      new(t.merge(last_message_text: message, title: title, read_at: read_at))
+      new(t.merge(
+            last_message_text: message_map[t[:notification_ids].last],
+            title: block_given? ? block.call(t) : 'N/A',
+            read_at: t[:read_at].any?(&:nil?) ? nil : t[:read_at].last
+          ))
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def self.auction_threads_for(user)
     inbox_threads = InboxThread.all('auction_item_id', user)

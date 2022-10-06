@@ -34,6 +34,7 @@ class ItemSearch
     base.joins(join_sql)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def build_query(scope)
     scope = scope.where('lower(title) like ?', "%#{query.downcase}%") if query.present?
     scope = scope.where(user_id: current_user) if ActiveRecord::Type::Boolean.new.cast(my_listings)
@@ -43,6 +44,7 @@ class ItemSearch
       is_ladder: is_ladder || false
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
   def build_sort(scope)
     scope.order(created_at: :asc)
