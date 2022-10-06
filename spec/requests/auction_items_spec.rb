@@ -23,7 +23,8 @@ RSpec.describe '/auction_items', type: :request do
     {
       title: 'title',
       description: 'description',
-      user: user
+      user: user,
+      game_item_id: FactoryBot.create(:game_item).id
     }
   end
 
